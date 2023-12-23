@@ -41,7 +41,7 @@ module.exports = {
           950: '#182339',
           DEFAULT: '#243757',
         },
-        'blood': '#243757',
+        'blood': '#7d0c0c',
         'parchment': {
           50: '#f8f7f2',
           100: '#ece9d9',
