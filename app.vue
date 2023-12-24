@@ -1,4 +1,17 @@
 <script setup>
+useHead({
+  title: 'Grimoire',
+  meta: [
+    { name: 'description', content: 'A universal worldbuidling tool.' }
+  ],
+  bodyAttrs: {
+    class: ''
+  },
+  script: [ { 
+    // innerHTML: 'console.log(\'Hello world\')' 
+  } ]
+})
+
 const colorMode = useColorMode();
 </script>
 
