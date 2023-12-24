@@ -13,6 +13,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      dropShadow: {
+        'blood-lg': '0 35px 35px rgba(125, 12, 12, 0.25)',
+      },
       colors: {
         primary: {
           50: '#f4f6fb',
