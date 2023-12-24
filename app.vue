@@ -2,7 +2,7 @@
 useHead({
   title: 'Grimoire',
   meta: [
-    { name: 'description', content: 'A universal worldbuidling tool.' }
+    { name: 'description', content: 'A universal worldbuilding tool.' }
   ],
   bodyAttrs: {
     class: ''

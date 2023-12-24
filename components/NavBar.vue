@@ -19,10 +19,10 @@
         <nav class="bg-fortress border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-scroll text-parchment">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <!-- Logo and Title -->
-                <a href="" class="flex items-center">
+                <NuxtLink to="/" class="flex items-center">
                     <img src="~/assets/img/logo/grimoire_logo_tome.svg" class="mr-3 h-6 sm:h-9" alt="Logo" />
                     <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-fortress">{{ title }}</span>
-                </a>
+                </NuxtLink>
                 <!-- Actions -->
                 <div class="flex items-center lg:order-2">
                     <!-- Theme Switcher -->
@@ -34,9 +34,9 @@
                         <Icon name="i-heroicons-moon-20-solid" size="1.3em" />
                     </button>
                     <!-- Log In -->
-                    <a href="#" class="text-parchment dark:text-fortress hover:bg-parchment-100 hover:text-fortress focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-fortress dark:hover:text-scroll focus:outline-none dark:focus:ring-fortress-800">Log In</a>
+                    <NuxtLink to="/" class="text-parchment dark:text-fortress hover:bg-parchment-100 hover:text-fortress focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-fortress dark:hover:text-scroll focus:outline-none dark:focus:ring-fortress-800">Log In</NuxtLink>
                     <!-- Get Started -->
-                    <a href="#" class="text-parchment bg-tome hover:bg-tome-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-fortress-700 dark:hover:bg-primary-900 focus:outline-none dark:focus:ring-primary-800">Get Started</a>
+                    <NuxtLink to="/" class="text-parchment bg-tome hover:bg-tome-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-fortress-700 dark:hover:bg-primary-900 focus:outline-none dark:focus:ring-primary-800">Get Started</NuxtLink>
                     <!-- Mobile Hamburger Menu -->
                     <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-fortress rounded-lg lg:hidden hover:bg-parchment-100 focus:outline-none focus:ring-2 focus:ring-parchment-100 dark:text-fortress dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
@@ -47,13 +47,13 @@
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-parchment lg:p-0 dark:text-fortress" aria-current="page">Library</a>
+                            <NuxtLink to="/library" class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-parchment lg:p-0 dark:text-fortress" aria-current="page">Library</NuxtLink>
                         </li>
                         <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-parchment lg:p-0 dark:text-fortress" aria-current="page">About Us</a>
+                            <NuxtLink to="/about" class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-parchment lg:p-0 dark:text-fortress" aria-current="page">About Us</NuxtLink>
                         </li>
                         <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-parchment lg:p-0 dark:text-fortress" aria-current="page">Contact</a>
+                            <NuxtLink to="/contact" class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-parchment lg:p-0 dark:text-fortress" aria-current="page">Contact</NuxtLink>
                         </li>
                     </ul>
                 </div>

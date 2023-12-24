@@ -1,3 +1,3 @@
 <template>
-    <p>Library</p>
+    <ComingSoon />
 </template>
