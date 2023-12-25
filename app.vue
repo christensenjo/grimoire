@@ -21,5 +21,6 @@ const colorMode = useColorMode();
       title="Grimoire"
     />
     <NuxtPage />
+    <Footer />
   </div>
 </template>
