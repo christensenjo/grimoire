@@ -2,8 +2,13 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    '@nuxtjs/tailwindcss'
-  ], 
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode',
+    'nuxt-icon'
+  ],
+  colorMode: {
+    classSuffix: ''
+  },
   // tailwindcss: {
   //   cssPath: '~/assets/css/input.css'
   // }

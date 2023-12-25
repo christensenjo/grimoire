@@ -1,3 +1,3 @@
 <template>
-    <p>Contact</p>
+    <ComingSoon />
 </template>
