@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-parchment-50 dark:bg-fortress">
+    <section class="bg-parchment-50 dark:bg-fortress pb-32">
         <div class="grid max-w-screen-xl px-4 pt-8 pb-2 mx-auto lg:gap-8 xl:gap-0 lg:pt-16 lg:pb-0 lg:grid-cols-12">
             <div class="mr-auto place-self-center lg:col-span-7">
                 <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-fortress dark:text-parchment">What lore lies within the pages of your Grimoire?</h1>
