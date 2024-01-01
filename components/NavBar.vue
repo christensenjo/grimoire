@@ -28,13 +28,13 @@
                     <!-- Theme Switcher -->
                     <button 
                         type=""
-                        class="p-2 mr-2 text-sm font-medium text-scroll focus:outline-none bg-fortress rounded-full border border-scroll hover:bg-scroll hover:text-fortress focus:z-10 focus:ring-4 focus:ring-parchment-200 dark:focus:ring-gray-700 dark:bg-scroll dark:text-fortress dark:border-gray-600 dark:hover:text-scroll dark:hover:bg-fortress"
+                        class="hidden sm:inline p-2 mr-2 text-sm font-medium text-scroll focus:outline-none bg-fortress rounded-full border border-scroll hover:bg-scroll hover:text-fortress focus:z-10 focus:ring-4 focus:ring-parchment-200 dark:focus:ring-gray-700 dark:bg-scroll dark:text-fortress dark:border-gray-600 dark:hover:text-scroll dark:hover:bg-fortress"
                         @click="toggleDarkMode()"
                     >
                         <Icon name="i-heroicons-moon-20-solid" size="1.3em" />
                     </button>
                     <!-- Log In -->
-                    <NuxtLink to="/" class="text-parchment dark:text-fortress hover:bg-parchment-100 hover:text-fortress focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-fortress dark:hover:text-scroll focus:outline-none dark:focus:ring-fortress-800">Log In</NuxtLink>
+                    <NuxtLink to="/" class="hidden sm:inline text-parchment dark:text-fortress hover:bg-parchment-100 hover:text-fortress focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-fortress dark:hover:text-scroll focus:outline-none dark:focus:ring-fortress-800">Log In</NuxtLink>
                     <!-- Get Started -->
                     <NuxtLink to="/" class="text-parchment bg-tome hover:bg-tome-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-fortress-700 dark:hover:bg-primary-900 focus:outline-none dark:focus:ring-primary-800">Get Started</NuxtLink>
                     <!-- Mobile Hamburger Menu -->
