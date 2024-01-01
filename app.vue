@@ -1,4 +1,7 @@
 <script setup>
+import { onMounted } from 'vue';
+import { initDrawers } from 'flowbite';
+
 useHead({
   title: 'Grimoire',
   meta: [
@@ -13,6 +16,11 @@ useHead({
 })
 
 const colorMode = useColorMode();
+
+// initialize components based on data attribute selectors
+onMounted(() => {
+    initDrawers();
+})
 </script>
 
 <template>
