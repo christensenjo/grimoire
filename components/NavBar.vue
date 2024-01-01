@@ -4,12 +4,17 @@
     });
 
     const colorMode = useColorMode();
+    const darkToggleState = ref(null); // Manage dark mode toggle focus state
 
     const toggleDarkMode = () => {
         if(colorMode.value === 'light') {
             colorMode.value = 'dark';
         } else {
             colorMode.value = 'light';
+        }
+
+        if(darkToggleState.value) {
+            darkToggleState.value.blur(); // Remove focus from the button after clicking
         }
     };
 </script>
@@ -27,6 +32,7 @@
                 <div class="flex items-center lg:order-2">
                     <!-- Theme Switcher -->
                     <button 
+                        ref="darkToggleState"
                         type=""
                         class="hidden sm:inline p-2 mr-2 text-sm font-medium text-scroll focus:outline-none bg-fortress rounded-full border border-scroll hover:bg-scroll hover:text-fortress focus:z-10 focus:ring-4 focus:ring-parchment-200 dark:focus:ring-gray-700 dark:bg-scroll dark:text-fortress dark:border-gray-600 dark:hover:text-scroll dark:hover:bg-fortress"
                         @click="toggleDarkMode()"
