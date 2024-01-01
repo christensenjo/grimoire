@@ -18,6 +18,8 @@
         </div>
         <div class="w-full">
             <FeaturedCard />
+            <FeaturedCard />
+            <FeaturedCard />
         </div>
     </section>
 </template>

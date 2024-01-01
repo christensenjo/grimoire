@@ -4,7 +4,7 @@ const showDetails = ref(false);
 </script>
 
 <template>
-    <div class="flex flex-col max-w-screen-xl mx-4 xl:mx-auto text-parchment-50 md:text-fortress dark:text-parchment-100 dark:sm:text-parchment mt-10 lg:mt-0">
+    <div class="flex flex-col max-w-screen-xl mx-4 xl:mx-auto text-parchment-50 md:text-fortress dark:text-parchment-100 dark:sm:text-parchment mt-10 md:mb-6">
         <h5 class="mb-2 md:mb-6 text-md md:text-xl font-bold tracking-tight text-parchment dark:text-fortress w-fit text-center bg-fortress dark:bg-scroll py-1 md:py-2 px-6 md:px-6 rounded-full">
             Featured Location
         </h5>
