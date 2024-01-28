@@ -38,7 +38,7 @@
 </script>
 
 <template>
-    <div class="max-w-sm p-6 bg-parchment-100 border border-gray-200 rounded-lg shadow dark:bg-tome dark:border-gray-700 flex flex-col items-center">
+    <div class="w-full sm:max-w-sm p-6 bg-parchment-100 border border-gray-200 rounded-lg shadow dark:bg-tome dark:border-gray-700 flex flex-col items-center">
         <Icon v-if="icon" :name="icon" class="w-10 h-10 text-scroll dark:text-parchment" />
         <img v-if="image_path" :src="'/img/' + image_path" class="w-10 h-8 fill-scroll dark:fill-red" />
         <NuxtLink to="" class="flex flex-row gap-2 items-center">
