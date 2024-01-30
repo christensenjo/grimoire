@@ -59,9 +59,9 @@
         </div>
     
         <div class="w-full mb-32">
-            <FeaturedCard />
-            <FeaturedCard />
-            <FeaturedCard />
+            <FeaturedCard align="left" class="md:py-8 xl:py-10" />
+            <FeaturedCard align="right" class="md:py-8 xl:py-10" />
+            <FeaturedCard align="left" class="md:py-8 xl:py-10" />
         </div>
     </section>
 </template>
