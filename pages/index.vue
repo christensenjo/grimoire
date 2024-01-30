@@ -59,9 +59,30 @@
         </div>
     
         <div class="w-full mb-32">
-            <FeaturedCard align="left" class="md:py-8 xl:py-10" />
-            <FeaturedCard align="right" class="md:py-8 xl:py-10" />
-            <FeaturedCard align="left" class="md:py-8 xl:py-10" />
+            <FeaturedCard
+                class="md:py-8 xl:py-10" 
+                align="left"
+                typeTitle="Location"
+                name="Castella Orobruin"
+                description="The utanouu people eke out their meager existence on the Durganstron cliff-face. Always their concern is primarily on fortifying against...The utanouu people eke out their meager existence on the Durganstron cliff-face."
+                imagePath="Castela_Orobruin.webp"
+            />
+            <FeaturedCard
+                class="md:py-8 xl:py-10" 
+                align="right"
+                typeTitle="Location"
+                name="Orchards over Pesci"
+                description="The utanouu people eke out their meager existence on the Durganstron cliff-face. Always their concern is primarily on fortifying against...The utanouu people eke out their meager existence on the Durganstron cliff-face."
+                imagePath="Pesci_Orchards.webp"
+            />
+            <FeaturedCard
+                class="md:py-8 xl:py-10" 
+                align="left"
+                typeTitle="Location"
+                name="Utanou Village"
+                description="The utanouu people eke out their meager existence on the Durganstron cliff-face. Always their concern is primarily on fortifying against...The utanouu people eke out their meager existence on the Durganstron cliff-face."
+                imagePath="Utanou_Village.png"
+            />
         </div>
     </section>
 </template>
