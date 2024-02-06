@@ -7,7 +7,7 @@
     const email = ref('')
     const password = ref('')
     const signUp = async (event: { preventDefault: () => void; }) => {
-        event?.preventDefault()
+        event?.preventDefault();
 
         const { data, error } = await supabase.auth.signUp({
             email: email.value,
@@ -19,10 +19,15 @@
         if (error) console.log(error);
     };
     const signIn = async () => {
+        event?.preventDefault();
+        
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email.value,
             password: password.value,
         });
+
+        console.log(data);
+        console.log(error);
 
         if (error) console.log(error);
     };

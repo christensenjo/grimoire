@@ -6,8 +6,11 @@
     const supabase = useSupabaseClient()
     const email = ref('')
     const password = ref('')
+    const confirmPassword = ref('')
     const signUp = async (event: { preventDefault: () => void; }) => {
         event?.preventDefault();
+
+        if(password.value !== confirmPassword.value) return console.log('Passwords do not match');
 
         const { data, error } = await supabase.auth.signUp({
             email: email.value,
@@ -45,15 +48,15 @@
             <form class="space-y-4 md:space-y-6" action="#">
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-parchment dark:text-fortress">Your email</label>
-                    <input type="email" name="email" id="email" class="bg-parchment-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-fortress-900 dark:focus:border-blue-500" placeholder="name@company.com" required="true">
+                    <input v-model="email" type="email" name="email" id="email" class="bg-parchment-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-fortress-900 dark:focus:border-blue-500" placeholder="name@company.com" required="true">
                 </div>
                 <div>
                     <label for="password" class="block mb-2 text-sm font-medium text-parchment dark:text-fortress">Password</label>
-                    <input type="password" name="password" id="password" placeholder="••••••••" class="bg-parchment-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-parchment-50 dark:focus:ring-fortress-900 dark:focus:border-blue-500" required="true">
+                    <input v-model="password" type="password" name="password" id="password" placeholder="••••••••" class="bg-parchment-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-parchment-50 dark:focus:ring-fortress-900 dark:focus:border-blue-500" required="true">
                 </div>
                 <div>
                     <label for="confirm-password" class="block mb-2 text-sm font-medium text-parchment dark:text-fortress">Confirm password</label>
-                    <input type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-parchment-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-parchment-50 dark:focus:ring-fortress-900 dark:focus:border-blue-500" required="true">
+                    <input v-model="confirmPassword" type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-parchment-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-parchment-50 dark:focus:ring-fortress-900 dark:focus:border-blue-500" required="true">
                 </div>
                 <div class="flex items-start">
                     <div class="flex items-center h-5">

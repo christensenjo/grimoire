@@ -11,12 +11,12 @@ export default defineNuxtConfig({
     classSuffix: ''
   },
   supabase: {
-    redirect: false,
+    redirect: true,
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
-      exclude: ['/about', '/contact', '/index', '/library', '/signUp'],
-      cookieRedirect: false,
+      exclude: ['/about', '/contact', '/', '/library', '/signUp'],
+      cookieRedirect: true,
     }
   }
   // tailwindcss: {
