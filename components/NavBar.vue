@@ -1,14 +1,10 @@
 <script setup>
-    // PROPS
     const props = defineProps({
         title: String,
     });
 
 
-    // DATA
-    const darkToggleState = ref(null); // Manage dark mode toggle focus state
-
-    // METHODS
+    const darkToggleState = ref(null);
     const colorMode = useColorMode();
     const toggleDarkMode = () => {
         if(colorMode.value === 'light') {

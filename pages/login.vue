@@ -12,11 +12,11 @@
         const { data, error } = await supabase.auth.signUp({
             email: email.value,
             password: password.value,
-        })
+        });
 
-        console.log(data)
+        console.log(data);
 
-        if (error) console.log(error)
+        if (error) console.log(error);
     };
     const signIn = async () => {
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -62,7 +62,7 @@
                     </div>
                     <a href="#" class="text-sm font-medium text-parchment-300 hover:underline dark:text-scroll-900">Forgot password?</a>
                 </div>
-                <button @click="signUp" type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+                <button @click="signIn" type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
                 <p class="text-sm font-light text-tome-500 dark:text-tome-900">
                     Don’t have an account yet? <NuxtLink to="signUp" class="font-medium text-parchment-300 hover:underline dark:text-tome-900">Sign up</NuxtLink>
                 </p>
