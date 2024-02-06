@@ -11,10 +11,11 @@ export default defineNuxtConfig({
     classSuffix: ''
   },
   supabase: {
+    redirect: false,
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
-      exclude: ['about', 'contact', 'index', 'library'],
+      exclude: ['/about', '/contact', '/index', '/library', '/signUp'],
       cookieRedirect: false,
     }
   }
