@@ -17,10 +17,14 @@
             password: password.value,
         });
 
-        console.log(data);
-
-        if (error) console.log(error);
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(data);
+            navigateTo('/confirm'); // Redirect to the confirm page
+        }
     };
+
     const signIn = async () => {
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email.value,
