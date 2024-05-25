@@ -1,8 +1,11 @@
 <script setup lang="ts">
+    import { useUserStore } from '~/stores/user';
+    
     definePageMeta({
         layout: 'focused-form'
     })
     
+    const userStore = useUserStore();
     const supabase = useSupabaseClient()
     const email = ref('')
     const password = ref('')
@@ -20,27 +23,11 @@
         if (error) {
             console.log(error);
         } else {
-            console.log(data);
+            userStore.setUser(data?.user);
+            console.log('User account created, signed in, and data saved to user store');
             navigateTo('/confirm'); // Redirect to the confirm page
         }
     };
-
-    const signIn = async () => {
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: email.value,
-            password: password.value,
-        });
-
-        if (error) console.log(error);
-    };
-    // const signInWithOAuth = async (thisProvider: string) => {
-    //     const { data, error } = await supabase.auth.signInWithOAuth({ 
-    //         provider: thisProvider,
-    //         options: {
-    //             redirectTo: 'https://localhost:3000/confirm',
-    //         }
-    //     }); 
-    // };
 </script>
 
 <template>

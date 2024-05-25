@@ -1,44 +1,31 @@
 <script setup lang="ts">
+    import { useUserStore } from '~/stores/user';
+    
     definePageMeta({
         layout: 'focused-form'
     })
     
+    const userStore = useUserStore();
     const supabase = useSupabaseClient()
     const email = ref('')
     const password = ref('')
-    const signUp = async (event: { preventDefault: () => void; }) => {
+    
+    const signIn = async (event: { preventDefault: () => void; }) => {
         event?.preventDefault();
 
-        const { data, error } = await supabase.auth.signUp({
-            email: email.value,
-            password: password.value,
-        });
-
-        console.log(data);
-
-        if (error) console.log(error);
-    };
-    const signIn = async () => {
-        event?.preventDefault();
-        
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email.value,
             password: password.value,
         });
 
-        console.log(data);
-        console.log(error);
-
-        if (error) console.log(error);
+        if (error) {
+            console.log(error);
+        } else {
+            userStore.setUser(data.user);
+            console.log('User signed in and data saved to user store');
+            navigateTo('/content/dashboard');
+        }
     };
-    // const signInWithOAuth = async (thisProvider: string) => {
-    //     const { data, error } = await supabase.auth.signInWithOAuth({ 
-    //         provider: thisProvider,
-    //         options: {
-    //             redirectTo: 'https://localhost:3000/confirm',
-    //         }
-    //     }); 
-    // };
 </script>
 
 <template>
