@@ -90,38 +90,39 @@
                 <div class="py-4 overflow-y-auto">
                     <ul class="space-y-2 font-medium">
                         <li>
-                            <NuxtLink to="/" data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-fortress rounded-lg dark:text-parchment-100 hover:bg-fortress-700 dark:hover:bg-fortress group">
-                                <Icon name="i-material-symbols-home-rounded" size="1.3em" class="text-fortress dark:text-gray-400" />
+                            <NuxtLink to="/" data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-fortress rounded-lg dark:text-parchment-100 hover:bg-fortress-700
+                            hover:text-scroll dark:hover:bg-fortress group">
+                                <Icon name="i-material-symbols-home-rounded" size="1.3em" class="text-fortress dark:text-gray-400 hover:text-scroll" />
                                 <span class="ms-3">Home</span>
                             </NuxtLink>
                         </li>
                         <li>
                             <NuxtLink to="/library" 
-                    data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-fortress rounded-lg dark:text-parchment-100 hover:bg-fortress-700 dark:hover:bg-fortress group" aria-current="page">
+                    data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-fortress rounded-lg dark:text-parchment-100 hover:bg-fortress-700  hover:text-scroll dark:hover:bg-fortress group" aria-current="page">
                                 <Icon name="i-fluent-library-20-filled" size="1.3em" class="text-fortress dark:text-gray-400" />
                                 <span class="ms-3">Library</span>
                             </NuxtLink>
                         </li>
                         <li>
-                            <NuxtLink to="/about" data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-fortress rounded-lg dark:text-parchment-100 hover:bg-fortress-700 dark:hover:bg-fortress group" aria-current="page">
+                            <NuxtLink to="/about" data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-fortress rounded-lg dark:text-parchment-100 hover:bg-fortress-700  hover:text-scroll dark:hover:bg-fortress group" aria-current="page">
                                 <Icon name="i-mdi-information-variant-circle" size="1.3em" class="text-fortress dark:text-gray-400" />
                                 <span class="ms-3">About Us</span>
                             </NuxtLink>
                         </li>
                         <li>
-                            <NuxtLink to="/contact" data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-fortress rounded-lg dark:text-parchment-100 hover:bg-fortress-700 dark:hover:bg-fortress group" aria-current="page">
+                            <NuxtLink to="/contact" data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-fortress rounded-lg dark:text-parchment-100 hover:bg-fortress-700  hover:text-scroll dark:hover:bg-fortress group" aria-current="page">
                                 <Icon name="i-ic-round-email" size="1.3em" class="text-fortress dark:text-gray-400" />
                                 <span class="ms-3">Contact</span>
                             </NuxtLink>
                         </li>
                         <li>
-                            <NuxtLink to="" data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-fortress rounded-lg dark:text-parchment-100 hover:bg-fortress-700 dark:hover:bg-fortress group" aria-current="page">
+                            <NuxtLink to="/login" data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-fortress rounded-lg dark:text-parchment-100 hover:bg-fortress-700  hover:text-scroll dark:hover:bg-fortress group" aria-current="page">
                                 <Icon name="i-ph-sign-in-bold" size="1.3em" class="text-fortress dark:text-gray-400" />
                                 <span class="ms-3">Log In</span>
                             </NuxtLink>
                         </li>
                         <li>
-                            <NuxtLink to="" data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-parchment rounded-lg dark:text-parchment-100 bg-fortress-700 hover:bg-fortress dark:bg-tome dark:hover:bg-scroll-700 group" aria-current="page">
+                            <NuxtLink to="/signUp" data-drawer-hide="drawer-navigation" class="flex items-center p-2 text-parchment rounded-lg dark:text-parchment-100 bg-fortress-700 hover:bg-tome dark:bg-tome dark:hover:bg-scroll-700 group" aria-current="page">
                                 <svg class="flex-shrink-0 w-5 h-5 text-scroll transition duration-75 dark:text-gray-400 group-hover:text-parchment dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z"/>
                                     <path d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z"/>
