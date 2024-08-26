@@ -16,10 +16,10 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
-      exclude: ['/about', '/contact', '/', '/library', '/signUp'],
+      exclude: ['/about', '/contact', '/', '/library', '/signUp', '/email-confirmed', '/confirm'],
       cookieRedirect: true,
     }
-  }
+  },
   // tailwindcss: {
   //   cssPath: '~/assets/css/input.css'
   // }
