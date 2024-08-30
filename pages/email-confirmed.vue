@@ -1,6 +1,5 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
-import { useSupabaseClient } from '@nuxtjs/supabase'
 
 const route = useRoute()
 const router = useRouter()
@@ -27,13 +26,12 @@ const verifyEmail = async () => {
   }
 }
 
-// Call verifyEmail when the component mounts
 onMounted(verifyEmail)
 </script>
 
 <template>
   <div class="w-full bg-fortress rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-scroll dark:border-scroll-500">
-    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+    <div class="p-6 space-y-4 md:space-y-6 sm:p-8 mx-auto">
       <h1 class="text-xl font-bold leading-tight tracking-tight text-parchment md:text-2xl dark:text-fortress">
         Email Confirmed
       </h1>
