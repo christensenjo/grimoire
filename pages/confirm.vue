@@ -12,7 +12,7 @@
         if(user.value) {
             console.log(user.value);
             useCookie(`${cookieName}-redirect-path`).value = null;
-            return navigateTo(redirectPath || '/content/dashboard');
+            return navigateTo(redirectPath || '/dashboard');
         }
     }, { immediate: true });
 </script>

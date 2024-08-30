@@ -23,7 +23,7 @@
         } else {
             userStore.setUser(data.user);
             console.log('User signed in and data saved to user store');
-            navigateTo('/content/dashboard');
+            navigateTo('/dashboard');
         }
     };
 </script>
