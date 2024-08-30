@@ -12,4 +12,5 @@ export const useUserStore = defineStore('user', {
       this.user = null;
     },
   },
+  persist: true, // This will enable automatic persistence
 });

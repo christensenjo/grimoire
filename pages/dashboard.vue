@@ -1,6 +1,4 @@
 <script setup>
-import { useUserStore } from '~/stores/user';
-
 const userStore = useUserStore();
 const userName = computed(() => userStore.user?.user_metadata?.full_name || 'User');
 
