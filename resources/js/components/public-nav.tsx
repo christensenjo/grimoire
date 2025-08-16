@@ -1,8 +1,16 @@
 import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
+import { useAppearance } from '@/hooks/use-appearance';
+import { Moon, Sun } from 'lucide-react';
 
 export default function PublicNav() {
 	const { auth } = usePage<SharedData>().props;
+    const { updateAppearance } = useAppearance();
+
+    const toggleAppearance = () => {
+        const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+        updateAppearance(isDark ? 'light' : 'dark');
+    };
 
 	return (
 		<header className="relative z-10 w-full px-4 py-4">
@@ -50,6 +58,14 @@ export default function PublicNav() {
 							</Link>
 						</div>
 						<div className="flex gap-4 w-fit">
+							<button
+								onClick={toggleAppearance}
+								className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-transparent text-white transition-all duration-150 hover:border-white/90"
+								aria-label="Toggle theme"
+							>
+								<Sun className="h-5 w-5 dark:hidden" />
+								<Moon className="hidden h-5 w-5 dark:block" />
+							</button>
 							<Link
 								href={route('login')}
 								prefetch
