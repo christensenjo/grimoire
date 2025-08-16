@@ -94,8 +94,14 @@ This project is **not currently** licensed for public use or redistribution. All
 
 ## 📬 Stay Connected
 
-- [Project Website](https://my-grimoire.com) _(coming soon)_
+- [Project Website](https://my-grimoire.com) _(still v0.1 for now; v1.0 under development...)_
 - [Community Discord]() _(coming soon)_
+
+---
+
+## Legacy v0.1
+
+See `legacy` branch for previous Nuxt build of the app.
 
 ---
 

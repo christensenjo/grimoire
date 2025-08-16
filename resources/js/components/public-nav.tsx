@@ -18,41 +18,41 @@ export default function PublicNav() {
 				{auth.user ? (
 					<Link
 						href={route('dashboard')}
-						className="inline-block rounded-sm border border-white/20 px-5 py-1.5 text-white hover:border-white/40"
+						className="inline-block rounded-sm border border-black/20 dark:border-white/20 px-5 py-1.5 text-black dark:text-white hover:border-black/40 dark:hover:border-white/40"
 					>
 						Dashboard
 					</Link>
 				) : (
 					<>
-						<Link href={route('home')} className="font-title text-3xl pt-1">
+						<Link href={route('home')} className="font-title text-3xl pt-1 text-black dark:text-white">
 							Grimoire
 						</Link>
 						<div className="flex gap-4 w-fit">
 							<Link
 								href={route('features')}
 								prefetch
-								className="text-lg pt-1 transition-all duration-300 hover:underline underline-offset-4"
+								className="text-lg pt-1 text-black dark:text-white transition-all duration-300 hover:underline underline-offset-4"
 							>
 								Features
 							</Link>
 							<Link
 								href={route('library')}
 								prefetch
-								className="text-lg pt-1 transition-all duration-300 hover:underline underline-offset-4"
+								className="text-lg pt-1 text-black dark:text-white transition-all duration-300 hover:underline underline-offset-4"
 							>
 								Library
 							</Link>
 							<Link
 								href={route('integrations')}
 								prefetch
-								className="text-lg pt-1 transition-all duration-300 hover:underline underline-offset-4"
+								className="text-lg pt-1 text-black dark:text-white transition-all duration-300 hover:underline underline-offset-4"
 							>
 								Integrations
 							</Link>
 							<Link
 								href={route('pricing')}
 								prefetch
-								className="text-lg pt-1 transition-all duration-300 hover:underline underline-offset-4"
+								className="text-lg pt-1 text-black dark:text-white transition-all duration-300 hover:underline underline-offset-4"
 							>
 								Pricing
 							</Link>
@@ -60,7 +60,7 @@ export default function PublicNav() {
 						<div className="flex gap-4 w-fit">
 							<button
 								onClick={toggleAppearance}
-								className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-transparent text-white transition-all duration-150 hover:border-white/90"
+								className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-transparent text-black dark:text-white transition-all duration-150 hover:border-black/90 dark:hover:border-white/90"
 								aria-label="Toggle theme"
 							>
 								<Sun className="h-5 w-5 dark:hidden" />
@@ -69,14 +69,14 @@ export default function PublicNav() {
 							<Link
 								href={route('login')}
 								prefetch
-								className="inline-block rounded-sm border border-transparent px-5 py-1.5 text-white hover:border-white/90 text-lg transition-all duration-150"
+								className="inline-block rounded-sm border border-transparent px-5 py-1.5 text-black dark:text-white hover:border-black/90 dark:hover:border-white/90 text-lg transition-all duration-150"
 							>
 								Login
 							</Link>
 							<Link
 								href={route('register')}
 								prefetch
-								className="inline-block rounded-sm border border-white/90 px-5 py-1.5 text-white hover:bg-white hover:text-black text-lg transition-all duration-150"
+								className="inline-block rounded-sm border border-black/90 dark:border-white/90 px-5 py-1.5 text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-lg transition-all duration-150"
 							>
 								Start Your Journey
 							</Link>
