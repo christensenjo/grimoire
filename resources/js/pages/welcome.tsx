@@ -27,17 +27,17 @@ export default function Welcome() {
 				<PublicNav />
 
 				{/* Content */}
-				<div className="relative z-10 flex flex-col items-center justify-center max-w-screen-lg mx-auto px-4 py-12">
+				<div className="relative z-10 flex flex-col items-center justify-center max-w-screen-2xl mx-auto px-4 py-12">
 					<section className="w-full flex flex-row items-center justify-center pt-24 pb-20 md:pt-32 md:pb-28 gap-16">
-						<div className="flex flex-col items-center justify-center">
-							<h1 className="text-5xl md:text-6xl text-white font-title mb-2 leading-tight drop-shadow-lg">
-								What lore lies within your Grimoire?
+						<div className="flex flex-col items-start justify-center gap-4">
+							<h1 className="text-5xl md:text-6xl text-white mb-2 leading-tighter drop-shadow-lg">
+								<span className="font-title-shaded text-[96px]">W</span>hat lore lies within your Grimoire?
 							</h1>
 							<p className="text-lg text-white/70">
 								Use a universal worldbuilding tool to elevate your storytelling. Tailored for the imaginative mind.
 							</p>
 						</div>
-						<div className="flex items-center justify-center">
+						<div className="flex items-center justify-center w-1/2">
 							<DitheredHeroBook className="w-[320px] h-[320px] md:w-[400px] md:h-[400px] drop-shadow-2xl" />
 						</div>
 					</section>
