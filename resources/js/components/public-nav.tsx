@@ -24,7 +24,17 @@ export default function PublicNav() {
 					</Link>
 				) : (
 					<>
-						<Link href={route('home')} className="font-title text-3xl pt-1 text-black dark:text-white">
+						<Link href={route('home')} className="font-title text-3xl pt-1 text-black dark:text-white inline-flex items-center gap-3">
+							<img 
+								src="/images/logos/castlebooks_square/castlebook_parchment.svg" 
+								alt="Grimoire Logo" 
+								className="w-8 h-8 pb-1 hidden dark:block" 
+							/>
+							<img 
+								src="/images/logos/castlebooks_square/castlebook_jet.svg" 
+								alt="Grimoire Logo" 
+								className="w-8 h-8 pb-1 dark:hidden block" 
+							/>
 							Grimoire
 						</Link>
 						<div className="flex gap-4 w-fit">
