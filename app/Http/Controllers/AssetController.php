@@ -14,18 +14,18 @@ class AssetController extends Controller
     public function serve(Request $request, string $filename): Response
     {
         // Validate the filename to prevent directory traversal
-        if (!preg_match('/^[a-zA-Z0-9._-]+$/', $filename)) {
+        if (! preg_match('/^[a-zA-Z0-9._-]+$/', $filename)) {
             abort(404);
         }
 
         // Check if file exists in private storage
-        if (!Storage::disk('local')->exists($filename)) {
+        if (! Storage::disk('local')->exists($filename)) {
             abort(404);
         }
 
         // Get file contents
         $contents = Storage::disk('local')->get($filename);
-        
+
         // Determine MIME type based on file extension
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         $mimeType = match ($extension) {
@@ -47,4 +47,4 @@ class AssetController extends Controller
             'Cache-Control' => 'public, max-age=31536000', // Cache for 1 year
         ]);
     }
-} 
+}

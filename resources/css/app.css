@@ -10,8 +10,11 @@
 @theme {
     --font-serif:
         'dutch-mediaeval-pro', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-title: 'ltc-goudy-text-pro', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-title-shaded: 'ltc-goudy-text-pro-shaded', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-title:
+        'ltc-goudy-text-pro', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-title-shaded:
+        'ltc-goudy-text-pro-shaded', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -59,104 +62,385 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    /* Brand Colors - Base */
+    --color-parchment: var(--parchment);
+    --color-scroll: var(--scroll);
+    --color-ghost: var(--ghost);
+    --color-tome: var(--tome);
+    --color-leather: var(--leather);
+    --color-blood: var(--blood);
+    --color-magic: var(--magic);
+    --color-armor: var(--armor);
+    --color-fortress: var(--fortress);
+    --color-jet: var(--jet);
+
+    /* Brand Colors - Parchment Scale */
+    --color-parchment-50: var(--parchment-50);
+    --color-parchment-100: var(--parchment-100);
+    --color-parchment-200: var(--parchment-200);
+    --color-parchment-300: var(--parchment-300);
+    --color-parchment-400: var(--parchment-400);
+    --color-parchment-500: var(--parchment-500);
+    --color-parchment-600: var(--parchment-600);
+    --color-parchment-700: var(--parchment-700);
+    --color-parchment-800: var(--parchment-800);
+    --color-parchment-900: var(--parchment-900);
+    --color-parchment-950: var(--parchment-950);
+
+    /* Brand Colors - Scroll */
+    --color-scroll-50: var(--scroll-50);
+    --color-scroll-100: var(--scroll-100);
+    --color-scroll-200: var(--scroll-200);
+    --color-scroll-300: var(--scroll-300);
+    --color-scroll-400: var(--scroll-400);
+    --color-scroll-500: var(--scroll-500);
+    --color-scroll-600: var(--scroll-600);
+    --color-scroll-700: var(--scroll-700);
+    --color-scroll-800: var(--scroll-800);
+    --color-scroll-900: var(--scroll-900);
+    --color-scroll-950: var(--scroll-950);
+
+    /* Brand Colors - Ghost */
+    --color-ghost-50: var(--ghost-50);
+    --color-ghost-100: var(--ghost-100);
+    --color-ghost-200: var(--ghost-200);
+    --color-ghost-300: var(--ghost-300);
+    --color-ghost-400: var(--ghost-400);
+    --color-ghost-500: var(--ghost-500);
+    --color-ghost-600: var(--ghost-600);
+    --color-ghost-700: var(--ghost-700);
+    --color-ghost-800: var(--ghost-800);
+    --color-ghost-900: var(--ghost-900);
+    --color-ghost-950: var(--ghost-950);
+
+    /* Brand Colors - Tome */
+    --color-tome-50: var(--tome-50);
+    --color-tome-100: var(--tome-100);
+    --color-tome-200: var(--tome-200);
+    --color-tome-300: var(--tome-300);
+    --color-tome-400: var(--tome-400);
+    --color-tome-500: var(--tome-500);
+    --color-tome-600: var(--tome-600);
+    --color-tome-700: var(--tome-700);
+    --color-tome-800: var(--tome-800);
+    --color-tome-900: var(--tome-900);
+    --color-tome-950: var(--tome-950);
+
+    /* Brand Colors - Leather */
+    --color-leather-50: var(--leather-50);
+    --color-leather-100: var(--leather-100);
+    --color-leather-200: var(--leather-200);
+    --color-leather-300: var(--leather-300);
+    --color-leather-400: var(--leather-400);
+    --color-leather-500: var(--leather-500);
+    --color-leather-600: var(--leather-600);
+    --color-leather-700: var(--leather-700);
+    --color-leather-800: var(--leather-800);
+    --color-leather-900: var(--leather-900);
+    --color-leather-950: var(--leather-950);
+
+    /* Brand Colors - Blood */
+    --color-blood-50: var(--blood-50);
+    --color-blood-100: var(--blood-100);
+    --color-blood-200: var(--blood-200);
+    --color-blood-300: var(--blood-300);
+    --color-blood-400: var(--blood-400);
+    --color-blood-500: var(--blood-500);
+    --color-blood-600: var(--blood-600);
+    --color-blood-700: var(--blood-700);
+    --color-blood-800: var(--blood-800);
+    --color-blood-900: var(--blood-900);
+    --color-blood-950: var(--blood-950);
+
+    /* Brand Colors - Magic */
+    --color-magic-50: var(--magic-50);
+    --color-magic-100: var(--magic-100);
+    --color-magic-200: var(--magic-200);
+    --color-magic-300: var(--magic-300);
+    --color-magic-400: var(--magic-400);
+    --color-magic-500: var(--magic-500);
+    --color-magic-600: var(--magic-600);
+    --color-magic-700: var(--magic-700);
+    --color-magic-800: var(--magic-800);
+    --color-magic-900: var(--magic-900);
+    --color-magic-950: var(--magic-950);
+
+    /* Brand Colors - Armor */
+    --color-armor-50: var(--armor-50);
+    --color-armor-100: var(--armor-100);
+    --color-armor-200: var(--armor-200);
+    --color-armor-300: var(--armor-300);
+    --color-armor-400: var(--armor-400);
+    --color-armor-500: var(--armor-500);
+    --color-armor-600: var(--armor-600);
+    --color-armor-700: var(--armor-700);
+    --color-armor-800: var(--armor-800);
+    --color-armor-900: var(--armor-900);
+    --color-armor-950: var(--armor-950);
+
+    /* Brand Colors - Fortress */
+    --color-fortress-50: var(--fortress-50);
+    --color-fortress-100: var(--fortress-100);
+    --color-fortress-200: var(--fortress-200);
+    --color-fortress-300: var(--fortress-300);
+    --color-fortress-400: var(--fortress-400);
+    --color-fortress-500: var(--fortress-500);
+    --color-fortress-600: var(--fortress-600);
+    --color-fortress-700: var(--fortress-700);
+    --color-fortress-800: var(--fortress-800);
+    --color-fortress-900: var(--fortress-900);
+    --color-fortress-950: var(--fortress-950);
+
+    /* Brand Colors - Jet */
+    --color-jet-50: var(--jet-50);
+    --color-jet-100: var(--jet-100);
+    --color-jet-200: var(--jet-200);
+    --color-jet-300: var(--jet-300);
+    --color-jet-400: var(--jet-400);
+    --color-jet-500: var(--jet-500);
+    --color-jet-600: var(--jet-600);
+    --color-jet-700: var(--jet-700);
+    --color-jet-800: var(--jet-800);
+    --color-jet-900: var(--jet-900);
+    --color-jet-950: var(--jet-950);
 }
 
 :root {
-    --background: oklch(1.0000 0 0);
+    /* Primary Brand Colors */
+    --parchment: oklch(0.9755 0.0067 97.351);
+    --scroll: oklch(0.885 0.04 74.764);
+    --ghost: oklch(0.813 0.024 84.593);
+    --tome: oklch(0.338 0.045 36.13);
+    --leather: oklch(0.265 0.037 25.215);
+    --blood: oklch(0.334 0.091 14.852);
+    --magic: oklch(0.405 0.135 14.765);
+    --armor: oklch(0.313 0.038 237.591);
+    --fortress: oklch(0.241 0.035 255.879);
+    --jet: oklch(0.205 0.01 234.288);
+
+    /* Brand Tailwind Scales */
+    --parchment-50: oklch(1 0 97.351);
+    --parchment-100: oklch(0.996 0.001 97.351);
+    --parchment-200: oklch(0.991 0.003 97.351);
+    --parchment-300: oklch(0.986 0.004 97.351);
+    --parchment-400: oklch(0.981 0.005 97.351);
+    --parchment-500: oklch(0.976 0.007 97.351);
+    --parchment-600: oklch(0.97 0.008 97.351);
+    --parchment-700: oklch(0.965 0.009 97.351);
+    --parchment-800: oklch(0.96 0.011 97.351);
+    --parchment-900: oklch(0.955 0.012 97.351);
+    --parchment-950: oklch(0.95 0.014 97.351);
+    --scroll-50: oklch(0.95 0.017 74.764);
+    --scroll-100: oklch(0.937 0.021 74.764);
+    --scroll-200: oklch(0.924 0.026 74.764);
+    --scroll-300: oklch(0.911 0.03 74.764);
+    --scroll-400: oklch(0.898 0.035 74.764);
+    --scroll-500: oklch(0.885 0.04 74.764);
+    --scroll-600: oklch(0.872 0.044 74.764);
+    --scroll-700: oklch(0.859 0.049 74.764);
+    --scroll-800: oklch(0.846 0.054 74.764);
+    --scroll-900: oklch(0.833 0.059 74.764);
+    --scroll-950: oklch(0.82 0.064 74.764);
+    --ghost-50: oklch(0.95 0.007 84.593);
+    --ghost-100: oklch(0.923 0.012 84.593);
+    --ghost-200: oklch(0.895 0.016 84.593);
+    --ghost-300: oklch(0.868 0.02 84.593);
+    --ghost-400: oklch(0.84 0.025 84.593);
+    --ghost-500: oklch(0.813 0.024 84.593);
+    --ghost-600: oklch(0.786 0.023 84.593);
+    --ghost-700: oklch(0.758 0.022 84.593);
+    --ghost-800: oklch(0.731 0.021 84.593);
+    --ghost-900: oklch(0.703 0.021 84.593);
+    --ghost-950: oklch(0.676 0.02 84.593);
+    --tome-50: oklch(0.969 0.009 78.282);
+    --tome-100: oklch(0.922 0.025 81.123);
+    --tome-200: oklch(0.849 0.049 81.457);
+    --tome-300: oklch(0.753 0.074 76.041);
+    --tome-400: oklch(0.672 0.091 70.181);
+    --tome-500: oklch(0.616 0.091 64.711);
+    --tome-600: oklch(0.536 0.084 55.773);
+    --tome-700: oklch(0.45 0.072 45.977);
+    --tome-800: oklch(0.403 0.06 40.476);
+    --tome-900: oklch(0.338 0.045 36.13);
+    --tome-950: oklch(0.25 0.036 30.939);
+    --leather-50: oklch(0.969 0.009 78.282);
+    --leather-100: oklch(0.922 0.025 81.123);
+    --leather-200: oklch(0.849 0.049 81.457);
+    --leather-300: oklch(0.753 0.074 76.041);
+    --leather-400: oklch(0.672 0.091 70.181);
+    --leather-500: oklch(0.616 0.091 64.711);
+    --leather-600: oklch(0.536 0.084 55.773);
+    --leather-700: oklch(0.45 0.072 45.977);
+    --leather-800: oklch(0.403 0.06 40.476);
+    --leather-900: oklch(0.338 0.045 36.13);
+    --leather-950: oklch(0.25 0.036 30.939);
+    --blood-50: oklch(0.974 0.01 25.073);
+    --blood-100: oklch(0.948 0.02 21.362);
+    --blood-200: oklch(0.902 0.036 19.971);
+    --blood-300: oklch(0.826 0.066 22.102);
+    --blood-400: oklch(0.727 0.111 21.493);
+    --blood-500: oklch(0.63 0.153 22.486);
+    --blood-600: oklch(0.553 0.168 21.226);
+    --blood-700: oklch(0.481 0.151 20.79);
+    --blood-800: oklch(0.429 0.129 17.876);
+    --blood-900: oklch(0.334 0.091 14.852);
+    --blood-950: oklch(0.258 0.073 17.67);
+    --magic-50: oklch(0.971 0.013 17.38);
+    --magic-100: oklch(0.945 0.024 20.731);
+    --magic-200: oklch(0.896 0.046 16.392);
+    --magic-300: oklch(0.813 0.089 18.297);
+    --magic-400: oklch(0.719 0.143 19.146);
+    --magic-500: oklch(0.634 0.189 21.075);
+    --magic-600: oklch(0.565 0.198 21.097);
+    --magic-700: oklch(0.494 0.178 20.55);
+    --magic-800: oklch(0.439 0.153 17.683);
+    --magic-900: oklch(0.405 0.135 14.765);
+    --magic-950: oklch(0.263 0.088 16.57);
+    --armor-50: oklch(0.971 0.013 17.38);
+    --armor-100: oklch(0.945 0.024 20.731);
+    --armor-200: oklch(0.896 0.046 16.392);
+    --armor-300: oklch(0.813 0.089 18.297);
+    --armor-400: oklch(0.719 0.143 19.146);
+    --armor-500: oklch(0.634 0.189 21.075);
+    --armor-600: oklch(0.565 0.198 21.097);
+    --armor-700: oklch(0.494 0.178 20.55);
+    --armor-800: oklch(0.439 0.153 17.683);
+    --armor-900: oklch(0.405 0.135 14.765);
+    --armor-950: oklch(0.263 0.088 16.57);
+    --fortress-50: oklch(0.975 0.006 255.475);
+    --fortress-100: oklch(0.946 0.014 254.607);
+    --fortress-200: oklch(0.884 0.031 249.708);
+    --fortress-300: oklch(0.785 0.058 247.767);
+    --fortress-400: oklch(0.669 0.089 247.306);
+    --fortress-500: oklch(0.577 0.104 248.147);
+    --fortress-600: oklch(0.493 0.098 250.879);
+    --fortress-700: oklch(0.424 0.085 252.437);
+    --fortress-800: oklch(0.383 0.068 251.354);
+    --fortress-900: oklch(0.347 0.056 253.255);
+    --fortress-950: oklch(0.241 0.035 255.879);
+    --jet-50: oklch(0.973 0.004 214.329);
+    --jet-100: oklch(0.931 0.01 212.523);
+    --jet-200: oklch(0.866 0.017 215.471);
+    --jet-300: oklch(0.769 0.029 216.475);
+    --jet-400: oklch(0.647 0.041 215.242);
+    --jet-500: oklch(0.554 0.043 219.313);
+    --jet-600: oklch(0.49 0.036 224.975);
+    --jet-700: oklch(0.433 0.028 228.431);
+    --jet-800: oklch(0.395 0.022 227.907);
+    --jet-900: oklch(0.358 0.018 238.565);
+    --jet-950: oklch(0.205 0.01 234.288);
+
+    /* Shadcn Theming Variables */
+    --background: oklch(1 0 0);
     --foreground: oklch(0.2052 0.0097 234.2882);
-    --card: oklch(0.9755 0.0067 97.3510);
+    --card: oklch(0.9755 0.0067 97.351);
     --card-foreground: oklch(0.2052 0.0097 234.2882);
-    --popover: oklch(0.9755 0.0067 97.3510);
+    --popover: oklch(0.9755 0.0067 97.351);
     --popover-foreground: oklch(0.2052 0.0097 234.2882);
     --primary: oklch(0.2052 0.0097 234.2882);
-    --primary-foreground: oklch(0.9755 0.0067 97.3510);
+    --primary-foreground: oklch(0.9755 0.0067 97.351);
     --secondary: oklch(0.3132 0.0376 237.5914);
-    --secondary-foreground: oklch(0.9755 0.0067 97.3510);
-    --muted: oklch(0.9430 0.0083 91.4851);
+    --secondary-foreground: oklch(0.9755 0.0067 97.351);
+    --muted: oklch(0.943 0.0083 91.4851);
     --muted-foreground: oklch(0.4896 0.0364 224.9746);
     --accent: oklch(0.4052 0.1352 14.7651);
-    --accent-foreground: oklch(0.9755 0.0067 97.3510);
+    --accent-foreground: oklch(0.9755 0.0067 97.351);
     --destructive: oklch(0.5651 0.1983 21.0974);
-    --destructive-foreground: oklch(1.0000 0 0);
+    --destructive-foreground: oklch(1 0 0);
     --border: oklch(0.9479 0.0135 97.4459);
-    --input: oklch(0.8130 0.0237 84.5932);
+    --input: oklch(0.813 0.0237 84.5932);
     --ring: oklch(0.8659 0.0172 215.4708);
     --chart-1: oklch(0.3132 0.0376 237.5914);
     --chart-2: oklch(0.4052 0.1352 14.7651);
     --chart-3: oklch(0.3383 0.0452 36.1301);
-    --chart-4: oklch(0.8130 0.0237 84.5932);
+    --chart-4: oklch(0.813 0.0237 84.5932);
     --chart-5: oklch(0.8851 0.0395 74.7643);
-    --sidebar: oklch(0.9755 0.0067 97.3510);
+    --sidebar: oklch(0.9755 0.0067 97.351);
     --sidebar-foreground: oklch(0.2052 0.0097 234.2882);
     --sidebar-primary: oklch(0.3132 0.0376 237.5914);
-    --sidebar-primary-foreground: oklch(1.0000 0 0);
-    --sidebar-accent: oklch(0.9430 0.0083 91.4851);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.943 0.0083 91.4851);
     --sidebar-accent-foreground: oklch(0.2407 0.0353 255.8788);
     --sidebar-border: oklch(0.8659 0.0172 215.4708);
-    --sidebar-ring: oklch(0.9308 0.0100 212.5225);
+    --sidebar-ring: oklch(0.9308 0.01 212.5225);
     --font-sans: Familjen Grotesk, ui-sans-serif, sans-serif, system-ui;
     --font-serif: Antic Slab, ui-serif, serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
     --radius: 0.475rem;
     --shadow-2xs: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.25);
     --shadow-xs: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.25);
-    --shadow-sm: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.50), 0 1px 2px -1px hsl(214.2857 41.1765% 13.3333% / 0.50);
-    --shadow: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.50), 0 1px 2px -1px hsl(214.2857 41.1765% 13.3333% / 0.50);
-    --shadow-md: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.50), 0 2px 4px -1px hsl(214.2857 41.1765% 13.3333% / 0.50);
-    --shadow-lg: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.50), 0 4px 6px -1px hsl(214.2857 41.1765% 13.3333% / 0.50);
-    --shadow-xl: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.50), 0 8px 10px -1px hsl(214.2857 41.1765% 13.3333% / 0.50);
+    --shadow-sm: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.5), 0 1px 2px -1px hsl(214.2857 41.1765% 13.3333% / 0.5);
+    --shadow: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.5), 0 1px 2px -1px hsl(214.2857 41.1765% 13.3333% / 0.5);
+    --shadow-md: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.5), 0 2px 4px -1px hsl(214.2857 41.1765% 13.3333% / 0.5);
+    --shadow-lg: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.5), 0 4px 6px -1px hsl(214.2857 41.1765% 13.3333% / 0.5);
+    --shadow-xl: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.5), 0 8px 10px -1px hsl(214.2857 41.1765% 13.3333% / 0.5);
     --shadow-2xl: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 1.25);
     --tracking-normal: 0em;
     --spacing: 0.26rem;
-  }
+}
 
 .dark {
     --background: oklch(0.2052 0.0097 234.2882);
-    --foreground: oklch(0.9755 0.0067 97.3510);
+    --foreground: oklch(0.9755 0.0067 97.351);
     --card: oklch(0.3132 0.0376 237.5914);
-    --card-foreground: oklch(0.9755 0.0067 97.3510);
+    --card-foreground: oklch(0.9755 0.0067 97.351);
     --popover: oklch(0.2052 0.0097 234.2882);
-    --popover-foreground: oklch(1.0000 0 0);
+    --popover-foreground: oklch(1 0 0);
     --primary: oklch(0.2407 0.0353 255.8788);
-    --primary-foreground: oklch(0.9755 0.0067 97.3510);
+    --primary-foreground: oklch(0.9755 0.0067 97.351);
     --secondary: oklch(0.4052 0.1352 14.7651);
-    --secondary-foreground: oklch(0.9755 0.0067 97.3510);
+    --secondary-foreground: oklch(0.9755 0.0067 97.351);
     --muted: oklch(0.3132 0.0376 237.5914);
     --muted-foreground: oklch(0.8659 0.0172 215.4708);
     --accent: oklch(0.8659 0.0172 215.4708);
     --accent-foreground: oklch(0.2052 0.0097 234.2882);
     --destructive: oklch(0.5985 0.2314 27.9909);
     --destructive-foreground: #fffff;
-    --border: oklch(0.2840 0.0110 248.3000);
-    --input: oklch(0.3575 0.0180 238.5653);
+    --border: oklch(0.284 0.011 248.3);
+    --input: oklch(0.3575 0.018 238.5653);
     --ring: oklch(0.7691 0.0291 216.4747);
-    --chart-1: oklch(0.9755 0.0067 97.3510);
+    --chart-1: oklch(0.9755 0.0067 97.351);
     --chart-2: oklch(0.8851 0.0395 74.7643);
-    --chart-3: oklch(0.6340 0.1887 21.0751);
+    --chart-3: oklch(0.634 0.1887 21.0751);
     --chart-4: oklch(0.8761 0.0365 214.0136);
-    --chart-5: oklch(0.6690 0.0890 247.3063);
+    --chart-5: oklch(0.669 0.089 247.3063);
     --sidebar: oklch(0.2052 0.0097 234.2882);
-    --sidebar-foreground: oklch(0.9755 0.0067 97.3510);
+    --sidebar-foreground: oklch(0.9755 0.0067 97.351);
     --sidebar-primary: oklch(0.4052 0.1352 14.7651);
-    --sidebar-primary-foreground: oklch(0.9755 0.0067 97.3510);
-    --sidebar-accent: oklch(0.4000 0.0448 232.7684);
+    --sidebar-primary-foreground: oklch(0.9755 0.0067 97.351);
+    --sidebar-accent: oklch(0.4 0.0448 232.7684);
     --sidebar-accent-foreground: oklch(0.9761 0 0);
-    --sidebar-border: oklch(0.2840 0.0110 248.3000);
+    --sidebar-border: oklch(0.284 0.011 248.3);
     --sidebar-ring: oklch(0.7691 0.0291 216.4747);
     --radius: 0.475rem;
     --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
     --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
-    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.50), 0 1px 2px -1px hsl(0 0% 0% / 0.50);
-    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.50), 0 1px 2px -1px hsl(0 0% 0% / 0.50);
-    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.50), 0 2px 4px -1px hsl(0 0% 0% / 0.50);
-    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.50), 0 4px 6px -1px hsl(0 0% 0% / 0.50);
-    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.50), 0 8px 10px -1px hsl(0 0% 0% / 0.50);
+    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.5), 0 1px 2px -1px hsl(0 0% 0% / 0.5);
+    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.5), 0 1px 2px -1px hsl(0 0% 0% / 0.5);
+    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.5), 0 2px 4px -1px hsl(0 0% 0% / 0.5);
+    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.5), 0 4px 6px -1px hsl(0 0% 0% / 0.5);
+    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.5), 0 8px 10px -1px hsl(0 0% 0% / 0.5);
     --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 1.25);
     --font-serif:
         'dutch-mediaeval-pro', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-title: 'ltc-goudy-text-pro', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-title-shaded: 'ltc-goudy-text-pro-shaded', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  }
+    --font-title:
+        'ltc-goudy-text-pro', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-title-shaded:
+        'ltc-goudy-text-pro-shaded', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+}
+
+@keyframes hero-in {
+    from {
+        opacity: 0;
+        transform: translateY(0.75rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 @layer base {
     * {
@@ -165,5 +449,10 @@
 
     body {
         @apply bg-background text-foreground;
+    }
+
+    /* TODO: understand this CSS's purpose, and make sure it works */
+    br::selection {
+        background-color: transparent !important;
     }
 }
