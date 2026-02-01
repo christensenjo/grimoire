@@ -13,7 +13,7 @@ export default function Welcome() {
                             <h1 className="leading-tighter animate-[hero-in_0.5s_ease-out_both] text-5xl text-black drop-shadow-lg md:text-6xl dark:text-white">
                                 <span className="font-title-shaded text-[96px]">S</span>
                                 top wrestling with notes...<br></br>...start building <span className="font-title-shaded text-[96px]">W</span>
-                                rlds.
+                                orlds.
                             </h1>
                             <p className="animate-[hero-in_0.65s_ease-out_both_0.2s] text-lg text-black/70 dark:text-white/70">
                                 Brave adventurers, cursed relics, forbidden lands: what secrets lie within your Grimoire?
