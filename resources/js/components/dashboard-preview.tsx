@@ -47,13 +47,13 @@ const getTypeColor = (type: Campaign['type']) => {
 const getClassIcon = (className: string) => {
     switch (className) {
         case 'Rogue':
-            return <Sword className="h-4 w-4" />;
+            return <Sword className="h-4 w-4" aria-hidden="true" />;
         case 'Wizard':
-            return <Flame className="h-4 w-4" />;
+            return <Flame className="h-4 w-4" aria-hidden="true" />;
         case 'Fighter':
-            return <Shield className="h-4 w-4" />;
+            return <Shield className="h-4 w-4" aria-hidden="true" />;
         default:
-            return <Star className="h-4 w-4" />;
+            return <Star className="h-4 w-4" aria-hidden="true" />;
     }
 };
 
@@ -68,11 +68,11 @@ export default function DashboardPreview() {
                 </div>
                 <div className="flex gap-2">
                     <Button variant="outline" size="sm" className="gap-2">
-                        <Scroll className="h-4 w-4" />
+                        <Scroll className="h-4 w-4" aria-hidden="true" />
                         New Campaign
                     </Button>
                     <Button size="sm" className="gap-2 bg-magic hover:bg-magic/80">
-                        <Skull className="h-4 w-4" />
+                        <Skull className="h-4 w-4" aria-hidden="true" />
                         New Character
                     </Button>
                 </div>
@@ -115,7 +115,7 @@ export default function DashboardPreview() {
                             >
                                 <div className="flex items-center gap-3">
                                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-leather/20 dark:bg-leather/40">
-                                        <Scroll className="h-5 w-5 text-leather dark:text-leather/80" />
+                                        <Scroll className="h-5 w-5 text-leather dark:text-leather/80" aria-hidden="true" />
                                     </div>
                                     <div>
                                         <p className="font-medium text-tome dark:text-parchment">{campaign.name}</p>
@@ -145,7 +145,7 @@ export default function DashboardPreview() {
                                 className="rounded-lg border border-tome/10 p-3 transition-colors hover:bg-tome/5 dark:border-parchment/10 dark:hover:bg-parchment/5"
                             >
                                 <div className="mb-2 flex items-center gap-2">
-                                    {getClassIcon(character.class)}
+                                    <span aria-hidden="true">{getClassIcon(character.class)}</span>
                                     <span className="text-sm font-medium text-tome dark:text-parchment">{character.name}</span>
                                 </div>
                                 <p className="text-xs text-tome/60 dark:text-parchment/60">
