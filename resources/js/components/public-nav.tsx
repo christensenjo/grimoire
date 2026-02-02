@@ -84,7 +84,7 @@ export default function PublicNav() {
                         <div className="flex items-center gap-4">
                             <button
                                 onClick={toggleAppearance}
-                                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-transparent text-black transition-all duration-150 hover:border-black/90 dark:text-white dark:hover:border-white/90"
+                                className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-transparent text-black transition-all duration-150 hover:border-black/90 dark:text-white dark:hover:border-white/90"
                                 aria-label="Toggle theme"
                             >
                                 <Sun className="h-5 w-5 dark:hidden" />
@@ -94,19 +94,11 @@ export default function PublicNav() {
                             <NavigationMenu>
                                 <NavigationMenuList className="gap-2">
                                     <NavigationMenuItem>
-                                        <NavLink
-                                            href={route('login')}
-                                            className="border border-transparent hover:border-black/90 dark:hover:border-white/90"
-                                        >
-                                            Login
-                                        </NavLink>
+                                        <NavLink href={route('login')}>Login</NavLink>
                                     </NavigationMenuItem>
                                     <NavigationMenuItem>
-                                        <NavLink
-                                            href={route('register')}
-                                            className="border border-black/90 hover:bg-black hover:text-white dark:border-white/90 dark:hover:bg-white dark:hover:text-black"
-                                        >
-                                            Start Your Journey
+                                        <NavLink href={route('register')} className="bg-magic text-white hover:bg-magic/80 hover:text-white">
+                                            Get Started
                                         </NavLink>
                                     </NavigationMenuItem>
                                 </NavigationMenuList>

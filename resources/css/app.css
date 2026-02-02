@@ -364,9 +364,13 @@
     --sidebar-accent-foreground: oklch(0.2407 0.0353 255.8788);
     --sidebar-border: oklch(0.8659 0.0172 215.4708);
     --sidebar-ring: oklch(0.9308 0.01 212.5225);
-    --font-sans: Familjen Grotesk, ui-sans-serif, sans-serif, system-ui;
-    --font-serif: Antic Slab, ui-serif, serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --font-serif:
+        'dutch-mediaeval-pro', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-title:
+        'ltc-goudy-text-pro', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-title-shaded:
+        'ltc-goudy-text-pro-shaded', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
     --radius: 0.475rem;
     --shadow-2xs: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.25);
     --shadow-xs: 0 1px 3px 0px hsl(214.2857 41.1765% 13.3333% / 0.25);
