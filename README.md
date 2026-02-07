@@ -52,9 +52,7 @@ Grimoire is proud to deploy on Laravel Cloud!
 
 3. **Install JavaScript dependencies**
    ```bash
-   npm install
-   # or
-   yarn install
+   pnpm install
    ```
 
 4. **Configure environment**
@@ -70,9 +68,7 @@ Grimoire is proud to deploy on Laravel Cloud!
    php artisan serve
 
    # In a new terminal, start the React frontend (via Vite)
-   npm run dev
-   # or
-   yarn dev
+   pnpm run dev
    ```
 
 ---

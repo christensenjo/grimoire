@@ -5,15 +5,16 @@
 ## Build/Development Commands
 
 ```bash
-### In most cases, the developer will already have the environment running locally as they work via Laravel Herd and `npm run dev`. Feel free to build in order to catch build errors, or to start your own dev environment if you specifically need to, but in many cases you can simply ask the developer to check the app for your changes.
+### In most cases, the developer will already have the environment running locally as they work via Laravel Herd and `pnpm run dev`. Feel free to build in order to catch build errors, or to start your own dev environment if you specifically need to, but in many cases you can simply ask the developer to check the app for your changes.
 
 # Start full dev environment (runs concurrently)
 composer run dev              # Starts: artisan serve, queue, vite
 
 # Individual frontend commands
-npm run dev                   # Start Vite dev server
-npm run build                 # Production build
-npm run build:ssr             # Build with SSR support
+pnpm run dev                  # Start Vite dev server
+pnpm run build                # Production build
+pnpm run build:ssr            # Build with SSR support
+
 
 # PHP commands
 php artisan serve             # Start Laravel server
