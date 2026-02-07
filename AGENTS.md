@@ -5,6 +5,8 @@
 ## Build/Development Commands
 
 ```bash
+### In most cases, the developer will already have the environment running locally as they work via Laravel Herd and `npm run dev`. Feel free to build in order to catch build errors, or to start your own dev environment if you specifically need to, but in many cases you can simply ask the developer to check the app for your changes.
+
 # Start full dev environment (runs concurrently)
 composer run dev              # Starts: artisan serve, queue, vite
 

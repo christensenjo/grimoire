@@ -73,7 +73,7 @@ export default function Welcome() {
                 <Integrations />
 
                 {/* Reviews Section - Placeholder for future implementation */}
-                {false && (
+                {/*
                     <section className="w-full py-20">
                         <div className="mx-auto max-w-screen-2xl px-4">
                             <div className="mb-12 text-center">
@@ -82,10 +82,10 @@ export default function Welcome() {
                                     Coming soon - reviews from our community of worldbuilders
                                 </p>
                             </div>
-                            {/* Review cards will go here once we have user testimonials */}
+                            Review cards will go here once we have user testimonials
                         </div>
                     </section>
-                )}
+                */}
 
                 {/* Pricing */}
                 <Pricing />
