@@ -38,8 +38,8 @@ export default function WhyChooseUs() {
         <section className="w-full py-20">
             <div className="mx-auto max-w-screen-2xl px-4">
                 <div className="mb-12 text-center">
-                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment">Why Choose Grimoire?</h2>
-                    <p className="mx-auto max-w-2xl text-lg text-pretty text-tome/70 dark:text-parchment/70">
+                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment font-serif"><span className="font-title text-5xl tracking-wide">W</span>hy Choose Grimoire?</h2>
+                    <p className="mx-auto max-w-2xl text-lg text-pretty text-tome/70 dark:text-parchment/70 font-serif">
                         Stop fighting your tools. Start building worlds.
                     </p>
                 </div>
@@ -49,7 +49,7 @@ export default function WhyChooseUs() {
                     {comparisons.map((comparison) => (
                         <Card key={comparison.category} className="border-tome/10 bg-parchment-50 dark:border-parchment/10 dark:bg-jet/50">
                             <CardContent className="p-6">
-                                <h3 className="mb-4 font-semibold text-magic">vs. {comparison.category}</h3>
+                                <h3 className="mb-4 font-semibold text-magic font-serif">vs. {comparison.category}</h3>
                                 <div className="space-y-3">
                                     <div className="flex items-start gap-3">
                                         <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blood/20">
@@ -71,7 +71,7 @@ export default function WhyChooseUs() {
 
                 {/* Benefits List */}
                 <div className="rounded-xl border border-magic/20 bg-magic/5 p-8 dark:bg-magic/10">
-                    <h3 className="mb-6 text-center text-xl font-semibold text-balance text-tome dark:text-parchment">The Grimoire Advantage</h3>
+                    <h3 className="mb-6 text-center text-xl font-semibold text-balance text-tome dark:text-parchment font-serif">The Grimoire Advantage</h3>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                         {benefits.map((benefit) => (
                             <div key={benefit} className="flex items-center gap-3">

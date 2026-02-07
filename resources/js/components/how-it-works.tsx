@@ -27,8 +27,8 @@ export default function HowItWorks() {
         <section className="w-full bg-parchment-50 py-20 dark:bg-jet/30">
             <div className="mx-auto max-w-screen-2xl px-4">
                 <div className="mb-12 text-center">
-                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment">How It Works</h2>
-                    <p className="mx-auto max-w-2xl text-lg text-pretty text-tome/70 dark:text-parchment/70">
+                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment font-serif"><span className="font-title text-5xl tracking-wide">H</span>ow It Works</h2>
+                    <p className="mx-auto max-w-2xl text-lg text-pretty text-tome/70 dark:text-parchment/70 font-serif">
                         From signup to storytelling in three simple steps
                     </p>
                 </div>

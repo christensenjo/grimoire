@@ -1,5 +1,6 @@
 import '../css/app.css';
 
+import { Agentation } from 'agentation';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
@@ -16,6 +17,7 @@ createInertiaApp({
         root.render(
             <AppearanceProvider>
                 <App {...props} />
+                {import.meta.env.DEV && <Agentation endpoint="http://localhost:4747" />}
             </AppearanceProvider>,
         );
     },

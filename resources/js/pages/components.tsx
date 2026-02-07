@@ -245,7 +245,7 @@ export default function Components() {
                     <DemoCard title="Branding">
                         <div className="flex items-center gap-4">
                             <AppLogo />
-                            <AppLogoIcon className="h-10 w-10 text-tome dark:text-parchment" />
+                            <AppLogoIcon className="h-10 w-10" />
                         </div>
                     </DemoCard>
                     <DemoCard title="Headings">
@@ -554,7 +554,7 @@ export default function Components() {
                                     <SidebarHeader>
                                         <SidebarMenu>
                                             <SidebarMenuItem>
-                                                <SidebarMenuButton tooltip="Dashboard">
+                                                <SidebarMenuButton tooltip="Dashboard" variant="ghost" className="justify-start">
                                                     <LayoutGrid className="size-4" />
                                                     Dashboard
                                                 </SidebarMenuButton>

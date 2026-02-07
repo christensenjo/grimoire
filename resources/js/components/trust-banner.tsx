@@ -28,7 +28,7 @@ export default function TrustBanner() {
         return (
             <section className="w-full bg-jet/10 py-8 dark:bg-parchment/10">
                 <div className="mx-auto max-w-screen-2xl px-4">
-                    <p className="mb-4 text-center text-sm font-medium text-tome/70 dark:text-parchment/70">Built for use with</p>
+                    <p className="mb-4 text-center text-sm font-medium text-tome/70 dark:text-parchment/70 font-serif">Built for use with</p>
                     <div className="flex flex-wrap justify-center gap-4">
                         {trustLogos.map((logo) => (
                             <div
@@ -50,7 +50,7 @@ export default function TrustBanner() {
     return (
         <section className="w-full overflow-hidden bg-jet/10 py-8 dark:bg-parchment/10">
             <div className="mx-auto max-w-screen-2xl px-4">
-                <p className="mb-4 text-center text-sm font-medium text-tome/70 dark:text-parchment/70">Built for use with</p>
+                <p className="mb-4 text-center text-base font-medium text-tome dark:text-parchment/70 font-serif">Built for use with</p>
             </div>
             <div ref={containerRef} className="relative overflow-hidden">
                 <motion.div

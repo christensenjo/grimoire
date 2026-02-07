@@ -17,5 +17,6 @@ test('authenticated users can visit the components playground', function () {
         ->assertInertia(fn (Assert $page) => $page
             ->component('components')
             ->where('auth.user.id', $user->id)
+            ->where('auth.user.name', $user->name)
         );
 });

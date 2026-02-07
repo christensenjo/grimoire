@@ -63,8 +63,8 @@ export default function DashboardPreview() {
             {/* Dashboard Header */}
             <div className="mb-6 flex items-center justify-between">
                 <div>
-                    <h2 className="text-2xl font-semibold text-tome dark:text-parchment">Your Grimoire</h2>
-                    <p className="text-sm text-tome/70 dark:text-parchment/70">Manage your campaigns, characters, and worlds</p>
+                    <h2 className="text-2xl font-semibold text-tome dark:text-parchment font-serif">Your Grimoire</h2>
+                    <p className="text-sm text-tome/70 dark:text-parchment/70 font-serif">Manage your campaigns, characters, and worlds</p>
                 </div>
                 <div className="flex gap-2">
                     <Button variant="outline" size="sm" className="gap-2">
@@ -103,8 +103,8 @@ export default function DashboardPreview() {
             {/* Campaigns Table */}
             <Card className="mb-4 border-tome/20 bg-parchment-50 dark:border-parchment/20 dark:bg-jet/50">
                 <CardHeader>
-                    <CardTitle className="text-lg text-tome dark:text-parchment">Recent Campaigns</CardTitle>
-                    <CardDescription className="text-tome/70 dark:text-parchment/70">Your active and paused adventures</CardDescription>
+                    <CardTitle className="text-lg text-tome dark:text-parchment font-serif">Recent Campaigns</CardTitle>
+                    <CardDescription className="text-tome/70 dark:text-parchment/70 font-serif">Your active and paused adventures</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="space-y-3">
@@ -134,8 +134,8 @@ export default function DashboardPreview() {
             {/* Characters Preview */}
             <Card className="border-tome/20 bg-parchment-50 dark:border-parchment/20 dark:bg-jet/50">
                 <CardHeader>
-                    <CardTitle className="text-lg text-tome dark:text-parchment">Featured Characters</CardTitle>
-                    <CardDescription className="text-tome/70 dark:text-parchment/70">Recently updated heroes and villains</CardDescription>
+                    <CardTitle className="text-lg text-tome dark:text-parchment font-serif">Featured Characters</CardTitle>
+                    <CardDescription className="text-tome/70 dark:text-parchment/70 font-serif">Recently updated heroes and villains</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-3 gap-3">

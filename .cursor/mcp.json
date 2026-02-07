@@ -6,6 +6,13 @@
                 "artisan",
                 "boost:mcp"
             ]
+        },
+        "agentation": {
+            "command": "npx",
+            "args": [
+                "agentation-mcp",
+                "server"
+            ]
         }
     }
 }

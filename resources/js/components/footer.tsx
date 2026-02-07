@@ -54,7 +54,7 @@ export default function Footer() {
                             />
                             Grimoire
                         </Link>
-                        <p className="mb-4 text-sm text-tome/70 dark:text-parchment/70">
+                        <p className="mb-4 text-sm text-tome/70 dark:text-parchment/70 font-serif">
                             The modern worldbuilding platform for storytellers, dungeon masters, and creative minds.
                         </p>
                         {/* Social links */}
@@ -77,7 +77,7 @@ export default function Footer() {
 
                     {/* Links */}
                     <div>
-                        <h4 className="mb-4 font-semibold text-tome dark:text-parchment">Product</h4>
+                        <h4 className="mb-4 font-semibold text-tome dark:text-parchment font-serif">Product</h4>
                         <ul className="space-y-2">
                             {footerLinks.product.map((link) => (
                                 <li key={link.label}>
@@ -90,7 +90,7 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h4 className="mb-4 font-semibold text-tome dark:text-parchment">Company</h4>
+                        <h4 className="mb-4 font-semibold text-tome dark:text-parchment font-serif">Company</h4>
                         <ul className="space-y-2">
                             {footerLinks.company.map((link) => (
                                 <li key={link.label}>
@@ -103,7 +103,7 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h4 className="mb-4 font-semibold text-tome dark:text-parchment">Resources</h4>
+                        <h4 className="mb-4 font-semibold text-tome dark:text-parchment font-serif">Resources</h4>
                         <ul className="space-y-2">
                             {footerLinks.resources.map((link) => (
                                 <li key={link.label}>
@@ -116,7 +116,7 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h4 className="mb-4 font-semibold text-tome dark:text-parchment">Legal</h4>
+                        <h4 className="mb-4 font-semibold text-tome dark:text-parchment font-serif">Legal</h4>
                         <ul className="space-y-2">
                             {footerLinks.legal.map((link) => (
                                 <li key={link.label}>
