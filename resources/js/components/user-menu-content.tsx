@@ -29,7 +29,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-                <DropdownMenuItem asChild className="cursor-pointer">
+                <DropdownMenuItem asChild className="cursor-pointer focus:bg-armor/10 focus:text-armor">
                     <Link className="block w-full font-sans" href={route('profile.edit')} as="button" prefetch onClick={cleanup}>
                         <Settings className="mr-2" />
                         <span className="font-sans">Settings</span>
@@ -53,22 +53,34 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                     size="sm"
                     className="w-full"
                 >
-                    <ToggleGroupItem value="light" className="flex-1 gap-1 font-sans text-xs cursor-pointer" aria-label="Light theme">
+                    <ToggleGroupItem
+                        value="light"
+                        className="flex-1 gap-1 font-sans text-xs cursor-pointer hover:bg-armor/10 hover:text-muted-foreground data-[state=on]:bg-armor/10 data-[state=on]:text-armor"
+                        aria-label="Light theme"
+                    >
                         <Sun className="h-3.5 w-3.5" />
                         Light
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="dark" className="flex-1 gap-1 font-sans text-xs cursor-pointer" aria-label="Dark theme">
+                    <ToggleGroupItem
+                        value="dark"
+                        className="flex-1 gap-1 font-sans text-xs cursor-pointer hover:bg-armor/10 hover:text-muted-foreground data-[state=on]:bg-armor/10 data-[state=on]:text-armor"
+                        aria-label="Dark theme"
+                    >
                         <Moon className="h-3.5 w-3.5" />
                         Dark
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="system" className="flex-1 gap-1 font-sans text-xs cursor-pointer" aria-label="System theme">
+                    <ToggleGroupItem
+                        value="system"
+                        className="flex-1 gap-1 font-sans text-xs cursor-pointer hover:bg-armor/10 hover:text-muted-foreground data-[state=on]:bg-armor/10 data-[state=on]:text-armor"
+                        aria-label="System theme"
+                    >
                         <Monitor className="h-3.5 w-3.5" />
                         System
                     </ToggleGroupItem>
                 </ToggleGroup>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild className="cursor-pointer">
+            <DropdownMenuItem asChild className="cursor-pointer focus:bg-armor/10 focus:text-armor">
                 <Link className="block w-full font-sans" method="post" href={route('logout')} as="button" onClick={handleLogout}>
                     <LogOut className="mr-2" />
                     <span className="font-sans">Log out</span>
