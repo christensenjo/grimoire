@@ -94,10 +94,15 @@ export default function PublicNav() {
                             <NavigationMenu>
                                 <NavigationMenuList className="gap-2">
                                     <NavigationMenuItem>
-                                        <NavLink href={route('login')}>Login</NavLink>
+                                    <NavLink href={route('login')} className="font-sans">
+                                        Login
+                                    </NavLink>
                                     </NavigationMenuItem>
                                     <NavigationMenuItem>
-                                        <NavLink href={route('register')} className="bg-magic text-white hover:bg-magic/80 hover:text-white">
+                                        <NavLink
+                                            href={route('register')}
+                                            className="bg-magic font-sans text-white hover:bg-magic/80 hover:text-white"
+                                        >
                                             Get Started
                                         </NavLink>
                                     </NavigationMenuItem>

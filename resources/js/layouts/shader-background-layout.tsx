@@ -3,10 +3,14 @@ import { useAppearance } from '@/hooks/use-appearance';
 import type { PropsWithChildren } from 'react';
 import { FilmGrain, Shader, SolidColor } from 'shaders/react';
 
-export default function ShaderBackgroundLayout({ children }: PropsWithChildren) {
+type ShaderBackgroundLayoutProps = PropsWithChildren<{
+    showNav?: boolean;
+}>;
+
+export default function ShaderBackgroundLayout({ children, showNav = true }: ShaderBackgroundLayoutProps) {
     const { isDark } = useAppearance();
     const shaderColor = isDark ? '#13181B' : '#F8F7F2';
-    const filmGrainStrength = isDark ? 0.05 : 1;
+    const filmGrainStrength = isDark ? 0.03 : 1;
 
     return (
         <div className="relative min-h-screen w-full overflow-hidden">
@@ -17,9 +21,11 @@ export default function ShaderBackgroundLayout({ children }: PropsWithChildren) 
                 </Shader>
             </div>
 
-            <div className="relative z-10">
-                <PublicNav />
-            </div>
+            {showNav && (
+                <div className="relative z-10">
+                    <PublicNav />
+                </div>
+            )}
 
             <div className="relative z-10">{children}</div>
         </div>
