@@ -16,7 +16,7 @@ export function NavUser() {
         <SidebarMenu>
             <SidebarMenuItem>
                 <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
+                    <DropdownMenuTrigger asChild className='cursor-pointer'>
                         <SidebarMenuButton
                             size="lg"
                             variant="ghost"
