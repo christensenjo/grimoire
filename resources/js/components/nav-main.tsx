@@ -57,7 +57,7 @@ export function NavMain({ groups }: NavMainProps) {
     return (
         <div className="flex flex-col gap-5">
             {groups.map((group) => (
-                <SidebarGroup key={group.title} className="px-2 py-0">
+                <SidebarGroup key={group.title} className="py-0">
                     <SidebarGroupLabel className="flex items-center justify-between gap-2">
                         <span>{group.title}</span>
                         {soonGroups.has(group.title) && (

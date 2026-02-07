@@ -25,6 +25,10 @@ Route::get('/pricing', function () {
 })->name('pricing');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('components', function () {
+        return Inertia::render('components');
+    })->name('components.playground');
+
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
