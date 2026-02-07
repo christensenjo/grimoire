@@ -2,22 +2,21 @@ import { Link } from '@inertiajs/react';
 import { type PropsWithChildren } from 'react';
 
 interface AuthLayoutProps {
-    name?: string;
     title?: string;
     description?: string;
 }
 
-export default function AuthSimpleLayout({ children, title, description }: PropsWithChildren<AuthLayoutProps>) {
+export default function AuthImageLayout({ children, title, description }: PropsWithChildren<AuthLayoutProps>) {
     const titleFirstLetter = title?.[0]?.toUpperCase() ?? '';
     const titleRemainder = title?.slice(1) ?? '';
 
     return (
-        <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-transparent p-6 md:p-10 [&_[data-slot=input]]:bg-background">
-            <div className="w-full max-w-sm">
-                <div className="flex flex-col gap-8">
-                    <div className="flex flex-col items-center gap-4">
-                        <Link href={route('home')} className="flex flex-col items-center gap-2 font-medium">
-                            <div className="mb-1 flex h-9 w-9 items-center justify-center rounded-md">
+        <div className="flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+            <div className="w-full max-w-sm md:max-w-4xl">
+                <div className="grid overflow-hidden rounded-xl border bg-background/90 md:grid-cols-2">
+                    <div className="flex flex-col gap-6 p-6 md:p-10">
+                        <Link href={route('home')} className="flex items-center gap-2 font-medium">
+                            <div className="flex h-9 w-9 items-center justify-center">
                                 <img
                                     src="/images/logos/castlebooks_square/castlebook_jet.svg"
                                     alt="Castlebooks logo"
@@ -32,17 +31,25 @@ export default function AuthSimpleLayout({ children, title, description }: Props
                             <span className="sr-only">{title}</span>
                         </Link>
 
-                        <div className="space-y-2 text-center">
+                        <div className="space-y-2">
                             {title && (
                                 <h1 className="text-xl font-medium">
                                     <span className="font-title-shaded text-3xl leading-none">{titleFirstLetter}</span>
                                     {titleRemainder}
                                 </h1>
                             )}
-                            <p className="text-center text-sm text-muted-foreground">{description}</p>
+                            <p className="text-sm text-muted-foreground">{description}</p>
                         </div>
+
+                        {children}
                     </div>
-                    {children}
+                    <div className="relative hidden md:block">
+                        <img
+                            src="/images/hero-placeholder.svg"
+                            alt="Authentication illustration"
+                            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

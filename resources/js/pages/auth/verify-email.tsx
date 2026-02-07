@@ -20,12 +20,12 @@ export default function VerifyEmail({ status }: { status?: string }) {
             <Form method="post" action={route('verification.send')} className="space-y-6 text-center">
                 {({ processing }) => (
                     <>
-                        <Button disabled={processing} variant="secondary">
+                        <Button disabled={processing} variant="secondary" className="font-sans">
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                             Resend verification email
                         </Button>
 
-                        <TextLink href={route('logout')} method="post" className="mx-auto block text-sm">
+                        <TextLink href={route('logout')} method="post" className="mx-auto block text-sm font-sans">
                             Log out
                         </TextLink>
                     </>

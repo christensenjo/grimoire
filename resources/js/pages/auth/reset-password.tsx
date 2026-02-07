@@ -27,7 +27,15 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                     <div className="grid gap-6">
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
-                            <Input id="email" type="email" name="email" autoComplete="email" value={email} className="mt-1 block w-full" readOnly />
+                            <Input
+                                id="email"
+                                type="email"
+                                name="email"
+                                autoComplete="email"
+                                value={email}
+                                className="mt-1 block w-full font-sans"
+                                readOnly
+                            />
                             <InputError message={errors.email} className="mt-2" />
                         </div>
 
@@ -38,7 +46,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                                 type="password"
                                 name="password"
                                 autoComplete="new-password"
-                                className="mt-1 block w-full"
+                                className="mt-1 block w-full font-sans"
                                 autoFocus
                                 placeholder="Password"
                             />
@@ -52,13 +60,13 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                                 type="password"
                                 name="password_confirmation"
                                 autoComplete="new-password"
-                                className="mt-1 block w-full"
+                                className="mt-1 block w-full font-sans"
                                 placeholder="Confirm password"
                             />
                             <InputError message={errors.password_confirmation} className="mt-2" />
                         </div>
 
-                        <Button type="submit" className="mt-4 w-full" disabled={processing}>
+                        <Button type="submit" className="mt-4 w-full font-sans" disabled={processing}>
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                             Reset password
                         </Button>
