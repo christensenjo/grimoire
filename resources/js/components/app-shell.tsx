@@ -1,4 +1,5 @@
 import { SidebarProvider } from '@/components/ui/sidebar';
+import ShaderBackgroundLayout from '@/layouts/shader-background-layout';
 import { SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 
@@ -11,8 +12,16 @@ export function AppShell({ children, variant = 'header' }: AppShellProps) {
     const isOpen = usePage<SharedData>().props.sidebarOpen;
 
     if (variant === 'header') {
-        return <div className="flex min-h-screen w-full flex-col">{children}</div>;
+        return (
+            <ShaderBackgroundLayout showNav={false}>
+                <div className="flex min-h-dvh w-full flex-col">{children}</div>
+            </ShaderBackgroundLayout>
+        );
     }
 
-    return <SidebarProvider defaultOpen={isOpen}>{children}</SidebarProvider>;
+    return (
+        <ShaderBackgroundLayout showNav={false}>
+            <SidebarProvider defaultOpen={isOpen}>{children}</SidebarProvider>
+        </ShaderBackgroundLayout>
+    );
 }

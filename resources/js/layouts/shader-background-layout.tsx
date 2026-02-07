@@ -13,7 +13,7 @@ export default function ShaderBackgroundLayout({ children, showNav = true }: Sha
     const filmGrainStrength = isDark ? 0.03 : 1;
 
     return (
-        <div className="relative min-h-screen w-full overflow-hidden">
+        <div className="relative min-h-dvh w-full overflow-hidden">
             <div className="pointer-events-none absolute inset-0 z-0">
                 <Shader className="size-full">
                     <SolidColor color={shaderColor} />
