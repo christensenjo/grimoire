@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type PropsWithChildren } from 'react';
 
 export type Appearance = 'light' | 'dark' | 'system';
 
@@ -19,8 +19,13 @@ const setCookie = (name: string, value: string, days = 365) => {
     document.cookie = `${name}=${value};path=/;max-age=${maxAge};SameSite=Lax`;
 };
 
-const applyTheme = (appearance: Appearance) => {
-    const isDark = appearance === 'dark' || (appearance === 'system' && prefersDark());
+const resolveIsDark = (appearance: Appearance, systemPrefersDark: boolean) =>
+    appearance === 'dark' || (appearance === 'system' && systemPrefersDark);
+
+const applyTheme = (isDark: boolean) => {
+    if (typeof document === 'undefined') {
+        return;
+    }
 
     document.documentElement.classList.toggle('dark', isDark);
 };
@@ -35,20 +40,38 @@ const mediaQuery = () => {
 
 const handleSystemThemeChange = () => {
     const currentAppearance = localStorage.getItem('appearance') as Appearance;
-    applyTheme(currentAppearance || 'system');
+    const isDark = resolveIsDark(currentAppearance || 'system', prefersDark());
+    applyTheme(isDark);
 };
 
 export function initializeTheme() {
     const savedAppearance = (localStorage.getItem('appearance') as Appearance) || 'system';
 
-    applyTheme(savedAppearance);
+    const isDark = resolveIsDark(savedAppearance, prefersDark());
+    applyTheme(isDark);
 
     // Add the event listener for system theme changes...
     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
 }
 
-export function useAppearance() {
-    const [appearance, setAppearance] = useState<Appearance>('system');
+type AppearanceContextValue = {
+    appearance: Appearance;
+    updateAppearance: (mode: Appearance) => void;
+    isDark: boolean;
+    resolvedAppearance: 'light' | 'dark';
+};
+
+const AppearanceContext = createContext<AppearanceContextValue | null>(null);
+
+export function AppearanceProvider({ children }: PropsWithChildren) {
+    const [appearance, setAppearance] = useState<Appearance>(() => {
+        if (typeof window === 'undefined') {
+            return 'system';
+        }
+
+        return (localStorage.getItem('appearance') as Appearance) || 'system';
+    });
+    const [systemPrefersDark, setSystemPrefersDark] = useState(prefersDark);
 
     const updateAppearance = useCallback((mode: Appearance) => {
         setAppearance(mode);
@@ -58,16 +81,54 @@ export function useAppearance() {
 
         // Store in cookie for SSR...
         setCookie('appearance', mode);
-
-        applyTheme(mode);
     }, []);
 
     useEffect(() => {
-        const savedAppearance = localStorage.getItem('appearance') as Appearance | null;
-        updateAppearance(savedAppearance || 'system');
+        if (appearance !== 'system') {
+            return;
+        }
 
+        const query = mediaQuery();
+        if (!query) {
+            return;
+        }
+
+        const handleChange = (event: MediaQueryListEvent) => {
+            setSystemPrefersDark(event.matches);
+        };
+
+        query.addEventListener('change', handleChange);
+
+        return () => {
+            query.removeEventListener('change', handleChange);
+        };
+    }, [appearance]);
+
+    const isDark = useMemo(() => resolveIsDark(appearance, systemPrefersDark), [appearance, systemPrefersDark]);
+    const resolvedAppearance = isDark ? 'dark' : 'light';
+
+    useEffect(() => {
+        applyTheme(isDark);
+    }, [isDark]);
+
+    useEffect(() => {
         return () => mediaQuery()?.removeEventListener('change', handleSystemThemeChange);
-    }, [updateAppearance]);
+    }, []);
 
-    return { appearance, updateAppearance } as const;
+    const value = useMemo(
+        () => ({ appearance, updateAppearance, isDark, resolvedAppearance }),
+        [appearance, isDark, resolvedAppearance, updateAppearance],
+    );
+
+    return <AppearanceContext.Provider value={value}>{children}</AppearanceContext.Provider>;
+}
+
+export function useAppearance() {
+    const context = useContext(AppearanceContext);
+
+    if (!context) {
+        throw new Error('useAppearance must be used within AppearanceProvider');
+    }
+
+    return context;
 }

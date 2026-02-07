@@ -8,14 +8,14 @@ import Pricing from '@/components/pricing';
 import TrustBanner from '@/components/trust-banner';
 import { Button } from '@/components/ui/button';
 import WhyChooseUs from '@/components/why-choose-us';
-import PublicLayout from '@/layouts/public-layout';
+import ShaderBackgroundLayout from '@/layouts/shader-background-layout';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Welcome() {
     return (
         <>
             <Head title="Welcome" />
-            <PublicLayout>
+            <ShaderBackgroundLayout>
                 <div className="mx-auto flex max-w-screen-2xl flex-col px-4 py-6">
                     {/* Hero - reduced padding to show dashboard preview below */}
                     <section className="flex w-full flex-row items-center justify-between gap-16 pt-8 pb-12 md:pt-12 md:pb-16">
@@ -95,7 +95,7 @@ export default function Welcome() {
 
                 {/* Footer */}
                 <Footer />
-            </PublicLayout>
+            </ShaderBackgroundLayout>
         </>
     );
 }
