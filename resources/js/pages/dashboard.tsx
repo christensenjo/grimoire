@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Lombardic } from '@/components/lombardic';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { type BreadcrumbItem, type SharedData } from '@/types';
+import { Head, usePage } from '@inertiajs/react';
 import { Castle, MapPin, PawPrint, ScrollText, Sparkles, Sword, UserRound } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -17,6 +18,9 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Dashboard() {
+    const { auth } = usePage<SharedData>().props;
+    const firstName = auth.user.name.trim().split(' ')[0];
+    const greeting = firstName ? `Welcome back, ${firstName}` : 'Welcome back';
     const summaryStats = [
         { label: 'Settings', value: '4' },
         { label: 'Locations', value: '27' },
@@ -111,8 +115,9 @@ export default function Dashboard() {
                 <section className="flex flex-col gap-4">
                     <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                         <div className="space-y-2">
-                            <p className="text-sm font-medium text-muted-foreground">Welcome back</p>
-                            <h1 className="text-balance text-3xl font-semibold text-foreground">Your Grimoire Summary</h1>
+                            <h1 className="text-balance text-3xl font-semibold text-foreground font-serif">
+                                <Lombardic text={greeting} />
+                            </h1>
                             <p className="text-pretty text-sm text-muted-foreground">
                                 Keep your worldbuilding organized across settings, locations, and characters.
                             </p>

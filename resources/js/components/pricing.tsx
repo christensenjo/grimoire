@@ -1,3 +1,4 @@
+import { Lombardic } from '@/components/lombardic';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, Sparkles } from 'lucide-react';
@@ -121,7 +122,9 @@ export default function Pricing() {
         <section className="w-full py-20">
             <div className="mx-auto max-w-screen-2xl px-4">
                 <div className="mb-12 text-center">
-                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment font-serif"><span className="font-title text-5xl tracking-wide">P</span>ricing</h2>
+                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment font-serif">
+                        <Lombardic text="Pricing" letterClassName="text-5xl tracking-wide" />
+                    </h2>
                     <p className="mx-auto max-w-2xl text-lg text-pretty text-tome/70 dark:text-parchment/70 font-serif">
                         Choose the plan that fits your worldbuilding needs. Upgrade or downgrade anytime.
                     </p>

@@ -15,6 +15,7 @@ import HowItWorks from '@/components/how-it-works';
 import { Icon as AppIcon } from '@/components/icon';
 import Integrations from '@/components/integrations';
 import InputError from '@/components/input-error';
+import { Lombardic } from '@/components/lombardic';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -228,9 +229,11 @@ export default function Components() {
             <div className="flex h-full flex-1 flex-col gap-8 overflow-x-hidden rounded-xl bg-parchment p-6 text-tome shadow-sm dark:bg-jet dark:text-parchment">
                 <section className="flex flex-col gap-4">
                     <div className="flex flex-col gap-3">
-                        <p className="text-sm font-medium text-tome/70 dark:text-parchment/70">Component Playground</p>
-                        <h1 className="text-balance text-3xl font-semibold">Inspect and tweak every UI building block</h1>
-                        <p className="max-w-3xl text-pretty text-sm text-tome/70 dark:text-parchment/70">
+                        <p className="text-sm font-medium text-tome/70 dark:text-parchment/70 font-serif">Component Playground</p>
+                        <h1 className="text-balance text-3xl font-semibold font-serif">
+                            <Lombardic text="Inspect and tweak every UI building block" />
+                        </h1>
+                        <p className="max-w-3xl text-pretty text-sm text-tome/70 dark:text-parchment/70 font-serif">
                             This page renders every component so you can inspect styles and interactions in one place. The background swaps
                             between parchment and jet based on theme.
                         </p>
@@ -249,6 +252,7 @@ export default function Components() {
                         </div>
                     </DemoCard>
                     <DemoCard title="Headings">
+                        <Lombardic text="Title text" className="text-3xl font-semibold font-serif" letterClassName="text-4xl tracking-wide" />
                         <Heading title="Quest log" description="Keep track of your current objectives." />
                         <HeadingSmall title="Side quests" description="Optional tasks and lore hooks." />
                     </DemoCard>

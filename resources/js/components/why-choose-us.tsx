@@ -1,3 +1,4 @@
+import { Lombardic } from '@/components/lombardic';
 import { Card, CardContent } from '@/components/ui/card';
 import { Check, X } from 'lucide-react';
 
@@ -38,7 +39,9 @@ export default function WhyChooseUs() {
         <section className="w-full py-20">
             <div className="mx-auto max-w-screen-2xl px-4">
                 <div className="mb-12 text-center">
-                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment font-serif"><span className="font-title text-5xl tracking-wide">W</span>hy Choose Grimoire?</h2>
+                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment font-serif">
+                        <Lombardic text="Why Choose Grimoire?" letterClassName="text-5xl tracking-wide" />
+                    </h2>
                     <p className="mx-auto max-w-2xl text-lg text-pretty text-tome/70 dark:text-parchment/70 font-serif">
                         Stop fighting your tools. Start building worlds.
                     </p>

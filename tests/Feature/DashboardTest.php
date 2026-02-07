@@ -17,5 +17,6 @@ test('authenticated users can visit the dashboard', function () {
         ->assertInertia(fn (Assert $page) => $page
             ->component('dashboard')
             ->where('auth.user.id', $user->id)
+            ->where('auth.user.name', $user->name)
         );
 });

@@ -1,3 +1,4 @@
+import { Lombardic } from '@/components/lombardic';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookOpen, Compass, FileText, Music } from 'lucide-react';
 
@@ -37,7 +38,9 @@ export default function Features() {
         <section className="w-full py-20">
             <div className="mx-auto max-w-screen-2xl px-4">
                 <div className="mb-12 text-center">
-                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment font-serif"><span className="font-title text-5xl tracking-wide">F</span>eatures</h2>
+                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment font-serif">
+                        <Lombardic text="Features" letterClassName="text-5xl tracking-wide" />
+                    </h2>
                     <p className="mx-auto max-w-2xl text-lg text-pretty text-tome/70 dark:text-parchment/70 font-serif">
                         Everything you need to build immersive worlds, from templates to AI-powered exploration
                     </p>
