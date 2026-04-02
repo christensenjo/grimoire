@@ -252,7 +252,7 @@ export default function Components() {
                         </div>
                     </DemoCard>
                     <DemoCard title="Headings">
-                        <Lombardic text="Title text" className="text-3xl font-semibold font-serif" letterClassName="text-4xl tracking-wide" />
+                        <Lombardic text="Title text" className="text-3xl font-semibold font-serif" letterClassName="text-xl tracking-wide" />
                         <Heading title="Quest log" description="Keep track of your current objectives." />
                         <HeadingSmall title="Side quests" description="Optional tasks and lore hooks." />
                     </DemoCard>
