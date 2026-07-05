@@ -15,17 +15,19 @@ interface NavLinkProps {
 
 function NavLink({ href, children, className, prefetch = true }: NavLinkProps) {
     return (
-        <NavigationMenuLink asChild>
-            <Link
-                href={href}
-                prefetch={prefetch}
-                className={cn(
-                    'group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 font-serif text-lg font-medium text-black transition-all duration-150 hover:bg-black/5 hover:text-black focus:bg-black/5 focus:text-black disabled:pointer-events-none disabled:opacity-50 data-[active=true]:bg-accent/50 data-[state=open]:bg-accent/50 dark:text-white dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10',
-                    className,
-                )}
-            >
-                {children}
-            </Link>
+        <NavigationMenuLink
+            render={
+                <Link
+                    href={href}
+                    prefetch={prefetch}
+                />
+            }
+            className={cn(
+                'group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 font-serif text-lg font-medium text-black transition-all duration-150 hover:bg-black/5 hover:text-black focus:bg-black/5 focus:text-black disabled:pointer-events-none disabled:opacity-50 data-[active=true]:bg-accent/50 data-[state=open]:bg-accent/50 dark:text-white dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10',
+                className,
+            )}
+        >
+            {children}
         </NavigationMenuLink>
     );
 }

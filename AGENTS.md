@@ -275,8 +275,18 @@ We use **shadcn/ui** as our component library. When creating components or build
 - **Check shadcn first** - Look for existing components at https://ui.shadcn.com/docs/components before building custom ones
 - **shadcn MCP available** - Use the shadcn MCP server (configured in `opencode.json`) for component discovery and documentation
 - **Brand colors configured** - Our `resources/css/app.css` is set up with brand colors mapped to shadcn CSS variables
-- **Prefer Base UI** - When using shadcn components, prefer the Base UI version over Radix primitives
+- **Base UI only** - shadcn components must use Base UI (`@base-ui/react`), not Radix UI. Do not add `@radix-ui/*` dependencies. Install components with `pnpm dlx shadcn@latest add <component>` using the existing `base-vega` style in `components.json`, then verify generated components import from `@base-ui/react`.
 - **Extend, don't replace** - Build on top of existing shadcn components rather than creating parallel implementations
+
+## Interim Design Philosophy
+
+Until Grimoire is closer to feature-complete, prioritize shipping backend and product functionality over custom visual design.
+
+- Use stock shadcn/ui components and simple layouts before custom-designed surfaces
+- Keep styling minimal and local to components; do not modify `resources/css/app.css` for temporary marketing polish
+- Keep the public landing page honest and minimal while major advertised features are still in progress
+- Preserve the `Lombardic` drop-cap component as an intentional design element
+- Revisit this section when the app is ready for a more comprehensive design process
 
 ## External Rules
 

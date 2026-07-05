@@ -26,25 +26,23 @@ export default function CTASection() {
                             </p>
                             <div className="flex flex-col gap-3 sm:flex-row lg:justify-start">
                                 <Button
-                                    asChild
+                                    render={<Link href={route('register')} />}
                                     size="lg"
                                     className="gap-2 bg-magic px-8 text-base font-medium text-white hover:bg-magic/80"
                                 >
-                                    <Link href={route('register')}>
-                                        Get Started Free
-                                        <ArrowRight
-                                            className="h-4 w-4"
-                                            aria-hidden="true"
-                                        />
-                                    </Link>
+                                    Get Started Free
+                                    <ArrowRight
+                                        className="h-4 w-4"
+                                        aria-hidden="true"
+                                    />
                                 </Button>
                                 <Button
-                                    asChild
+                                    render={<Link href={route('features')} />}
                                     variant="outline"
                                     size="lg"
                                     className="border-tome/20 px-8 text-base hover:bg-tome/5 dark:border-parchment/20 dark:text-parchment"
                                 >
-                                    <Link href={route('features')}>Explore Features</Link>
+                                    Explore Features
                                 </Button>
                             </div>
                         </div>

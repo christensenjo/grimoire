@@ -34,33 +34,33 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem
-                    asChild
+                    render={
+                        <Link
+                            href={route('profile.edit')}
+                            as="button"
+                            prefetch
+                            onClick={cleanup}
+                        />
+                    }
                     className="cursor-pointer focus:bg-armor/10 focus:text-armor"
                 >
-                    <Link
-                        className="block w-full font-sans"
-                        href={route('profile.edit')}
-                        as="button"
-                        prefetch
-                        onClick={cleanup}
-                    >
-                        <Settings className="mr-2" />
-                        <span className="font-sans">Settings</span>
-                    </Link>
+                    <Settings className="mr-2" />
+                    <span className="font-sans">Settings</span>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuLabel className="px-2 py-1 font-sans text-xs text-muted-foreground">Theme</DropdownMenuLabel>
                 <ToggleGroup
-                    type="single"
-                    value={appearance}
+                    value={[appearance]}
                     onValueChange={(value) => {
-                        if (!value) {
+                        const selectedAppearance = value[0] as Appearance | undefined;
+
+                        if (!selectedAppearance) {
                             return;
                         }
 
-                        updateAppearance(value as Appearance);
+                        updateAppearance(selectedAppearance);
                     }}
                     variant="outline"
                     size="sm"
@@ -94,19 +94,18 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-                asChild
+                render={
+                    <Link
+                        method="post"
+                        href={route('logout')}
+                        as="button"
+                        onClick={handleLogout}
+                    />
+                }
                 className="cursor-pointer focus:bg-armor/10 focus:text-armor"
             >
-                <Link
-                    className="block w-full font-sans"
-                    method="post"
-                    href={route('logout')}
-                    as="button"
-                    onClick={handleLogout}
-                >
-                    <LogOut className="mr-2" />
-                    <span className="font-sans">Log out</span>
-                </Link>
+                <LogOut className="mr-2" />
+                <span className="font-sans">Log out</span>
             </DropdownMenuItem>
         </>
     );

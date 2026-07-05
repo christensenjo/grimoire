@@ -15,7 +15,7 @@ export default function ShaderBackgroundLayout({ children, showNav = true }: Sha
 
     return (
         <div className="relative min-h-dvh w-full overflow-hidden">
-            <div className="pointer-events-none absolute inset-0 z-0">
+            <div className="pointer-events-none fixed inset-0 z-0">
                 <Shader className="size-full">
                     <SolidColor color={shaderColor} />
                     <FilmGrain strength={filmGrainStrength} />
