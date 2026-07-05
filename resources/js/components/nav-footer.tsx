@@ -22,42 +22,40 @@ export function NavFooter({
                         <SidebarMenuItem key={item.title}>
                             {item.isExternal ? (
                                 <SidebarMenuButton
-                                    asChild
-                                    variant="ghost"
+                                    render={
+                                        <a
+                                            href={item.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        />
+                                    }
                                     className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100"
                                 >
-                                    <a
-                                        href={item.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        {item.icon && (
-                                            <item.icon
-                                                className="size-4 shrink-0"
-                                                aria-hidden="true"
-                                            />
-                                        )}
-                                        <span className="font-sans">{item.title}</span>
-                                    </a>
+                                    {item.icon && (
+                                        <item.icon
+                                            className="size-4 shrink-0"
+                                            aria-hidden="true"
+                                        />
+                                    )}
+                                    <span className="font-sans">{item.title}</span>
                                 </SidebarMenuButton>
                             ) : (
                                 <SidebarMenuButton
-                                    asChild
-                                    variant="ghost"
+                                    render={
+                                        <Link
+                                            href={item.href}
+                                            prefetch
+                                        />
+                                    }
                                     className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100"
                                 >
-                                    <Link
-                                        href={item.href}
-                                        prefetch
-                                    >
-                                        {item.icon && (
-                                            <item.icon
-                                                className="size-4 shrink-0"
-                                                aria-hidden="true"
-                                            />
-                                        )}
-                                        <span className="font-sans">{item.title}</span>
-                                    </Link>
+                                    {item.icon && (
+                                        <item.icon
+                                            className="size-4 shrink-0"
+                                            aria-hidden="true"
+                                        />
+                                    )}
+                                    <span className="font-sans">{item.title}</span>
                                 </SidebarMenuButton>
                             )}
                         </SidebarMenuItem>

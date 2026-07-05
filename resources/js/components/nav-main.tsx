@@ -17,7 +17,6 @@ function NavMainItem({ item, isActive }: { item: NavItem; isActive: boolean }) {
     if (item.disabled) {
         return (
             <SidebarMenuButton
-                variant="ghost"
                 className={buttonClasses}
                 disabled
             >
@@ -37,39 +36,15 @@ function NavMainItem({ item, isActive }: { item: NavItem; isActive: boolean }) {
     if (item.isExternal) {
         return (
             <SidebarMenuButton
-                variant="ghost"
-                asChild
+                render={
+                    <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noreferrer"
+                    />
+                }
                 className={buttonClasses}
                 isActive={isActive}
-            >
-                <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    {item.icon && (
-                        <item.icon
-                            className="size-4 shrink-0"
-                            aria-hidden="true"
-                        />
-                    )}
-                    <span className="font-sans">{item.title}</span>
-                </a>
-            </SidebarMenuButton>
-        );
-    }
-
-    return (
-        <SidebarMenuButton
-            variant="ghost"
-            asChild
-            className={buttonClasses}
-            isActive={isActive}
-            tooltip={{ children: item.title }}
-        >
-            <Link
-                href={item.href}
-                prefetch
             >
                 {item.icon && (
                     <item.icon
@@ -78,7 +53,29 @@ function NavMainItem({ item, isActive }: { item: NavItem; isActive: boolean }) {
                     />
                 )}
                 <span className="font-sans">{item.title}</span>
-            </Link>
+            </SidebarMenuButton>
+        );
+    }
+
+    return (
+        <SidebarMenuButton
+            render={
+                <Link
+                    href={item.href}
+                    prefetch
+                />
+            }
+            className={buttonClasses}
+            isActive={isActive}
+            tooltip={{ children: item.title }}
+        >
+            {item.icon && (
+                <item.icon
+                    className="size-4 shrink-0"
+                    aria-hidden="true"
+                />
+            )}
+            <span className="font-sans">{item.title}</span>
         </SidebarMenuButton>
     );
 }

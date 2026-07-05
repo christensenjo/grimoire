@@ -18,17 +18,16 @@ export function NavUser() {
             <SidebarMenuItem>
                 <DropdownMenu>
                     <DropdownMenuTrigger
-                        asChild
                         className="cursor-pointer"
+                        render={
+                            <SidebarMenuButton
+                                size="lg"
+                                className="group text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent"
+                            />
+                        }
                     >
-                        <SidebarMenuButton
-                            size="lg"
-                            variant="ghost"
-                            className="group text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent"
-                        >
-                            <UserInfo user={auth.user} />
-                            <ChevronsUpDown className="ml-auto size-4" />
-                        </SidebarMenuButton>
+                        <UserInfo user={auth.user} />
+                        <ChevronsUpDown className="ml-auto size-4" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"

@@ -26,7 +26,6 @@ import { NavUser } from '@/components/nav-user';
 import Pricing from '@/components/pricing';
 import PublicNav from '@/components/public-nav';
 import TextLink from '@/components/text-link';
-import TrustBanner from '@/components/trust-banner';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -241,9 +240,7 @@ export default function Components() {
                     </DemoCard>
                     <DemoCard title="User menu content">
                         <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="outline">Open user menu</Button>
-                            </DropdownMenuTrigger>
+                            <DropdownMenuTrigger render={<Button variant="outline" />}>Open user menu</DropdownMenuTrigger>
                             <DropdownMenuContent
                                 className="w-64"
                                 align="start"
@@ -319,9 +316,7 @@ export default function Components() {
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink asChild>
-                                        <Link href="/library">Library</Link>
-                                    </BreadcrumbLink>
+                                    <BreadcrumbLink render={<Link href="/library" />}>Library</BreadcrumbLink>
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator />
                                 <BreadcrumbItem>
@@ -329,9 +324,7 @@ export default function Components() {
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator />
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink asChild>
-                                        <Link href="/library/characters">Characters</Link>
-                                    </BreadcrumbLink>
+                                    <BreadcrumbLink render={<Link href="/library/characters" />}>Characters</BreadcrumbLink>
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator />
                                 <BreadcrumbItem>
@@ -385,13 +378,15 @@ export default function Components() {
                         >
                             <div className="flex items-center justify-between">
                                 <p className="text-sm font-medium">Quick summary</p>
-                                <CollapsibleTrigger asChild>
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                    >
-                                        {collapsibleOpen ? 'Hide' : 'Show'}
-                                    </Button>
+                                <CollapsibleTrigger
+                                    render={
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                        />
+                                    }
+                                >
+                                    {collapsibleOpen ? 'Hide' : 'Show'}
                                 </CollapsibleTrigger>
                             </div>
                             <CollapsibleContent className="mt-2 text-sm text-tome/70 dark:text-parchment/70">
@@ -401,9 +396,7 @@ export default function Components() {
                     </DemoCard>
                     <DemoCard title="Dialog">
                         <Dialog>
-                            <DialogTrigger asChild>
-                                <Button variant="outline">Open dialog</Button>
-                            </DialogTrigger>
+                            <DialogTrigger render={<Button variant="outline" />}>Open dialog</DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
                                     <DialogTitle>New campaign</DialogTitle>
@@ -417,9 +410,7 @@ export default function Components() {
                                     />
                                 </div>
                                 <DialogFooter className="gap-2">
-                                    <DialogClose asChild>
-                                        <Button variant="secondary">Cancel</Button>
-                                    </DialogClose>
+                                    <DialogClose render={<Button variant="secondary" />}>Cancel</DialogClose>
                                     <Button>Create</Button>
                                 </DialogFooter>
                             </DialogContent>
@@ -427,9 +418,7 @@ export default function Components() {
                     </DemoCard>
                     <DemoCard title="Dropdown menu">
                         <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="outline">Open menu</Button>
-                            </DropdownMenuTrigger>
+                            <DropdownMenuTrigger render={<Button variant="outline" />}>Open menu</DropdownMenuTrigger>
                             <DropdownMenuContent className="w-56">
                                 <DropdownMenuLabel>Profile</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
@@ -548,9 +537,7 @@ export default function Components() {
                     </DemoCard>
                     <DemoCard title="Sheet">
                         <Sheet>
-                            <SheetTrigger asChild>
-                                <Button variant="outline">Open sheet</Button>
-                            </SheetTrigger>
+                            <SheetTrigger render={<Button variant="outline" />}>Open sheet</SheetTrigger>
                             <SheetContent side="right">
                                 <SheetHeader>
                                     <SheetTitle>Notifications</SheetTitle>
@@ -561,9 +548,7 @@ export default function Components() {
                                     <div className="rounded-md border border-border p-3 text-sm">Lyra leveled up</div>
                                 </div>
                                 <SheetFooter>
-                                    <SheetClose asChild>
-                                        <Button variant="secondary">Close</Button>
-                                    </SheetClose>
+                                    <SheetClose render={<Button variant="secondary" />}>Close</SheetClose>
                                 </SheetFooter>
                             </SheetContent>
                         </Sheet>
@@ -580,7 +565,6 @@ export default function Components() {
                                             <SidebarMenuItem>
                                                 <SidebarMenuButton
                                                     tooltip="Dashboard"
-                                                    variant="ghost"
                                                     className="justify-start"
                                                 >
                                                     <LayoutGrid className="size-4" />
@@ -679,9 +663,8 @@ export default function Components() {
                     </DemoCard>
                     <DemoCard title="Toggle group">
                         <ToggleGroup
-                            type="single"
-                            value={toggleGroupValue}
-                            onValueChange={(value) => value && setToggleGroupValue(value)}
+                            value={[toggleGroupValue]}
+                            onValueChange={(value) => value[0] && setToggleGroupValue(value[0])}
                             variant="outline"
                         >
                             <ToggleGroupItem
@@ -701,9 +684,7 @@ export default function Components() {
                     <DemoCard title="Tooltip">
                         <TooltipProvider>
                             <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button variant="outline">Hover me</Button>
-                                </TooltipTrigger>
+                                <TooltipTrigger render={<Button variant="outline" />}>Hover me</TooltipTrigger>
                                 <TooltipContent>Tooltip content</TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
@@ -717,7 +698,6 @@ export default function Components() {
                     </div>
                     <div className="flex flex-col gap-8 rounded-xl border border-tome/10 bg-parchment-50 p-4 dark:border-parchment/10 dark:bg-jet/50">
                         <PublicNav />
-                        <TrustBanner />
                         <Features />
                         <HowItWorks />
                         <Integrations />

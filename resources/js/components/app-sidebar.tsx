@@ -67,16 +67,15 @@ export function AppSidebar() {
                         <SidebarMenuItem className="mb-2">
                             <SidebarMenuButton
                                 size="lg"
-                                variant="ghost"
                                 className="cursor-pointer hover:bg-transparent hover:text-jet"
-                                asChild
+                                render={
+                                    <Link
+                                        href="/dashboard"
+                                        prefetch
+                                    />
+                                }
                             >
-                                <Link
-                                    href="/dashboard"
-                                    prefetch
-                                >
-                                    <AppLogo />
-                                </Link>
+                                <AppLogo />
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     </SidebarMenu>
@@ -85,7 +84,6 @@ export function AppSidebar() {
                             <SidebarMenuItem>
                                 <SidebarMenuButton
                                     size="sm"
-                                    variant="ghost"
                                     className="w-full cursor-pointer justify-start gap-2"
                                     tooltip="New Setting"
                                     type="button"
