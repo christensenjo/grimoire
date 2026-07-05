@@ -1,6 +1,5 @@
 import '../css/app.css';
 import { createInertiaApp } from '@inertiajs/react';
-import { Agentation } from 'agentation';
 import { createRoot } from 'react-dom/client';
 
 import { AppearanceProvider, initializeTheme } from './hooks/use-appearance';
@@ -19,7 +18,6 @@ void createInertiaApp({
         root.render(
             <AppearanceProvider>
                 <App {...props} />
-                {import.meta.env.DEV && <Agentation endpoint="http://localhost:4747" />}
             </AppearanceProvider>,
         );
     },
