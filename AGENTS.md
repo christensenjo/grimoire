@@ -1,6 +1,6 @@
 # Agent Guidelines for Grimoire
 
-> Laravel 12 + React 19 + Inertia v3 + Tailwind v4 + Pest v4 + Vite+
+> Laravel 13 + React 19 + Inertia v3 + Tailwind v4 + Pest v4 + Vite+
 
 ## Build/Development Commands
 
@@ -132,7 +132,7 @@ tests/
 
 ## Key Conventions
 
-1. **Laravel 12 Structure**: No `app/Console/Kernel.php`, no middleware directory by default
+1. **Laravel 13 Structure**: No `app/Console/Kernel.php`, no middleware directory by default
 2. **Routes**: Use named routes with `route()` helper
 3. **Config**: Use `config()` helper, never `env()` outside config files
 4. **Database**: Prefer Eloquent over `DB::` facade, eager load to avoid N+1
