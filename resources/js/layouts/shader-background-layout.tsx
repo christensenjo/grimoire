@@ -1,7 +1,8 @@
-import PublicNav from '@/components/public-nav';
-import { useAppearance } from '@/hooks/use-appearance';
 import type { PropsWithChildren } from 'react';
 import { FilmGrain, Shader, SolidColor } from 'shaders/react';
+
+import PublicNav from '@/components/public-nav';
+import { useAppearance } from '@/hooks/use-appearance';
 
 type ShaderBackgroundLayoutProps = PropsWithChildren<{
     showNav?: boolean;

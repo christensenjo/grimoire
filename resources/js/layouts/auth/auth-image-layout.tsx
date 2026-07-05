@@ -15,7 +15,10 @@ export default function AuthImageLayout({ children, title, description }: PropsW
             <div className="w-full max-w-sm md:max-w-4xl">
                 <div className="grid overflow-hidden rounded-xl border bg-background/90 md:grid-cols-2">
                     <div className="flex flex-col gap-6 p-6 md:p-10">
-                        <Link href={route('home')} className="flex items-center gap-2 font-medium">
+                        <Link
+                            href={route('home')}
+                            className="flex items-center gap-2 font-medium"
+                        >
                             <div className="flex h-9 w-9 items-center justify-center">
                                 <img
                                     src="/images/logos/castlebooks_square/castlebook_jet.svg"

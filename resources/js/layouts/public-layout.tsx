@@ -1,5 +1,6 @@
-import PublicNav from '@/components/public-nav';
 import type { PropsWithChildren } from 'react';
+
+import PublicNav from '@/components/public-nav';
 
 export default function PublicLayout({ children }: PropsWithChildren) {
     return (

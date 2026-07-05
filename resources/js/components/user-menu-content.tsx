@@ -1,11 +1,12 @@
-import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { type Appearance, useAppearance } from '@/hooks/use-appearance';
-import { UserInfo } from '@/components/user-info';
-import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
-import { type User } from '@/types';
 import { Link, router } from '@inertiajs/react';
 import { LogOut, Monitor, Moon, Settings, Sun } from 'lucide-react';
+
+import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { UserInfo } from '@/components/user-info';
+import { type Appearance, useAppearance } from '@/hooks/use-appearance';
+import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
+import { type User } from '@/types';
 
 interface UserMenuContentProps {
     user: User;
@@ -24,13 +25,25 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
         <>
             <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <UserInfo user={user} showEmail={true} />
+                    <UserInfo
+                        user={user}
+                        showEmail={true}
+                    />
                 </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-                <DropdownMenuItem asChild className="cursor-pointer focus:bg-armor/10 focus:text-armor">
-                    <Link className="block w-full font-sans" href={route('profile.edit')} as="button" prefetch onClick={cleanup}>
+                <DropdownMenuItem
+                    asChild
+                    className="cursor-pointer focus:bg-armor/10 focus:text-armor"
+                >
+                    <Link
+                        className="block w-full font-sans"
+                        href={route('profile.edit')}
+                        as="button"
+                        prefetch
+                        onClick={cleanup}
+                    >
                         <Settings className="mr-2" />
                         <span className="font-sans">Settings</span>
                     </Link>
@@ -38,7 +51,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-                <DropdownMenuLabel className="px-2 py-1 text-xs font-sans text-muted-foreground">Theme</DropdownMenuLabel>
+                <DropdownMenuLabel className="px-2 py-1 font-sans text-xs text-muted-foreground">Theme</DropdownMenuLabel>
                 <ToggleGroup
                     type="single"
                     value={appearance}
@@ -55,7 +68,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                 >
                     <ToggleGroupItem
                         value="light"
-                        className="flex-1 gap-1 font-sans text-xs cursor-pointer hover:bg-armor/10 hover:text-muted-foreground data-[state=on]:bg-armor/10 data-[state=on]:text-armor"
+                        className="flex-1 cursor-pointer gap-1 font-sans text-xs hover:bg-armor/10 hover:text-muted-foreground data-[state=on]:bg-armor/10 data-[state=on]:text-armor"
                         aria-label="Light theme"
                     >
                         <Sun className="h-3.5 w-3.5" />
@@ -63,7 +76,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                     </ToggleGroupItem>
                     <ToggleGroupItem
                         value="dark"
-                        className="flex-1 gap-1 font-sans text-xs cursor-pointer hover:bg-armor/10 hover:text-muted-foreground data-[state=on]:bg-armor/10 data-[state=on]:text-armor"
+                        className="flex-1 cursor-pointer gap-1 font-sans text-xs hover:bg-armor/10 hover:text-muted-foreground data-[state=on]:bg-armor/10 data-[state=on]:text-armor"
                         aria-label="Dark theme"
                     >
                         <Moon className="h-3.5 w-3.5" />
@@ -71,7 +84,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                     </ToggleGroupItem>
                     <ToggleGroupItem
                         value="system"
-                        className="flex-1 gap-1 font-sans text-xs cursor-pointer hover:bg-armor/10 hover:text-muted-foreground data-[state=on]:bg-armor/10 data-[state=on]:text-armor"
+                        className="flex-1 cursor-pointer gap-1 font-sans text-xs hover:bg-armor/10 hover:text-muted-foreground data-[state=on]:bg-armor/10 data-[state=on]:text-armor"
                         aria-label="System theme"
                     >
                         <Monitor className="h-3.5 w-3.5" />
@@ -80,8 +93,17 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                 </ToggleGroup>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild className="cursor-pointer focus:bg-armor/10 focus:text-armor">
-                <Link className="block w-full font-sans" method="post" href={route('logout')} as="button" onClick={handleLogout}>
+            <DropdownMenuItem
+                asChild
+                className="cursor-pointer focus:bg-armor/10 focus:text-armor"
+            >
+                <Link
+                    className="block w-full font-sans"
+                    method="post"
+                    href={route('logout')}
+                    as="button"
+                    onClick={handleLogout}
+                >
                     <LogOut className="mr-2" />
                     <span className="font-sans">Log out</span>
                 </Link>

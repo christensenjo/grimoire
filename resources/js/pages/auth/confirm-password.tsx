@@ -1,10 +1,11 @@
+import { Form, Head } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
+
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
-import { Form, Head } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
 
 export default function ConfirmPassword() {
     return (
@@ -14,7 +15,11 @@ export default function ConfirmPassword() {
         >
             <Head title="Confirm password" />
 
-            <Form method="post" action={route('password.confirm')} resetOnSuccess={['password']}>
+            <Form
+                method="post"
+                action={route('password.confirm')}
+                resetOnSuccess={['password']}
+            >
                 {({ processing, errors }) => (
                     <div className="space-y-6">
                         <div className="grid gap-2">
@@ -33,7 +38,10 @@ export default function ConfirmPassword() {
                         </div>
 
                         <div className="flex items-center">
-                            <Button className="w-full font-sans" disabled={processing}>
+                            <Button
+                                className="w-full font-sans"
+                                disabled={processing}
+                            >
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Confirm password
                             </Button>

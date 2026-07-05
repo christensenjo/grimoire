@@ -1,4 +1,3 @@
-import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Form, Head, Link, usePage } from '@inertiajs/react';
 
@@ -10,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
+import { type BreadcrumbItem, type SharedData } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -27,7 +27,10 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title="Profile information" description="Update your name and email address" />
+                    <HeadingSmall
+                        title="Profile information"
+                        description="Update your name and email address"
+                    />
 
                     <Form
                         method="patch"
@@ -52,7 +55,10 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                         placeholder="Full name"
                                     />
 
-                                    <InputError className="mt-2" message={errors.name} />
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.name}
+                                    />
                                 </div>
 
                                 <div className="grid gap-2">
@@ -69,7 +75,10 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                         placeholder="Email address"
                                     />
 
-                                    <InputError className="mt-2" message={errors.email} />
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.email}
+                                    />
                                 </div>
 
                                 {mustVerifyEmail && auth.user.email_verified_at === null && (

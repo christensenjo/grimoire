@@ -1,6 +1,7 @@
+import { Feather, Rocket, UserPlus } from 'lucide-react';
+
 import { Lombardic } from '@/components/lombardic';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Feather, Rocket, UserPlus } from 'lucide-react';
 
 const steps = [
     {
@@ -28,10 +29,13 @@ export default function HowItWorks() {
         <section className="w-full bg-parchment-50 py-20 dark:bg-jet/30">
             <div className="mx-auto max-w-screen-2xl px-4">
                 <div className="mb-12 text-center">
-                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment font-serif">
-                        <Lombardic text="How It Works" letterClassName="text-5xl tracking-wide" />
+                    <h2 className="mb-4 font-serif text-4xl font-bold text-balance text-tome dark:text-parchment">
+                        <Lombardic
+                            text="How It Works"
+                            letterClassName="text-5xl tracking-wide"
+                        />
                     </h2>
-                    <p className="mx-auto max-w-2xl text-lg text-pretty text-tome/70 dark:text-parchment/70 font-serif">
+                    <p className="mx-auto max-w-2xl font-serif text-lg text-pretty text-tome/70 dark:text-parchment/70">
                         From signup to storytelling in three simple steps
                     </p>
                 </div>
@@ -50,7 +54,10 @@ export default function HowItWorks() {
                                             <span className="text-lg font-bold">{step.step}</span>
                                         </div>
                                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-magic/10">
-                                            <Icon className="h-6 w-6 text-magic" aria-hidden="true" />
+                                            <Icon
+                                                className="h-6 w-6 text-magic"
+                                                aria-hidden="true"
+                                            />
                                         </div>
                                     </div>
                                     <CardTitle className="text-xl text-balance text-tome dark:text-parchment">{step.title}</CardTitle>

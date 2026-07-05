@@ -1,8 +1,12 @@
-import AppearanceToggleDropdown from '@/components/appearance-dropdown';
-import AppearanceToggleTab from '@/components/appearance-tabs';
+import { Head, Link, usePage } from '@inertiajs/react';
+import { Bell, BookOpen, ChevronRight, FileText, LayoutGrid, MessageSquare, MoveLeft, MoveRight, Settings, Sparkles, UserRound } from 'lucide-react';
+import { useState } from 'react';
+
 import { AppHeader } from '@/components/app-header';
 import AppLogo from '@/components/app-logo';
 import AppLogoIcon from '@/components/app-logo-icon';
+import AppearanceToggleDropdown from '@/components/appearance-dropdown';
+import AppearanceToggleTab from '@/components/appearance-tabs';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import CTASection from '@/components/cta-section';
 import DashboardPreview from '@/components/dashboard-preview';
@@ -13,8 +17,8 @@ import Heading from '@/components/heading';
 import HeadingSmall from '@/components/heading-small';
 import HowItWorks from '@/components/how-it-works';
 import { Icon as AppIcon } from '@/components/icon';
-import Integrations from '@/components/integrations';
 import InputError from '@/components/input-error';
+import Integrations from '@/components/integrations';
 import { Lombardic } from '@/components/lombardic';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -23,9 +27,6 @@ import Pricing from '@/components/pricing';
 import PublicNav from '@/components/public-nav';
 import TextLink from '@/components/text-link';
 import TrustBanner from '@/components/trust-banner';
-import { UserInfo } from '@/components/user-info';
-import { UserMenuContent } from '@/components/user-menu-content';
-import WhyChooseUs from '@/components/why-choose-us';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -82,27 +83,9 @@ import {
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectSeparator,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import {
-    Sheet,
-    SheetClose,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import {
     Sidebar,
     SidebarContent,
@@ -133,23 +116,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Toggle } from '@/components/ui/toggle';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { UserInfo } from '@/components/user-info';
+import { UserMenuContent } from '@/components/user-menu-content';
+import WhyChooseUs from '@/components/why-choose-us';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem as BreadcrumbItemType, type NavGroup, type NavItem, type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
-import {
-    Bell,
-    BookOpen,
-    ChevronRight,
-    FileText,
-    LayoutGrid,
-    MessageSquare,
-    MoveLeft,
-    MoveRight,
-    Settings,
-    Sparkles,
-    UserRound,
-} from 'lucide-react';
-import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItemType[] = [
     {
@@ -174,9 +145,7 @@ const demoNavGroups: NavGroup[] = [
     },
     {
         title: 'AI Companion',
-        items: [
-            { title: 'Story Seeds', href: '#', icon: Sparkles, disabled: true },
-        ],
+        items: [{ title: 'Story Seeds', href: '#', icon: Sparkles, disabled: true }],
     },
 ];
 
@@ -185,15 +154,7 @@ const demoNavFooterItems: NavItem[] = [
     { title: 'Feedback', href: 'https://example.com', icon: MessageSquare, isExternal: true },
 ];
 
-function PlaygroundSection({
-    title,
-    description,
-    children,
-}: {
-    title: string;
-    description?: string;
-    children: React.ReactNode;
-}) {
+function PlaygroundSection({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
     return (
         <section className="flex flex-col gap-4">
             <div>
@@ -229,19 +190,22 @@ export default function Components() {
             <div className="flex h-full flex-1 flex-col gap-8 overflow-x-hidden rounded-xl bg-parchment p-6 text-tome shadow-sm dark:bg-jet dark:text-parchment">
                 <section className="flex flex-col gap-4">
                     <div className="flex flex-col gap-3">
-                        <p className="text-sm font-medium text-tome/70 dark:text-parchment/70 font-serif">Component Playground</p>
-                        <h1 className="text-balance text-3xl font-semibold font-serif">
+                        <p className="font-serif text-sm font-medium text-tome/70 dark:text-parchment/70">Component Playground</p>
+                        <h1 className="font-serif text-3xl font-semibold text-balance">
                             <Lombardic text="Inspect and tweak every UI building block" />
                         </h1>
-                        <p className="max-w-3xl text-pretty text-sm text-tome/70 dark:text-parchment/70 font-serif">
-                            This page renders every component so you can inspect styles and interactions in one place. The background swaps
-                            between parchment and jet based on theme.
+                        <p className="max-w-3xl font-serif text-sm text-pretty text-tome/70 dark:text-parchment/70">
+                            This page renders every component so you can inspect styles and interactions in one place. The background swaps between
+                            parchment and jet based on theme.
                         </p>
                     </div>
                     <Separator />
                 </section>
 
-                <PlaygroundSection title="App components" description="App-specific building blocks and helpers.">
+                <PlaygroundSection
+                    title="App components"
+                    description="App-specific building blocks and helpers."
+                >
                     <DemoCard title="App Header">
                         <AppHeader breadcrumbs={demoBreadcrumbs} />
                     </DemoCard>
@@ -252,22 +216,38 @@ export default function Components() {
                         </div>
                     </DemoCard>
                     <DemoCard title="Headings">
-                        <Lombardic text="Title text" className="text-3xl font-semibold font-serif" letterClassName="text-xl tracking-wide" />
-                        <Heading title="Quest log" description="Keep track of your current objectives." />
-                        <HeadingSmall title="Side quests" description="Optional tasks and lore hooks." />
+                        <Lombardic
+                            text="Title text"
+                            className="font-serif text-3xl font-semibold"
+                            letterClassName="text-xl tracking-wide"
+                        />
+                        <Heading
+                            title="Quest log"
+                            description="Keep track of your current objectives."
+                        />
+                        <HeadingSmall
+                            title="Side quests"
+                            description="Optional tasks and lore hooks."
+                        />
                     </DemoCard>
                     <DemoCard title="Breadcrumbs">
                         <Breadcrumbs breadcrumbs={demoBreadcrumbs} />
                     </DemoCard>
                     <DemoCard title="User info">
-                        <UserInfo user={auth.user} showEmail />
+                        <UserInfo
+                            user={auth.user}
+                            showEmail
+                        />
                     </DemoCard>
                     <DemoCard title="User menu content">
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="outline">Open user menu</Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-64" align="start">
+                            <DropdownMenuContent
+                                className="w-64"
+                                align="start"
+                            >
                                 <UserMenuContent user={auth.user} />
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -291,7 +271,10 @@ export default function Components() {
                         <div className="flex flex-col gap-2">
                             <TextLink href={route('features')}>Learn more about features</TextLink>
                             <InputError message="This field is required." />
-                            <AppIcon iconNode={Bell} className="h-5 w-5 text-magic" />
+                            <AppIcon
+                                iconNode={Bell}
+                                className="h-5 w-5 text-magic"
+                            />
                         </div>
                     </DemoCard>
                     <DemoCard title="Delete user flow">
@@ -299,7 +282,10 @@ export default function Components() {
                     </DemoCard>
                 </PlaygroundSection>
 
-                <PlaygroundSection title="UI components" description="Shadcn/Base UI building blocks.">
+                <PlaygroundSection
+                    title="UI components"
+                    description="Shadcn/Base UI building blocks."
+                >
                     <DemoCard title="Alert">
                         <Alert>
                             <Sparkles className="h-4 w-4" />
@@ -310,7 +296,10 @@ export default function Components() {
                     <DemoCard title="Avatar">
                         <div className="flex items-center gap-3">
                             <Avatar>
-                                <AvatarImage src={auth.user.avatar} alt={auth.user.name} />
+                                <AvatarImage
+                                    src={auth.user.avatar}
+                                    alt={auth.user.name}
+                                />
                                 <AvatarFallback>AA</AvatarFallback>
                             </Avatar>
                             <Avatar className="h-12 w-12">
@@ -358,7 +347,10 @@ export default function Components() {
                             <Button variant="outline">Outline</Button>
                             <Button variant="ghost">Ghost</Button>
                             <Button variant="link">Link</Button>
-                            <Button size="icon" aria-label="Icon button">
+                            <Button
+                                size="icon"
+                                aria-label="Icon button"
+                            >
                                 <Sparkles className="h-4 w-4" />
                             </Button>
                         </div>
@@ -370,9 +362,7 @@ export default function Components() {
                                 <CardDescription>Recent discoveries from your sessions.</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-sm text-tome/70 dark:text-parchment/70">
-                                    Track campaign lore, NPC details, and location changes.
-                                </p>
+                                <p className="text-sm text-tome/70 dark:text-parchment/70">Track campaign lore, NPC details, and location changes.</p>
                             </CardContent>
                             <CardFooter>
                                 <Button size="sm">Open notes</Button>
@@ -381,16 +371,25 @@ export default function Components() {
                     </DemoCard>
                     <DemoCard title="Checkbox">
                         <div className="flex items-center gap-2">
-                            <Checkbox id="subscribe" defaultChecked />
+                            <Checkbox
+                                id="subscribe"
+                                defaultChecked
+                            />
                             <Label htmlFor="subscribe">Notify me about new lore drops</Label>
                         </div>
                     </DemoCard>
                     <DemoCard title="Collapsible">
-                        <Collapsible open={collapsibleOpen} onOpenChange={setCollapsibleOpen}>
+                        <Collapsible
+                            open={collapsibleOpen}
+                            onOpenChange={setCollapsibleOpen}
+                        >
                             <div className="flex items-center justify-between">
                                 <p className="text-sm font-medium">Quick summary</p>
                                 <CollapsibleTrigger asChild>
-                                    <Button variant="ghost" size="sm">
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                    >
                                         {collapsibleOpen ? 'Hide' : 'Show'}
                                     </Button>
                                 </CollapsibleTrigger>
@@ -412,7 +411,10 @@ export default function Components() {
                                 </DialogHeader>
                                 <div className="grid gap-2">
                                     <Label htmlFor="campaign-name">Campaign name</Label>
-                                    <Input id="campaign-name" placeholder="Shadows of Eldoria" />
+                                    <Input
+                                        id="campaign-name"
+                                        placeholder="Shadows of Eldoria"
+                                    />
                                 </div>
                                 <DialogFooter className="gap-2">
                                     <DialogClose asChild>
@@ -436,12 +438,18 @@ export default function Components() {
                                         <UserRound />
                                         View profile
                                     </DropdownMenuItem>
-                                    <DropdownMenuCheckboxItem checked={dropdownChecked} onCheckedChange={() => setDropdownChecked((value) => !value)}>
+                                    <DropdownMenuCheckboxItem
+                                        checked={dropdownChecked}
+                                        onCheckedChange={() => setDropdownChecked((value) => !value)}
+                                    >
                                         Enable alerts
                                     </DropdownMenuCheckboxItem>
                                 </DropdownMenuGroup>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuRadioGroup value={dropdownRadio} onValueChange={setDropdownRadio}>
+                                <DropdownMenuRadioGroup
+                                    value={dropdownRadio}
+                                    onValueChange={setDropdownRadio}
+                                >
                                     <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
                                     <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
                                     <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
@@ -462,14 +470,23 @@ export default function Components() {
                     </DemoCard>
                     <DemoCard title="Icon">
                         <div className="flex items-center gap-3">
-                            <UiIcon iconNode={Bell} className="h-6 w-6 text-magic" />
-                            <AppIcon iconNode={ChevronRight} className="h-6 w-6 text-armor" />
+                            <UiIcon
+                                iconNode={Bell}
+                                className="h-6 w-6 text-magic"
+                            />
+                            <AppIcon
+                                iconNode={ChevronRight}
+                                className="h-6 w-6 text-armor"
+                            />
                         </div>
                     </DemoCard>
                     <DemoCard title="Input and label">
                         <div className="grid gap-2">
                             <Label htmlFor="name">World name</Label>
-                            <Input id="name" placeholder="Eldoria" />
+                            <Input
+                                id="name"
+                                placeholder="Eldoria"
+                            />
                         </div>
                     </DemoCard>
                     <DemoCard title="Navigation menu">
@@ -553,12 +570,19 @@ export default function Components() {
                     </DemoCard>
                     <DemoCard title="Sidebar (all subcomponents)">
                         <div className="h-[360px] overflow-hidden rounded-lg border border-tome/10 bg-parchment-50 dark:border-parchment/10 dark:bg-jet/50">
-                            <SidebarProvider defaultOpen className="min-h-0 h-full">
+                            <SidebarProvider
+                                defaultOpen
+                                className="h-full min-h-0"
+                            >
                                 <Sidebar collapsible="none">
                                     <SidebarHeader>
                                         <SidebarMenu>
                                             <SidebarMenuItem>
-                                                <SidebarMenuButton tooltip="Dashboard" variant="ghost" className="justify-start">
+                                                <SidebarMenuButton
+                                                    tooltip="Dashboard"
+                                                    variant="ghost"
+                                                    className="justify-start"
+                                                >
                                                     <LayoutGrid className="size-4" />
                                                     Dashboard
                                                 </SidebarMenuButton>
@@ -580,7 +604,10 @@ export default function Components() {
                                             <SidebarGroupContent>
                                                 <SidebarMenu>
                                                     <SidebarMenuItem>
-                                                        <SidebarMenuButton isActive tooltip="Overview">
+                                                        <SidebarMenuButton
+                                                            isActive
+                                                            tooltip="Overview"
+                                                        >
                                                             Overview
                                                         </SidebarMenuButton>
                                                     </SidebarMenuItem>
@@ -606,7 +633,7 @@ export default function Components() {
                                     </SidebarFooter>
                                     <SidebarRail className="hidden" />
                                 </Sidebar>
-                                <SidebarInset className="flex min-h-0 h-full flex-1 flex-col gap-3 p-4">
+                                <SidebarInset className="flex h-full min-h-0 flex-1 flex-col gap-3 p-4">
                                     <div className="flex items-center gap-2">
                                         <SidebarTrigger />
                                         <p className="text-sm text-tome/70 dark:text-parchment/70">Toggle sidebar</p>
@@ -642,7 +669,10 @@ export default function Components() {
                             <Toggle aria-label="Toggle left">
                                 <MoveLeft />
                             </Toggle>
-                            <Toggle variant="outline" aria-label="Toggle right">
+                            <Toggle
+                                variant="outline"
+                                aria-label="Toggle right"
+                            >
                                 <MoveRight />
                             </Toggle>
                         </div>
@@ -654,10 +684,16 @@ export default function Components() {
                             onValueChange={(value) => value && setToggleGroupValue(value)}
                             variant="outline"
                         >
-                            <ToggleGroupItem value="left" aria-label="Align left">
+                            <ToggleGroupItem
+                                value="left"
+                                aria-label="Align left"
+                            >
                                 <MoveLeft />
                             </ToggleGroupItem>
-                            <ToggleGroupItem value="right" aria-label="Align right">
+                            <ToggleGroupItem
+                                value="right"
+                                aria-label="Align right"
+                            >
                                 <MoveRight />
                             </ToggleGroupItem>
                         </ToggleGroup>

@@ -1,9 +1,10 @@
+import { Link, usePage } from '@inertiajs/react';
+import { Moon, Sun } from 'lucide-react';
+
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { useAppearance } from '@/hooks/use-appearance';
 import { cn } from '@/lib/utils';
 import type { SharedData } from '@/types';
-import { Link, usePage } from '@inertiajs/react';
-import { Moon, Sun } from 'lucide-react';
 
 interface NavLinkProps {
     href: string;
@@ -19,7 +20,7 @@ function NavLink({ href, children, className, prefetch = true }: NavLinkProps) {
                 href={href}
                 prefetch={prefetch}
                 className={cn(
-                    'group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-lg font-medium text-black transition-all duration-150 hover:bg-black/5 hover:text-black focus:bg-black/5 focus:text-black disabled:pointer-events-none disabled:opacity-50 data-[active=true]:bg-accent/50 data-[state=open]:bg-accent/50 dark:text-white dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10 font-serif',
+                    'group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 font-serif text-lg font-medium text-black transition-all duration-150 hover:bg-black/5 hover:text-black focus:bg-black/5 focus:text-black disabled:pointer-events-none disabled:opacity-50 data-[active=true]:bg-accent/50 data-[state=open]:bg-accent/50 dark:text-white dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10',
                     className,
                 )}
             >
@@ -41,7 +42,10 @@ export default function PublicNav() {
     return (
         <header className="relative z-10 w-full px-4 py-4">
             <nav className="mx-auto flex max-w-screen-2xl items-center justify-between gap-4 text-sm">
-                <Link href={route('home')} className="inline-flex items-center gap-3 pt-1 font-title text-3xl text-black dark:text-white">
+                <Link
+                    href={route('home')}
+                    className="inline-flex items-center gap-3 pt-1 font-title text-3xl text-black dark:text-white"
+                >
                     <img
                         src="/images/logos/castlebooks_square/castlebook_parchment.svg"
                         alt="Grimoire Logo"
@@ -86,14 +90,20 @@ export default function PublicNav() {
                         <NavigationMenuList className="gap-2">
                             {auth.user ? (
                                 <NavigationMenuItem>
-                                    <NavLink href={route('dashboard')} className="bg-magic font-sans text-white hover:bg-magic/80 hover:text-white">
+                                    <NavLink
+                                        href={route('dashboard')}
+                                        className="bg-magic font-sans text-white hover:bg-magic/80 hover:text-white"
+                                    >
                                         Dashboard
                                     </NavLink>
                                 </NavigationMenuItem>
                             ) : (
                                 <>
                                     <NavigationMenuItem>
-                                        <NavLink href={route('login')} className="font-sans">
+                                        <NavLink
+                                            href={route('login')}
+                                            className="font-sans"
+                                        >
                                             Login
                                         </NavLink>
                                     </NavigationMenuItem>

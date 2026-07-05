@@ -10,7 +10,11 @@ import AuthLayout from '@/layouts/auth-layout';
 
 export default function Register() {
     return (
-        <AuthLayout title="Create an account" description="Enter your details below to create your account" variant="image">
+        <AuthLayout
+            title="Create an account"
+            description="Enter your details below to create your account"
+            variant="image"
+        >
             <Head title="Register" />
             <Form
                 method="post"
@@ -35,7 +39,10 @@ export default function Register() {
                                     placeholder="Full name"
                                     className="font-sans"
                                 />
-                                <InputError message={errors.name} className="mt-2" />
+                                <InputError
+                                    message={errors.name}
+                                    className="mt-2"
+                                />
                             </div>
 
                             <div className="grid gap-2">
@@ -83,7 +90,11 @@ export default function Register() {
                                 <InputError message={errors.password_confirmation} />
                             </div>
 
-                            <Button type="submit" className="mt-2 w-full font-sans" tabIndex={5}>
+                            <Button
+                                type="submit"
+                                className="mt-2 w-full font-sans"
+                                tabIndex={5}
+                            >
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Create account
                             </Button>
@@ -91,7 +102,11 @@ export default function Register() {
 
                         <div className="text-center text-sm text-muted-foreground">
                             Already have an account?{' '}
-                            <TextLink href={route('login')} tabIndex={6} className="font-sans">
+                            <TextLink
+                                href={route('login')}
+                                tabIndex={6}
+                                className="font-sans"
+                            >
                                 Log in
                             </TextLink>
                         </div>

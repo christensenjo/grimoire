@@ -1,7 +1,8 @@
+import { Check, Sparkles } from 'lucide-react';
+
 import { Lombardic } from '@/components/lombardic';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Sparkles } from 'lucide-react';
 
 interface Plan {
     name: string;
@@ -62,9 +63,15 @@ function PlanFeatures({ features }: { features: string[] }) {
     return (
         <ul className="mb-6 flex-1 space-y-3">
             {features.map((feature) => (
-                <li key={feature} className="flex items-start gap-3">
+                <li
+                    key={feature}
+                    className="flex items-start gap-3"
+                >
                     <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-blood/20">
-                        <Check className="size-3 text-blood" aria-hidden="true" />
+                        <Check
+                            className="size-3 text-blood"
+                            aria-hidden="true"
+                        />
                     </div>
                     <span className="text-sm text-tome dark:text-parchment">{feature}</span>
                 </li>
@@ -104,7 +111,10 @@ function PopularPricingCard({ plan }: { plan: Plan }) {
         <Card className="relative flex scale-105 flex-col border-magic bg-parchment-50 shadow-lg transition-all duration-300 hover:shadow-xl dark:border-parchment/10 dark:bg-jet/50">
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-magic px-4 py-1 text-sm font-medium text-white">
                 <span className="flex items-center gap-1">
-                    <Sparkles className="size-3" aria-hidden="true" />
+                    <Sparkles
+                        className="size-3"
+                        aria-hidden="true"
+                    />
                     Most Popular
                 </span>
             </div>
@@ -122,10 +132,13 @@ export default function Pricing() {
         <section className="w-full py-20">
             <div className="mx-auto max-w-screen-2xl px-4">
                 <div className="mb-12 text-center">
-                    <h2 className="mb-4 text-4xl font-bold text-balance text-tome dark:text-parchment font-serif">
-                        <Lombardic text="Pricing" letterClassName="text-5xl tracking-wide" />
+                    <h2 className="mb-4 font-serif text-4xl font-bold text-balance text-tome dark:text-parchment">
+                        <Lombardic
+                            text="Pricing"
+                            letterClassName="text-5xl tracking-wide"
+                        />
                     </h2>
-                    <p className="mx-auto max-w-2xl text-lg text-pretty text-tome/70 dark:text-parchment/70 font-serif">
+                    <p className="mx-auto max-w-2xl font-serif text-lg text-pretty text-tome/70 dark:text-parchment/70">
                         Choose the plan that fits your worldbuilding needs. Upgrade or downgrade anytime.
                     </p>
                 </div>

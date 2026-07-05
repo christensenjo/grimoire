@@ -7,6 +7,7 @@
 /storage/*.key
 /storage/pail
 /vendor
+/.pnpm-store
 .env
 .env.backup
 .env.production
@@ -15,6 +16,9 @@
 Homestead.json
 Homestead.yaml
 npm-debug.log
+package-lock.json
+bun.lock
+yarn.lock
 yarn-error.log
 /auth.json
 /.fleet

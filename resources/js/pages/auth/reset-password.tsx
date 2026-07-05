@@ -14,7 +14,10 @@ interface ResetPasswordProps {
 
 export default function ResetPassword({ token, email }: ResetPasswordProps) {
     return (
-        <AuthLayout title="Reset password" description="Please enter your new password below">
+        <AuthLayout
+            title="Reset password"
+            description="Please enter your new password below"
+        >
             <Head title="Reset password" />
 
             <Form
@@ -36,7 +39,10 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                                 className="mt-1 block w-full font-sans"
                                 readOnly
                             />
-                            <InputError message={errors.email} className="mt-2" />
+                            <InputError
+                                message={errors.email}
+                                className="mt-2"
+                            />
                         </div>
 
                         <div className="grid gap-2">
@@ -63,10 +69,17 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                                 className="mt-1 block w-full font-sans"
                                 placeholder="Confirm password"
                             />
-                            <InputError message={errors.password_confirmation} className="mt-2" />
+                            <InputError
+                                message={errors.password_confirmation}
+                                className="mt-2"
+                            />
                         </div>
 
-                        <Button type="submit" className="mt-4 w-full font-sans" disabled={processing}>
+                        <Button
+                            type="submit"
+                            className="mt-4 w-full font-sans"
+                            disabled={processing}
+                        >
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                             Reset password
                         </Button>

@@ -1,10 +1,11 @@
+import { Link } from '@inertiajs/react';
+import { type PropsWithChildren } from 'react';
+
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/react';
-import { type PropsWithChildren } from 'react';
 
 const sidebarNavItems: NavItem[] = [
     {
@@ -34,7 +35,10 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
 
     return (
         <div className="px-4 py-6">
-            <Heading title="Settings" description="Manage your profile and account settings" />
+            <Heading
+                title="Settings"
+                description="Manage your profile and account settings"
+            />
 
             <div className="flex flex-col lg:flex-row lg:space-x-12">
                 <aside className="w-full max-w-xl lg:w-48">
@@ -49,7 +53,10 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                                     'bg-muted': currentPath === item.href,
                                 })}
                             >
-                                <Link href={item.href} prefetch>
+                                <Link
+                                    href={item.href}
+                                    prefetch
+                                >
                                     {item.title}
                                 </Link>
                             </Button>

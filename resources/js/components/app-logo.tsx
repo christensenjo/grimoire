@@ -13,9 +13,7 @@ export default function AppLogo() {
                     className="hidden size-8 dark:block"
                 />
             </div>
-            <h1 className="mt-1 ml-2 grid flex-1 text-left text-3xl font-title-shaded">
-                Grimoire
-            </h1>
+            <h1 className="mt-1 ml-2 grid flex-1 text-left font-title-shaded text-3xl">Grimoire</h1>
         </>
     );
 }
