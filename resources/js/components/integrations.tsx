@@ -7,7 +7,10 @@ import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/ca
 function IntegrationIcon({ icon: Icon }: { icon: LucideIcon }) {
     return (
         <div className="mb-4 flex size-12 items-center justify-center rounded-lg bg-magic/10">
-            <Icon className="size-6 text-magic" aria-hidden="true" />
+            <Icon
+                className="size-6 text-magic"
+                aria-hidden="true"
+            />
         </div>
     );
 }
@@ -42,7 +45,10 @@ export default function Integrations() {
             <div className="mx-auto max-w-screen-2xl px-4">
                 <div className="mb-12 text-center">
                     <h2 className="mb-4 font-serif text-4xl font-bold text-balance text-tome dark:text-parchment">
-                        <Lombardic text="Integrations" letterClassName="text-5xl tracking-wide" />
+                        <Lombardic
+                            text="Integrations"
+                            letterClassName="text-5xl tracking-wide"
+                        />
                     </h2>
                     <p className="mx-auto max-w-2xl font-serif text-lg text-pretty text-tome/70 dark:text-parchment/70">
                         Connect with the tools you already love

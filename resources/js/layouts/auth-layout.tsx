@@ -16,7 +16,11 @@ export default function AuthLayout({ children, title, description, variant = 'de
 
     return (
         <ShaderBackgroundLayout showNav={false}>
-            <LayoutComponent title={title} description={description} {...props}>
+            <LayoutComponent
+                title={title}
+                description={description}
+                {...props}
+            >
                 {children}
             </LayoutComponent>
         </ShaderBackgroundLayout>

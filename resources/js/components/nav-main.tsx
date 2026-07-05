@@ -16,9 +16,18 @@ function NavMainItem({ item, isActive }: { item: NavItem; isActive: boolean }) {
 
     if (item.disabled) {
         return (
-            <SidebarMenuButton variant="ghost" className={buttonClasses} disabled>
+            <SidebarMenuButton
+                variant="ghost"
+                className={buttonClasses}
+                disabled
+            >
                 <span className="flex items-center gap-2">
-                    {item.icon && <item.icon className="size-4 shrink-0" aria-hidden="true" />}
+                    {item.icon && (
+                        <item.icon
+                            className="size-4 shrink-0"
+                            aria-hidden="true"
+                        />
+                    )}
                     <span className="font-sans">{item.title}</span>
                 </span>
             </SidebarMenuButton>
@@ -27,9 +36,23 @@ function NavMainItem({ item, isActive }: { item: NavItem; isActive: boolean }) {
 
     if (item.isExternal) {
         return (
-            <SidebarMenuButton variant="ghost" asChild className={buttonClasses} isActive={isActive}>
-                <a href={item.href} target="_blank" rel="noreferrer">
-                    {item.icon && <item.icon className="size-4 shrink-0" aria-hidden="true" />}
+            <SidebarMenuButton
+                variant="ghost"
+                asChild
+                className={buttonClasses}
+                isActive={isActive}
+            >
+                <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    {item.icon && (
+                        <item.icon
+                            className="size-4 shrink-0"
+                            aria-hidden="true"
+                        />
+                    )}
                     <span className="font-sans">{item.title}</span>
                 </a>
             </SidebarMenuButton>
@@ -37,9 +60,23 @@ function NavMainItem({ item, isActive }: { item: NavItem; isActive: boolean }) {
     }
 
     return (
-        <SidebarMenuButton variant="ghost" asChild className={buttonClasses} isActive={isActive} tooltip={{ children: item.title }}>
-            <Link href={item.href} prefetch>
-                {item.icon && <item.icon className="size-4 shrink-0" aria-hidden="true" />}
+        <SidebarMenuButton
+            variant="ghost"
+            asChild
+            className={buttonClasses}
+            isActive={isActive}
+            tooltip={{ children: item.title }}
+        >
+            <Link
+                href={item.href}
+                prefetch
+            >
+                {item.icon && (
+                    <item.icon
+                        className="size-4 shrink-0"
+                        aria-hidden="true"
+                    />
+                )}
                 <span className="font-sans">{item.title}</span>
             </Link>
         </SidebarMenuButton>
@@ -52,11 +89,17 @@ export function NavMain({ groups }: NavMainProps) {
     return (
         <div className="flex flex-col gap-5">
             {groups.map((group) => (
-                <SidebarGroup key={group.title} className="py-0">
+                <SidebarGroup
+                    key={group.title}
+                    className="py-0"
+                >
                     <SidebarGroupLabel className="flex items-center justify-between gap-2">
                         <span>{group.title}</span>
                         {soonGroups.has(group.title) && (
-                            <Badge variant="secondary" className="text-[10px] group-data-[collapsible=icon]/sidebar-wrapper:hidden">
+                            <Badge
+                                variant="secondary"
+                                className="text-[10px] group-data-[collapsible=icon]/sidebar-wrapper:hidden"
+                            >
                                 Soon
                             </Badge>
                         )}
@@ -66,7 +109,10 @@ export function NavMain({ groups }: NavMainProps) {
                             const isActive = item.href !== '#' && page.url.startsWith(item.href);
                             return (
                                 <SidebarMenuItem key={item.title}>
-                                    <NavMainItem item={item} isActive={isActive} />
+                                    <NavMainItem
+                                        item={item}
+                                        isActive={isActive}
+                                    />
                                 </SidebarMenuItem>
                             );
                         })}

@@ -202,7 +202,10 @@ export default function Components() {
                     <Separator />
                 </section>
 
-                <PlaygroundSection title="App components" description="App-specific building blocks and helpers.">
+                <PlaygroundSection
+                    title="App components"
+                    description="App-specific building blocks and helpers."
+                >
                     <DemoCard title="App Header">
                         <AppHeader breadcrumbs={demoBreadcrumbs} />
                     </DemoCard>
@@ -213,22 +216,38 @@ export default function Components() {
                         </div>
                     </DemoCard>
                     <DemoCard title="Headings">
-                        <Lombardic text="Title text" className="font-serif text-3xl font-semibold" letterClassName="text-xl tracking-wide" />
-                        <Heading title="Quest log" description="Keep track of your current objectives." />
-                        <HeadingSmall title="Side quests" description="Optional tasks and lore hooks." />
+                        <Lombardic
+                            text="Title text"
+                            className="font-serif text-3xl font-semibold"
+                            letterClassName="text-xl tracking-wide"
+                        />
+                        <Heading
+                            title="Quest log"
+                            description="Keep track of your current objectives."
+                        />
+                        <HeadingSmall
+                            title="Side quests"
+                            description="Optional tasks and lore hooks."
+                        />
                     </DemoCard>
                     <DemoCard title="Breadcrumbs">
                         <Breadcrumbs breadcrumbs={demoBreadcrumbs} />
                     </DemoCard>
                     <DemoCard title="User info">
-                        <UserInfo user={auth.user} showEmail />
+                        <UserInfo
+                            user={auth.user}
+                            showEmail
+                        />
                     </DemoCard>
                     <DemoCard title="User menu content">
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="outline">Open user menu</Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-64" align="start">
+                            <DropdownMenuContent
+                                className="w-64"
+                                align="start"
+                            >
                                 <UserMenuContent user={auth.user} />
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -252,7 +271,10 @@ export default function Components() {
                         <div className="flex flex-col gap-2">
                             <TextLink href={route('features')}>Learn more about features</TextLink>
                             <InputError message="This field is required." />
-                            <AppIcon iconNode={Bell} className="h-5 w-5 text-magic" />
+                            <AppIcon
+                                iconNode={Bell}
+                                className="h-5 w-5 text-magic"
+                            />
                         </div>
                     </DemoCard>
                     <DemoCard title="Delete user flow">
@@ -260,7 +282,10 @@ export default function Components() {
                     </DemoCard>
                 </PlaygroundSection>
 
-                <PlaygroundSection title="UI components" description="Shadcn/Base UI building blocks.">
+                <PlaygroundSection
+                    title="UI components"
+                    description="Shadcn/Base UI building blocks."
+                >
                     <DemoCard title="Alert">
                         <Alert>
                             <Sparkles className="h-4 w-4" />
@@ -271,7 +296,10 @@ export default function Components() {
                     <DemoCard title="Avatar">
                         <div className="flex items-center gap-3">
                             <Avatar>
-                                <AvatarImage src={auth.user.avatar} alt={auth.user.name} />
+                                <AvatarImage
+                                    src={auth.user.avatar}
+                                    alt={auth.user.name}
+                                />
                                 <AvatarFallback>AA</AvatarFallback>
                             </Avatar>
                             <Avatar className="h-12 w-12">
@@ -319,7 +347,10 @@ export default function Components() {
                             <Button variant="outline">Outline</Button>
                             <Button variant="ghost">Ghost</Button>
                             <Button variant="link">Link</Button>
-                            <Button size="icon" aria-label="Icon button">
+                            <Button
+                                size="icon"
+                                aria-label="Icon button"
+                            >
                                 <Sparkles className="h-4 w-4" />
                             </Button>
                         </div>
@@ -340,16 +371,25 @@ export default function Components() {
                     </DemoCard>
                     <DemoCard title="Checkbox">
                         <div className="flex items-center gap-2">
-                            <Checkbox id="subscribe" defaultChecked />
+                            <Checkbox
+                                id="subscribe"
+                                defaultChecked
+                            />
                             <Label htmlFor="subscribe">Notify me about new lore drops</Label>
                         </div>
                     </DemoCard>
                     <DemoCard title="Collapsible">
-                        <Collapsible open={collapsibleOpen} onOpenChange={setCollapsibleOpen}>
+                        <Collapsible
+                            open={collapsibleOpen}
+                            onOpenChange={setCollapsibleOpen}
+                        >
                             <div className="flex items-center justify-between">
                                 <p className="text-sm font-medium">Quick summary</p>
                                 <CollapsibleTrigger asChild>
-                                    <Button variant="ghost" size="sm">
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                    >
                                         {collapsibleOpen ? 'Hide' : 'Show'}
                                     </Button>
                                 </CollapsibleTrigger>
@@ -371,7 +411,10 @@ export default function Components() {
                                 </DialogHeader>
                                 <div className="grid gap-2">
                                     <Label htmlFor="campaign-name">Campaign name</Label>
-                                    <Input id="campaign-name" placeholder="Shadows of Eldoria" />
+                                    <Input
+                                        id="campaign-name"
+                                        placeholder="Shadows of Eldoria"
+                                    />
                                 </div>
                                 <DialogFooter className="gap-2">
                                     <DialogClose asChild>
@@ -395,12 +438,18 @@ export default function Components() {
                                         <UserRound />
                                         View profile
                                     </DropdownMenuItem>
-                                    <DropdownMenuCheckboxItem checked={dropdownChecked} onCheckedChange={() => setDropdownChecked((value) => !value)}>
+                                    <DropdownMenuCheckboxItem
+                                        checked={dropdownChecked}
+                                        onCheckedChange={() => setDropdownChecked((value) => !value)}
+                                    >
                                         Enable alerts
                                     </DropdownMenuCheckboxItem>
                                 </DropdownMenuGroup>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuRadioGroup value={dropdownRadio} onValueChange={setDropdownRadio}>
+                                <DropdownMenuRadioGroup
+                                    value={dropdownRadio}
+                                    onValueChange={setDropdownRadio}
+                                >
                                     <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
                                     <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
                                     <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
@@ -421,14 +470,23 @@ export default function Components() {
                     </DemoCard>
                     <DemoCard title="Icon">
                         <div className="flex items-center gap-3">
-                            <UiIcon iconNode={Bell} className="h-6 w-6 text-magic" />
-                            <AppIcon iconNode={ChevronRight} className="h-6 w-6 text-armor" />
+                            <UiIcon
+                                iconNode={Bell}
+                                className="h-6 w-6 text-magic"
+                            />
+                            <AppIcon
+                                iconNode={ChevronRight}
+                                className="h-6 w-6 text-armor"
+                            />
                         </div>
                     </DemoCard>
                     <DemoCard title="Input and label">
                         <div className="grid gap-2">
                             <Label htmlFor="name">World name</Label>
-                            <Input id="name" placeholder="Eldoria" />
+                            <Input
+                                id="name"
+                                placeholder="Eldoria"
+                            />
                         </div>
                     </DemoCard>
                     <DemoCard title="Navigation menu">
@@ -512,12 +570,19 @@ export default function Components() {
                     </DemoCard>
                     <DemoCard title="Sidebar (all subcomponents)">
                         <div className="h-[360px] overflow-hidden rounded-lg border border-tome/10 bg-parchment-50 dark:border-parchment/10 dark:bg-jet/50">
-                            <SidebarProvider defaultOpen className="h-full min-h-0">
+                            <SidebarProvider
+                                defaultOpen
+                                className="h-full min-h-0"
+                            >
                                 <Sidebar collapsible="none">
                                     <SidebarHeader>
                                         <SidebarMenu>
                                             <SidebarMenuItem>
-                                                <SidebarMenuButton tooltip="Dashboard" variant="ghost" className="justify-start">
+                                                <SidebarMenuButton
+                                                    tooltip="Dashboard"
+                                                    variant="ghost"
+                                                    className="justify-start"
+                                                >
                                                     <LayoutGrid className="size-4" />
                                                     Dashboard
                                                 </SidebarMenuButton>
@@ -539,7 +604,10 @@ export default function Components() {
                                             <SidebarGroupContent>
                                                 <SidebarMenu>
                                                     <SidebarMenuItem>
-                                                        <SidebarMenuButton isActive tooltip="Overview">
+                                                        <SidebarMenuButton
+                                                            isActive
+                                                            tooltip="Overview"
+                                                        >
                                                             Overview
                                                         </SidebarMenuButton>
                                                     </SidebarMenuItem>
@@ -601,7 +669,10 @@ export default function Components() {
                             <Toggle aria-label="Toggle left">
                                 <MoveLeft />
                             </Toggle>
-                            <Toggle variant="outline" aria-label="Toggle right">
+                            <Toggle
+                                variant="outline"
+                                aria-label="Toggle right"
+                            >
                                 <MoveRight />
                             </Toggle>
                         </div>
@@ -613,10 +684,16 @@ export default function Components() {
                             onValueChange={(value) => value && setToggleGroupValue(value)}
                             variant="outline"
                         >
-                            <ToggleGroupItem value="left" aria-label="Align left">
+                            <ToggleGroupItem
+                                value="left"
+                                aria-label="Align left"
+                            >
                                 <MoveLeft />
                             </ToggleGroupItem>
-                            <ToggleGroupItem value="right" aria-label="Align right">
+                            <ToggleGroupItem
+                                value="right"
+                                aria-label="Align right"
+                            >
                                 <MoveRight />
                             </ToggleGroupItem>
                         </ToggleGroup>

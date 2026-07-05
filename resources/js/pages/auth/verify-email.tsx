@@ -8,7 +8,10 @@ import AuthLayout from '@/layouts/auth-layout';
 
 export default function VerifyEmail({ status }: { status?: string }) {
     return (
-        <AuthLayout title="Verify email" description="Please verify your email address by clicking on the link we just emailed to you.">
+        <AuthLayout
+            title="Verify email"
+            description="Please verify your email address by clicking on the link we just emailed to you."
+        >
             <Head title="Email verification" />
 
             {status === 'verification-link-sent' && (
@@ -17,15 +20,27 @@ export default function VerifyEmail({ status }: { status?: string }) {
                 </div>
             )}
 
-            <Form method="post" action={route('verification.send')} className="space-y-6 text-center">
+            <Form
+                method="post"
+                action={route('verification.send')}
+                className="space-y-6 text-center"
+            >
                 {({ processing }) => (
                     <>
-                        <Button disabled={processing} variant="secondary" className="font-sans">
+                        <Button
+                            disabled={processing}
+                            variant="secondary"
+                            className="font-sans"
+                        >
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                             Resend verification email
                         </Button>
 
-                        <TextLink href={route('logout')} method="post" className="mx-auto block font-sans text-sm">
+                        <TextLink
+                            href={route('logout')}
+                            method="post"
+                            className="mx-auto block font-sans text-sm"
+                        >
                             Log out
                         </TextLink>
                     </>

@@ -41,7 +41,10 @@ export default function Footer() {
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-6">
                     {/* Logo and description */}
                     <div className="lg:col-span-2">
-                        <Link href={route('home')} className="mb-4 inline-flex items-center gap-2 font-title text-2xl text-tome dark:text-parchment">
+                        <Link
+                            href={route('home')}
+                            className="mb-4 inline-flex items-center gap-2 font-title text-2xl text-tome dark:text-parchment"
+                        >
                             <img
                                 src="/images/logos/castlebooks_square/castlebook_parchment.svg"
                                 alt="Grimoire Logo"
@@ -68,7 +71,10 @@ export default function Footer() {
                                         className="flex h-9 w-9 items-center justify-center rounded-full border border-tome/20 text-tome transition-all hover:border-magic hover:text-magic dark:border-parchment/20 dark:text-parchment"
                                         aria-label={social.label}
                                     >
-                                        <Icon className="h-4 w-4" aria-hidden="true" />
+                                        <Icon
+                                            className="h-4 w-4"
+                                            aria-hidden="true"
+                                        />
                                     </a>
                                 );
                             })}
@@ -81,7 +87,10 @@ export default function Footer() {
                         <ul className="space-y-2">
                             {footerLinks.product.map((link) => (
                                 <li key={link.label}>
-                                    <Link href={link.href} className="text-sm text-tome/70 transition-colors hover:text-magic dark:text-parchment/70">
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-tome/70 transition-colors hover:text-magic dark:text-parchment/70"
+                                    >
                                         {link.label}
                                     </Link>
                                 </li>
@@ -94,7 +103,10 @@ export default function Footer() {
                         <ul className="space-y-2">
                             {footerLinks.company.map((link) => (
                                 <li key={link.label}>
-                                    <Link href={link.href} className="text-sm text-tome/70 transition-colors hover:text-magic dark:text-parchment/70">
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-tome/70 transition-colors hover:text-magic dark:text-parchment/70"
+                                    >
                                         {link.label}
                                     </Link>
                                 </li>
@@ -107,7 +119,10 @@ export default function Footer() {
                         <ul className="space-y-2">
                             {footerLinks.resources.map((link) => (
                                 <li key={link.label}>
-                                    <Link href={link.href} className="text-sm text-tome/70 transition-colors hover:text-magic dark:text-parchment/70">
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-tome/70 transition-colors hover:text-magic dark:text-parchment/70"
+                                    >
                                         {link.label}
                                     </Link>
                                 </li>
@@ -120,7 +135,10 @@ export default function Footer() {
                         <ul className="space-y-2">
                             {footerLinks.legal.map((link) => (
                                 <li key={link.label}>
-                                    <Link href={link.href} className="text-sm text-tome/70 transition-colors hover:text-magic dark:text-parchment/70">
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-tome/70 transition-colors hover:text-magic dark:text-parchment/70"
+                                    >
                                         {link.label}
                                     </Link>
                                 </li>
@@ -134,7 +152,10 @@ export default function Footer() {
                     <p className="text-sm text-tome/60 dark:text-parchment/60">Copyright 2026 Grimoire. All Rights Reserved.</p>
                     <p className="text-sm text-tome/60 dark:text-parchment/60">
                         Made with{' '}
-                        <span className="text-magic" aria-label="love">
+                        <span
+                            className="text-magic"
+                            aria-label="love"
+                        >
                             ♥
                         </span>{' '}
                         for worldbuilders everywhere

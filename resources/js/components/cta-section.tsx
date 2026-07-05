@@ -12,7 +12,10 @@ export default function CTASection() {
                     <div className="relative z-10 flex flex-col items-center text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">
                         <div className="mb-8 lg:mb-0 lg:max-w-xl">
                             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-magic/20 px-4 py-2 text-sm font-medium text-magic">
-                                <Sparkles className="h-4 w-4" aria-hidden="true" />
+                                <Sparkles
+                                    className="h-4 w-4"
+                                    aria-hidden="true"
+                                />
                                 Start your journey today
                             </div>
                             <h2 className="mb-4 font-serif text-3xl leading-tight font-bold text-balance text-tome md:text-4xl lg:text-5xl dark:text-parchment">
@@ -22,10 +25,17 @@ export default function CTASection() {
                                 Join thousands of worldbuilders, dungeon masters, and storytellers who've made Grimoire their creative home.
                             </p>
                             <div className="flex flex-col gap-3 sm:flex-row lg:justify-start">
-                                <Button asChild size="lg" className="gap-2 bg-magic px-8 text-base font-medium text-white hover:bg-magic/80">
+                                <Button
+                                    asChild
+                                    size="lg"
+                                    className="gap-2 bg-magic px-8 text-base font-medium text-white hover:bg-magic/80"
+                                >
                                     <Link href={route('register')}>
                                         Get Started Free
-                                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                                        <ArrowRight
+                                            className="h-4 w-4"
+                                            aria-hidden="true"
+                                        />
                                     </Link>
                                 </Button>
                                 <Button

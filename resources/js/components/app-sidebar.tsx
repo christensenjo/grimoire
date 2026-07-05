@@ -57,13 +57,24 @@ const footerNavItems: NavItem[] = [];
 
 export function AppSidebar() {
     return (
-        <Sidebar collapsible="icon" variant="inset">
+        <Sidebar
+            collapsible="icon"
+            variant="inset"
+        >
             <SidebarHeader>
                 <div className="flex flex-col gap-3">
                     <SidebarMenu>
                         <SidebarMenuItem className="mb-2">
-                            <SidebarMenuButton size="lg" variant="ghost" className="cursor-pointer hover:bg-transparent hover:text-jet" asChild>
-                                <Link href="/dashboard" prefetch>
+                            <SidebarMenuButton
+                                size="lg"
+                                variant="ghost"
+                                className="cursor-pointer hover:bg-transparent hover:text-jet"
+                                asChild
+                            >
+                                <Link
+                                    href="/dashboard"
+                                    prefetch
+                                >
                                     <AppLogo />
                                 </Link>
                             </SidebarMenuButton>
@@ -79,7 +90,10 @@ export function AppSidebar() {
                                     tooltip="New Setting"
                                     type="button"
                                 >
-                                    <PenTool className="size-4 shrink-0" aria-hidden="true" />
+                                    <PenTool
+                                        className="size-4 shrink-0"
+                                        aria-hidden="true"
+                                    />
                                     <span className="font-sans text-sm">New Setting</span>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
@@ -91,7 +105,10 @@ export function AppSidebar() {
                                     tooltip="New Document"
                                     type="button"
                                 >
-                                    <FilePenLine className="size-4 shrink-0" aria-hidden="true" />
+                                    <FilePenLine
+                                        className="size-4 shrink-0"
+                                        aria-hidden="true"
+                                    />
                                     <span className="font-sans text-sm">New Document</span>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>

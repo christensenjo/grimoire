@@ -25,13 +25,25 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
         <>
             <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <UserInfo user={user} showEmail={true} />
+                    <UserInfo
+                        user={user}
+                        showEmail={true}
+                    />
                 </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-                <DropdownMenuItem asChild className="cursor-pointer focus:bg-armor/10 focus:text-armor">
-                    <Link className="block w-full font-sans" href={route('profile.edit')} as="button" prefetch onClick={cleanup}>
+                <DropdownMenuItem
+                    asChild
+                    className="cursor-pointer focus:bg-armor/10 focus:text-armor"
+                >
+                    <Link
+                        className="block w-full font-sans"
+                        href={route('profile.edit')}
+                        as="button"
+                        prefetch
+                        onClick={cleanup}
+                    >
                         <Settings className="mr-2" />
                         <span className="font-sans">Settings</span>
                     </Link>
@@ -81,8 +93,17 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                 </ToggleGroup>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild className="cursor-pointer focus:bg-armor/10 focus:text-armor">
-                <Link className="block w-full font-sans" method="post" href={route('logout')} as="button" onClick={handleLogout}>
+            <DropdownMenuItem
+                asChild
+                className="cursor-pointer focus:bg-armor/10 focus:text-armor"
+            >
+                <Link
+                    className="block w-full font-sans"
+                    method="post"
+                    href={route('logout')}
+                    as="button"
+                    onClick={handleLogout}
+                >
                     <LogOut className="mr-2" />
                     <span className="font-sans">Log out</span>
                 </Link>

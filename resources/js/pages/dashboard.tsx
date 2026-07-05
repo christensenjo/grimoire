@@ -124,12 +124,21 @@ export default function Dashboard() {
                             </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-2">
-                            <Button variant="outline" className="gap-2">
-                                <ScrollText className="size-4" aria-hidden="true" />
+                            <Button
+                                variant="outline"
+                                className="gap-2"
+                            >
+                                <ScrollText
+                                    className="size-4"
+                                    aria-hidden="true"
+                                />
                                 New Setting
                             </Button>
                             <Button className="gap-2">
-                                <Sparkles className="size-4" aria-hidden="true" />
+                                <Sparkles
+                                    className="size-4"
+                                    aria-hidden="true"
+                                />
                                 Create Asset
                             </Button>
                         </div>
@@ -155,21 +164,37 @@ export default function Dashboard() {
                             <h2 className="text-xl font-semibold text-balance text-foreground">My Grimoire Summary</h2>
                             <p className="text-sm text-pretty text-muted-foreground">Review your settings and most recent assets at a glance.</p>
                         </div>
-                        <Badge variant="secondary" className="w-fit gap-1">
-                            <Castle className="size-3.5" aria-hidden="true" />3 Active Settings
+                        <Badge
+                            variant="secondary"
+                            className="w-fit gap-1"
+                        >
+                            <Castle
+                                className="size-3.5"
+                                aria-hidden="true"
+                            />
+                            3 Active Settings
                         </Badge>
                     </div>
 
-                    <Tabs defaultValue="settings" className="w-full">
+                    <Tabs
+                        defaultValue="settings"
+                        className="w-full"
+                    >
                         <TabsList>
                             <TabsTrigger value="settings">Settings</TabsTrigger>
                             <TabsTrigger value="assets">Assets</TabsTrigger>
                         </TabsList>
 
-                        <TabsContent value="settings" className="pt-4">
+                        <TabsContent
+                            value="settings"
+                            className="pt-4"
+                        >
                             <div className="grid gap-4 lg:grid-cols-2">
                                 {settings.map((setting) => (
-                                    <Card key={setting.id} className="h-full">
+                                    <Card
+                                        key={setting.id}
+                                        className="h-full"
+                                    >
                                         <CardHeader className="flex flex-row items-start gap-4">
                                             <Avatar className="size-10">
                                                 <AvatarFallback className="text-xs font-semibold">
@@ -183,7 +208,10 @@ export default function Dashboard() {
                                             <div className="flex-1 space-y-2">
                                                 <div className="flex flex-wrap items-center gap-2">
                                                     <CardTitle className="text-base font-semibold text-foreground">{setting.name}</CardTitle>
-                                                    <Badge variant="outline" className="text-xs">
+                                                    <Badge
+                                                        variant="outline"
+                                                        className="text-xs"
+                                                    >
                                                         Updated {setting.updated}
                                                     </Badge>
                                                 </div>
@@ -193,15 +221,24 @@ export default function Dashboard() {
                                         <CardContent>
                                             <div className="grid grid-cols-3 gap-3 text-xs text-muted-foreground">
                                                 <div className="flex items-center gap-2">
-                                                    <MapPin className="size-4" aria-hidden="true" />
+                                                    <MapPin
+                                                        className="size-4"
+                                                        aria-hidden="true"
+                                                    />
                                                     <span className="tabular-nums">{setting.locations} Locations</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <UserRound className="size-4" aria-hidden="true" />
+                                                    <UserRound
+                                                        className="size-4"
+                                                        aria-hidden="true"
+                                                    />
                                                     <span className="tabular-nums">{setting.characters} Characters</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <PawPrint className="size-4" aria-hidden="true" />
+                                                    <PawPrint
+                                                        className="size-4"
+                                                        aria-hidden="true"
+                                                    />
                                                     <span className="tabular-nums">{setting.beasts} Beasts</span>
                                                 </div>
                                             </div>
@@ -211,7 +248,10 @@ export default function Dashboard() {
                             </div>
                         </TabsContent>
 
-                        <TabsContent value="assets" className="pt-4">
+                        <TabsContent
+                            value="assets"
+                            className="pt-4"
+                        >
                             <div className="grid gap-4 md:grid-cols-2">
                                 {assets.map((asset) => {
                                     const Icon = assetIcons[asset.type];
@@ -219,8 +259,14 @@ export default function Dashboard() {
                                         <Card key={asset.id}>
                                             <CardHeader className="space-y-2">
                                                 <div className="flex items-center justify-between gap-2">
-                                                    <Badge variant="outline" className="gap-1 text-xs">
-                                                        <Icon className="size-3.5" aria-hidden="true" />
+                                                    <Badge
+                                                        variant="outline"
+                                                        className="gap-1 text-xs"
+                                                    >
+                                                        <Icon
+                                                            className="size-3.5"
+                                                            aria-hidden="true"
+                                                        />
                                                         {asset.type}
                                                     </Badge>
                                                     <span className="text-xs text-muted-foreground tabular-nums">Updated {asset.updated}</span>
@@ -231,7 +277,10 @@ export default function Dashboard() {
                                                 </div>
                                             </CardHeader>
                                             <CardContent className="flex items-center gap-2 text-xs text-muted-foreground">
-                                                <Sword className="size-3.5" aria-hidden="true" />
+                                                <Sword
+                                                    className="size-3.5"
+                                                    aria-hidden="true"
+                                                />
                                                 <span>{asset.setting}</span>
                                             </CardContent>
                                         </Card>

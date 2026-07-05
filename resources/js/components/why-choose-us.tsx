@@ -41,7 +41,10 @@ export default function WhyChooseUs() {
             <div className="mx-auto max-w-screen-2xl px-4">
                 <div className="mb-12 text-center">
                     <h2 className="mb-4 font-serif text-4xl font-bold text-balance text-tome dark:text-parchment">
-                        <Lombardic text="Why Choose Grimoire?" letterClassName="text-5xl tracking-wide" />
+                        <Lombardic
+                            text="Why Choose Grimoire?"
+                            letterClassName="text-5xl tracking-wide"
+                        />
                     </h2>
                     <p className="mx-auto max-w-2xl font-serif text-lg text-pretty text-tome/70 dark:text-parchment/70">
                         Stop fighting your tools. Start building worlds.
@@ -51,19 +54,28 @@ export default function WhyChooseUs() {
                 {/* Comparison Grid */}
                 <div className="mb-12 grid gap-4 md:grid-cols-2">
                     {comparisons.map((comparison) => (
-                        <Card key={comparison.category} className="border-tome/10 bg-parchment-50 dark:border-parchment/10 dark:bg-jet/50">
+                        <Card
+                            key={comparison.category}
+                            className="border-tome/10 bg-parchment-50 dark:border-parchment/10 dark:bg-jet/50"
+                        >
                             <CardContent className="p-6">
                                 <h3 className="mb-4 font-serif font-semibold text-magic">vs. {comparison.category}</h3>
                                 <div className="space-y-3">
                                     <div className="flex items-start gap-3">
                                         <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blood/20">
-                                            <Check className="h-3 w-3 text-blood" aria-hidden="true" />
+                                            <Check
+                                                className="h-3 w-3 text-blood"
+                                                aria-hidden="true"
+                                            />
                                         </div>
                                         <p className="text-sm text-tome dark:text-parchment">{comparison.us}</p>
                                     </div>
                                     <div className="flex items-start gap-3">
                                         <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-tome/10 dark:bg-parchment/10">
-                                            <X className="h-3 w-3 text-tome/50 dark:text-parchment/50" aria-hidden="true" />
+                                            <X
+                                                className="h-3 w-3 text-tome/50 dark:text-parchment/50"
+                                                aria-hidden="true"
+                                            />
                                         </div>
                                         <p className="text-sm text-tome/50 line-through dark:text-parchment/50">{comparison.them}</p>
                                     </div>
@@ -80,9 +92,15 @@ export default function WhyChooseUs() {
                     </h3>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                         {benefits.map((benefit) => (
-                            <div key={benefit} className="flex items-center gap-3">
+                            <div
+                                key={benefit}
+                                className="flex items-center gap-3"
+                            >
                                 <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-blood">
-                                    <Check className="size-4 text-white" aria-hidden="true" />
+                                    <Check
+                                        className="size-4 text-white"
+                                        aria-hidden="true"
+                                    />
                                 </div>
                                 <span className="text-sm text-tome dark:text-parchment">{benefit}</span>
                             </div>

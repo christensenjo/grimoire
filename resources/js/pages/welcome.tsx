@@ -33,10 +33,16 @@ export default function Welcome() {
                                 Brave adventurers, cursed relics, forbidden lands: <br></br>what secrets lie within your Grimoire?
                             </p>
                             <div className="flex flex-row items-center justify-start gap-2">
-                                <Button asChild className="bg-armor px-6 py-3 text-sm font-medium text-white hover:bg-armor/80">
+                                <Button
+                                    asChild
+                                    className="bg-armor px-6 py-3 text-sm font-medium text-white hover:bg-armor/80"
+                                >
                                     <Link href={route('register')}>See Examples</Link>
                                 </Button>
-                                <Button asChild className="bg-magic px-6 py-3 text-sm font-medium text-white hover:bg-magic/80">
+                                <Button
+                                    asChild
+                                    className="bg-magic px-6 py-3 text-sm font-medium text-white hover:bg-magic/80"
+                                >
                                     <Link href={route('register')}>Get Started</Link>
                                 </Button>
                             </div>

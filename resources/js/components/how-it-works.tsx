@@ -30,7 +30,10 @@ export default function HowItWorks() {
             <div className="mx-auto max-w-screen-2xl px-4">
                 <div className="mb-12 text-center">
                     <h2 className="mb-4 font-serif text-4xl font-bold text-balance text-tome dark:text-parchment">
-                        <Lombardic text="How It Works" letterClassName="text-5xl tracking-wide" />
+                        <Lombardic
+                            text="How It Works"
+                            letterClassName="text-5xl tracking-wide"
+                        />
                     </h2>
                     <p className="mx-auto max-w-2xl font-serif text-lg text-pretty text-tome/70 dark:text-parchment/70">
                         From signup to storytelling in three simple steps
@@ -51,7 +54,10 @@ export default function HowItWorks() {
                                             <span className="text-lg font-bold">{step.step}</span>
                                         </div>
                                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-magic/10">
-                                            <Icon className="h-6 w-6 text-magic" aria-hidden="true" />
+                                            <Icon
+                                                className="h-6 w-6 text-magic"
+                                                aria-hidden="true"
+                                            />
                                         </div>
                                     </div>
                                     <CardTitle className="text-xl text-balance text-tome dark:text-parchment">{step.title}</CardTitle>

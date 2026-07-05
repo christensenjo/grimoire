@@ -48,13 +48,33 @@ const getTypeColor = (type: Campaign['type']) => {
 const getClassIcon = (className: string) => {
     switch (className) {
         case 'Rogue':
-            return <Sword className="h-4 w-4" aria-hidden="true" />;
+            return (
+                <Sword
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                />
+            );
         case 'Wizard':
-            return <Flame className="h-4 w-4" aria-hidden="true" />;
+            return (
+                <Flame
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                />
+            );
         case 'Fighter':
-            return <Shield className="h-4 w-4" aria-hidden="true" />;
+            return (
+                <Shield
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                />
+            );
         default:
-            return <Star className="h-4 w-4" aria-hidden="true" />;
+            return (
+                <Star
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                />
+            );
     }
 };
 
@@ -68,12 +88,25 @@ export default function DashboardPreview() {
                     <p className="font-serif text-sm text-tome/70 dark:text-parchment/70">Manage your campaigns, characters, and worlds</p>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="gap-2">
-                        <Scroll className="h-4 w-4" aria-hidden="true" />
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-2"
+                    >
+                        <Scroll
+                            className="h-4 w-4"
+                            aria-hidden="true"
+                        />
                         New Campaign
                     </Button>
-                    <Button size="sm" className="gap-2 bg-magic hover:bg-magic/80">
-                        <Skull className="h-4 w-4" aria-hidden="true" />
+                    <Button
+                        size="sm"
+                        className="gap-2 bg-magic hover:bg-magic/80"
+                    >
+                        <Skull
+                            className="h-4 w-4"
+                            aria-hidden="true"
+                        />
                         New Character
                     </Button>
                 </div>
@@ -116,7 +149,10 @@ export default function DashboardPreview() {
                             >
                                 <div className="flex items-center gap-3">
                                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-leather/20 dark:bg-leather/40">
-                                        <Scroll className="h-5 w-5 text-leather dark:text-leather/80" aria-hidden="true" />
+                                        <Scroll
+                                            className="h-5 w-5 text-leather dark:text-leather/80"
+                                            aria-hidden="true"
+                                        />
                                     </div>
                                     <div>
                                         <p className="font-medium text-tome dark:text-parchment">{campaign.name}</p>

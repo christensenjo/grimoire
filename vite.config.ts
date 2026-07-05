@@ -27,7 +27,7 @@ export default defineConfig({
     fmt: {
         semi: true,
         singleQuote: true,
-        singleAttributePerLine: false,
+        singleAttributePerLine: true,
         htmlWhitespaceSensitivity: 'css',
         printWidth: 150,
         tabWidth: 4,

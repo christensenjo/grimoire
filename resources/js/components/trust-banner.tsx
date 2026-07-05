@@ -52,7 +52,10 @@ export default function TrustBanner() {
             <div className="mx-auto max-w-screen-2xl px-4">
                 <p className="mb-4 text-center font-serif text-base font-medium text-tome dark:text-parchment/70">Built for use with</p>
             </div>
-            <div ref={containerRef} className="relative overflow-hidden">
+            <div
+                ref={containerRef}
+                className="relative overflow-hidden"
+            >
                 <motion.div
                     className="flex gap-12"
                     animate={{
