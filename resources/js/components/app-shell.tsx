@@ -1,7 +1,8 @@
+import { usePage } from '@inertiajs/react';
+
 import { SidebarProvider } from '@/components/ui/sidebar';
 import ShaderBackgroundLayout from '@/layouts/shader-background-layout';
 import { SharedData } from '@/types';
-import { usePage } from '@inertiajs/react';
 
 interface AppShellProps {
     children: React.ReactNode;

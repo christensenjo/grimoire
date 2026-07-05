@@ -1,3 +1,5 @@
+import { Head, Link } from '@inertiajs/react';
+
 import CTASection from '@/components/cta-section';
 import DashboardPreview from '@/components/dashboard-preview';
 import Features from '@/components/features';
@@ -9,7 +11,6 @@ import TrustBanner from '@/components/trust-banner';
 import { Button } from '@/components/ui/button';
 import WhyChooseUs from '@/components/why-choose-us';
 import ShaderBackgroundLayout from '@/layouts/shader-background-layout';
-import { Head, Link } from '@inertiajs/react';
 
 export default function Welcome() {
     return (
@@ -20,13 +21,15 @@ export default function Welcome() {
                     {/* Hero - reduced padding to show dashboard preview below */}
                     <section className="flex w-full flex-row items-center justify-between gap-16 pt-8 pb-12 md:pt-12 md:pb-16">
                         <div className="flex flex-col items-start justify-center gap-4">
-                            <h1 className="font-serif animate-[hero-in_0.5s_ease-out_both] text-left text-5xl leading-tight text-balance text-black md:text-6xl dark:text-white">
+                            <h1 className="animate-[hero-in_0.5s_ease-out_both] text-left font-serif text-5xl leading-tight text-balance text-black md:text-6xl dark:text-white">
                                 <span className="font-title-shaded text-[96px] leading-none">S</span>
-                                <span className="font-serif">top wrestling with notes…<br></br>…start building{' '}</span>
+                                <span className="font-serif">
+                                    top wrestling with notes…<br></br>…start building{' '}
+                                </span>
                                 <span className="font-title-shaded text-[96px] leading-none">W</span>
                                 <span className="font-serif">orlds.</span>
                             </h1>
-                            <p className="font-serif animate-[hero-in_0.65s_ease-out_both_0.2s] text-lg text-pretty text-black/70 dark:text-white/70">
+                            <p className="animate-[hero-in_0.65s_ease-out_both_0.2s] font-serif text-lg text-pretty text-black/70 dark:text-white/70">
                                 Brave adventurers, cursed relics, forbidden lands: <br></br>what secrets lie within your Grimoire?
                             </p>
                             <div className="flex flex-row items-center justify-start gap-2">

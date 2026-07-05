@@ -1,7 +1,8 @@
-import { Lombardic } from '@/components/lombardic';
-import { Button } from '@/components/ui/button';
 import { Link } from '@inertiajs/react';
 import { ArrowRight, Sparkles } from 'lucide-react';
+
+import { Lombardic } from '@/components/lombardic';
+import { Button } from '@/components/ui/button';
 
 export default function CTASection() {
     return (
@@ -14,10 +15,10 @@ export default function CTASection() {
                                 <Sparkles className="h-4 w-4" aria-hidden="true" />
                                 Start your journey today
                             </div>
-                            <h2 className="mb-4 text-3xl leading-tight font-bold text-balance text-tome md:text-4xl lg:text-5xl dark:text-parchment font-serif">
+                            <h2 className="mb-4 font-serif text-3xl leading-tight font-bold text-balance text-tome md:text-4xl lg:text-5xl dark:text-parchment">
                                 <Lombardic text="Ready to build worlds that captivate?" />
                             </h2>
-                            <p className="mb-6 text-lg text-pretty text-tome/70 dark:text-parchment/70 font-serif">
+                            <p className="mb-6 font-serif text-lg text-pretty text-tome/70 dark:text-parchment/70">
                                 Join thousands of worldbuilders, dungeon masters, and storytellers who've made Grimoire their creative home.
                             </p>
                             <div className="flex flex-col gap-3 sm:flex-row lg:justify-start">

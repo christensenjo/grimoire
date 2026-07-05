@@ -1,3 +1,6 @@
+import { Form, Head } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
+
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
@@ -5,8 +8,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
-import { Form, Head } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
 
 interface LoginProps {
     status?: string;
@@ -42,7 +43,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                 <div className="flex items-center">
                                     <Label htmlFor="password">Password</Label>
                                     {canResetPassword && (
-                                        <TextLink href={route('password.request')} className="ml-auto text-sm font-sans" tabIndex={5}>
+                                        <TextLink href={route('password.request')} className="ml-auto font-sans text-sm" tabIndex={5}>
                                             Forgot password?
                                         </TextLink>
                                     )}

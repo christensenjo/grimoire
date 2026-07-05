@@ -1,10 +1,12 @@
+import { Link } from '@inertiajs/react';
+import { BookOpenCheck, BrainCircuit, FilePenLine, LayoutGrid, MessageSquareText, MountainSnow, PenTool } from 'lucide-react';
+
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavGroup, type NavItem } from '@/types';
-import { Link } from '@inertiajs/react';
-import { BookOpenCheck, BrainCircuit, FilePenLine, LayoutGrid, MessageSquareText, MountainSnow, PenTool } from 'lucide-react';
+
 import AppLogo from './app-logo';
 
 const primaryNavGroups: NavGroup[] = [
@@ -73,24 +75,24 @@ export function AppSidebar() {
                                 <SidebarMenuButton
                                     size="sm"
                                     variant="ghost"
-                                    className="w-full justify-start gap-2 cursor-pointer"
+                                    className="w-full cursor-pointer justify-start gap-2"
                                     tooltip="New Setting"
                                     type="button"
                                 >
                                     <PenTool className="size-4 shrink-0" aria-hidden="true" />
-                                    <span className="text-sm font-sans">New Setting</span>
+                                    <span className="font-sans text-sm">New Setting</span>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
                                 <SidebarMenuButton
                                     size="sm"
                                     variant="default"
-                                    className="w-full justify-start gap-2 cursor-pointer bg-armor"
+                                    className="w-full cursor-pointer justify-start gap-2 bg-armor"
                                     tooltip="New Document"
                                     type="button"
                                 >
                                     <FilePenLine className="size-4 shrink-0" aria-hidden="true" />
-                                    <span className="text-sm font-sans">New Document</span>
+                                    <span className="font-sans text-sm">New Document</span>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         </SidebarMenu>

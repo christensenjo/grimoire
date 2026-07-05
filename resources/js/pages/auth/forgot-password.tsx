@@ -22,15 +22,15 @@ export default function ForgotPassword({ status }: { status?: string }) {
                         <>
                             <div className="grid gap-2">
                                 <Label htmlFor="email">Email address</Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                name="email"
-                                autoComplete="off"
-                                autoFocus
-                                placeholder="email@example.com"
-                                className="font-sans"
-                            />
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    name="email"
+                                    autoComplete="off"
+                                    autoFocus
+                                    placeholder="email@example.com"
+                                    className="font-sans"
+                                />
 
                                 <InputError message={errors.email} />
                             </div>

@@ -1,19 +1,20 @@
 # Agent Guidelines for Grimoire
 
-> Laravel 12 + React 19 + Inertia v2 + Tailwind v4 + Pest v3
+> Laravel 12 + React 19 + Inertia v3 + Tailwind v4 + Pest v4 + Vite+
 
 ## Build/Development Commands
 
 ```bash
-### In most cases, the developer will already have the environment running locally as they work via Laravel Herd and `pnpm run dev`. Feel free to build in order to catch build errors, or to start your own dev environment if you specifically need to, but in many cases you can simply ask the developer to check the app for your changes.
+### In most cases, the developer will already have the environment running locally as they work via Laravel Herd and `vp dev`. Feel free to build in order to catch build errors, or to start your own dev environment if you specifically need to, but in many cases you can simply ask the developer to check the app for your changes.
 
 # Start full dev environment (runs concurrently)
 composer run dev              # Starts: artisan serve, queue, vite
 
 # Individual frontend commands
-pnpm run dev                  # Start Vite dev server
-pnpm run build                # Production build
-pnpm run build:ssr            # Build with SSR support
+vp dev                        # Start Vite+ dev server
+vp build                      # Production build
+vp build --ssr                # Build with SSR support
+vp run <script>               # Run a package.json script through pnpm
 
 
 # PHP commands
@@ -44,11 +45,11 @@ php artisan test --testsuite=Feature
 vendor/bin/pint               # Auto-fix all PHP files
 vendor/bin/pint --dirty       # Fix only changed files
 
-# Frontend formatting
-npm run format                # Auto-fix with Prettier
-npm run format:check          # Check without fixing
-npm run lint                  # ESLint with auto-fix
-npm run types                 # TypeScript type check (tsc --noEmit)
+# Frontend formatting / checks
+vp fmt                        # Auto-fix with Oxfmt
+vp fmt --check                # Check formatting without fixing
+vp lint                       # Oxlint
+vp check                      # Format, lint, and type-check
 ```
 
 ## Code Style Guidelines
@@ -88,7 +89,7 @@ npm run types                 # TypeScript type check (tsc --noEmit)
 - Prefer gap utilities over margins for spacing in lists
 - Support dark mode with `dark:` prefixes where existing
 
-### Testing (Pest v3)
+### Testing (Pest v4)
 
 - All tests use Pest syntax (not PHPUnit)
 - Use specific assertion methods: `assertForbidden()`, `assertNotFound()`
@@ -141,9 +142,9 @@ tests/
 ## Pre-commit Checklist
 
 - [ ] Run `vendor/bin/pint --dirty` for PHP formatting
-- [ ] Run `npm run format` for frontend formatting
-- [ ] Run `npm run lint` for ESLint checks
-- [ ] Run `npm run types` for TypeScript validation
+- [ ] Run `vp fmt` for frontend formatting
+- [ ] Run `vp lint` for Oxlint checks
+- [ ] Run `vp check` for TypeScript validation
 - [ ] Run affected tests: `php artisan test --filter=YourFeature`
 - [ ] Ensure dark mode support if applicable
 

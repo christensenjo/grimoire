@@ -1,9 +1,10 @@
+import { Link, usePage } from '@inertiajs/react';
+import { Moon, Sun } from 'lucide-react';
+
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { useAppearance } from '@/hooks/use-appearance';
 import { cn } from '@/lib/utils';
 import type { SharedData } from '@/types';
-import { Link, usePage } from '@inertiajs/react';
-import { Moon, Sun } from 'lucide-react';
 
 interface NavLinkProps {
     href: string;
@@ -19,7 +20,7 @@ function NavLink({ href, children, className, prefetch = true }: NavLinkProps) {
                 href={href}
                 prefetch={prefetch}
                 className={cn(
-                    'group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-lg font-medium text-black transition-all duration-150 hover:bg-black/5 hover:text-black focus:bg-black/5 focus:text-black disabled:pointer-events-none disabled:opacity-50 data-[active=true]:bg-accent/50 data-[state=open]:bg-accent/50 dark:text-white dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10 font-serif',
+                    'group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 font-serif text-lg font-medium text-black transition-all duration-150 hover:bg-black/5 hover:text-black focus:bg-black/5 focus:text-black disabled:pointer-events-none disabled:opacity-50 data-[active=true]:bg-accent/50 data-[state=open]:bg-accent/50 dark:text-white dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10',
                     className,
                 )}
             >
@@ -47,11 +48,7 @@ export default function PublicNav() {
                         alt="Grimoire Logo"
                         className="hidden h-8 w-8 pb-1 dark:block"
                     />
-                    <img
-                        src="/images/logos/castlebooks_square/castlebook_jet.svg"
-                        alt="Grimoire Logo"
-                        className="block h-8 w-8 pb-1 dark:hidden"
-                    />
+                    <img src="/images/logos/castlebooks_square/castlebook_jet.svg" alt="Grimoire Logo" className="block h-8 w-8 pb-1 dark:hidden" />
                     Grimoire
                 </Link>
 

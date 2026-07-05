@@ -19,8 +19,7 @@ const setCookie = (name: string, value: string, days = 365) => {
     document.cookie = `${name}=${value};path=/;max-age=${maxAge};SameSite=Lax`;
 };
 
-const resolveIsDark = (appearance: Appearance, systemPrefersDark: boolean) =>
-    appearance === 'dark' || (appearance === 'system' && systemPrefersDark);
+const resolveIsDark = (appearance: Appearance, systemPrefersDark: boolean) => appearance === 'dark' || (appearance === 'system' && systemPrefersDark);
 
 const applyTheme = (isDark: boolean) => {
     if (typeof document === 'undefined') {
@@ -115,7 +114,7 @@ export function AppearanceProvider({ children }: PropsWithChildren) {
         return () => mediaQuery()?.removeEventListener('change', handleSystemThemeChange);
     }, []);
 
-    const value = useMemo(
+    const value = useMemo<AppearanceContextValue>(
         () => ({ appearance, updateAppearance, isDark, resolvedAppearance }),
         [appearance, isDark, resolvedAppearance, updateAppearance],
     );

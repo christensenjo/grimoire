@@ -1,8 +1,9 @@
+import { Link, usePage } from '@inertiajs/react';
+
 import { Badge } from '@/components/ui/badge';
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 import { type NavGroup, type NavItem } from '@/types';
-import { Link, usePage } from '@inertiajs/react';
 
 interface NavMainProps {
     groups: NavGroup[];
@@ -36,13 +37,7 @@ function NavMainItem({ item, isActive }: { item: NavItem; isActive: boolean }) {
     }
 
     return (
-        <SidebarMenuButton
-            variant="ghost"
-            asChild
-            className={buttonClasses}
-            isActive={isActive}
-            tooltip={{ children: item.title }}
-        >
+        <SidebarMenuButton variant="ghost" asChild className={buttonClasses} isActive={isActive} tooltip={{ children: item.title }}>
             <Link href={item.href} prefetch>
                 {item.icon && <item.icon className="size-4 shrink-0" aria-hidden="true" />}
                 <span className="font-sans">{item.title}</span>
