@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AssetController;
+use App\Http\Controllers\WorldController;
+use App\Models\World;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\AssetController;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -29,9 +32,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('components');
     })->name('components.playground');
 
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+    Route::get('dashboard', function (Request $request) {
+        $worlds = $request->user()
+            ->worlds()
+            ->latest('updated_at')
+            ->get()
+            ->map(fn (World $world): array => $world->toInertiaArray());
+
+        return Inertia::render('dashboard', [
+            'worlds' => $worlds,
+        ]);
     })->name('dashboard');
+
+    Route::resource('worlds', WorldController::class);
 });
 
 // Route to serve private assets (like .riv files)

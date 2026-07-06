@@ -1,4 +1,4 @@
-import { Head, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { Castle, MapPin, PawPrint, ScrollText, Sparkles, Sword, UserRound } from 'lucide-react';
 
 import { Lombardic } from '@/components/lombardic';
@@ -11,6 +11,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 
+import { initialsForWorld, type World } from './worlds/types';
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
@@ -18,45 +20,19 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Dashboard() {
+interface DashboardProps {
+    worlds: World[];
+}
+
+export default function Dashboard({ worlds }: DashboardProps) {
     const { auth } = usePage<SharedData>().props;
     const firstName = auth.user.name.trim().split(' ')[0];
     const greeting = firstName ? `Welcome back, ${firstName}` : 'Welcome back';
     const summaryStats = [
-        { label: 'Worlds', value: '4' },
+        { label: 'Worlds', value: worlds.length.toString() },
         { label: 'Locations', value: '27' },
         { label: 'Characters', value: '19' },
         { label: 'Beasts', value: '8' },
-    ];
-
-    const worlds = [
-        {
-            id: 'marrow-falls',
-            name: 'Marrow Falls',
-            description: 'A fogbound river city of guilds, hidden canals, and whispered oaths.',
-            updated: '2 days ago',
-            locations: 12,
-            characters: 5,
-            beasts: 2,
-        },
-        {
-            id: 'sunbreak-archipelago',
-            name: 'Sunbreak Archipelago',
-            description: 'Tide-locked islands where sky sailors barter with stormcallers.',
-            updated: '5 days ago',
-            locations: 7,
-            characters: 8,
-            beasts: 3,
-        },
-        {
-            id: 'glassreach',
-            name: 'Glassreach',
-            description: 'A crystalline desert kingdom guarded by mirage-bound sentinels.',
-            updated: '1 week ago',
-            locations: 5,
-            characters: 4,
-            beasts: 1,
-        },
     ];
 
     const assetIcons = {
@@ -127,6 +103,7 @@ export default function Dashboard() {
                             <Button
                                 variant="outline"
                                 className="gap-2"
+                                render={<Link href={route('worlds.create')} />}
                             >
                                 <ScrollText
                                     className="size-4"
@@ -172,7 +149,7 @@ export default function Dashboard() {
                                 className="size-3.5"
                                 aria-hidden="true"
                             />
-                            3 Active Worlds
+                            {worlds.length} Active {worlds.length === 1 ? 'World' : 'Worlds'}
                         </Badge>
                     </div>
 
@@ -189,63 +166,55 @@ export default function Dashboard() {
                             value="worlds"
                             className="pt-4"
                         >
-                            <div className="grid gap-4 lg:grid-cols-2">
-                                {worlds.map((world) => (
-                                    <Card
-                                        key={world.id}
-                                        className="h-full"
-                                    >
-                                        <CardHeader className="flex flex-row items-start gap-4">
-                                            <Avatar className="size-10">
-                                                <AvatarFallback className="text-xs font-semibold">
-                                                    {world.name
-                                                        .split(' ')
-                                                        .map((word) => word[0])
-                                                        .join('')
-                                                        .slice(0, 2)}
-                                                </AvatarFallback>
-                                            </Avatar>
-                                            <div className="flex-1 space-y-2">
-                                                <div className="flex flex-wrap items-center gap-2">
-                                                    <CardTitle className="text-base font-semibold text-foreground">{world.name}</CardTitle>
-                                                    <Badge
-                                                        variant="outline"
-                                                        className="text-xs"
-                                                    >
-                                                        Updated {world.updated}
-                                                    </Badge>
+                            {worlds.length > 0 ? (
+                                <div className="grid gap-4 lg:grid-cols-2">
+                                    {worlds.map((world) => (
+                                        <Card
+                                            key={world.id}
+                                            className="h-full"
+                                        >
+                                            <CardHeader className="flex flex-row items-start gap-4">
+                                                <Avatar className="size-10">
+                                                    <AvatarFallback className="text-xs font-semibold">{initialsForWorld(world.name)}</AvatarFallback>
+                                                </Avatar>
+                                                <div className="flex-1 space-y-2">
+                                                    <div className="flex flex-wrap items-center gap-2">
+                                                        <CardTitle className="text-base font-semibold text-foreground">
+                                                            <Link
+                                                                href={route('worlds.show', world.id)}
+                                                                className="hover:underline"
+                                                            >
+                                                                {world.name}
+                                                            </Link>
+                                                        </CardTitle>
+                                                        {world.updatedForHumans && (
+                                                            <Badge
+                                                                variant="outline"
+                                                                className="text-xs"
+                                                            >
+                                                                Updated {world.updatedForHumans}
+                                                            </Badge>
+                                                        )}
+                                                    </div>
+                                                    <CardDescription className="text-sm text-pretty">
+                                                        {world.description || 'No description yet.'}
+                                                    </CardDescription>
                                                 </div>
-                                                <CardDescription className="text-sm text-pretty">{world.description}</CardDescription>
-                                            </div>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <div className="grid grid-cols-3 gap-3 text-xs text-muted-foreground">
-                                                <div className="flex items-center gap-2">
-                                                    <MapPin
-                                                        className="size-4"
-                                                        aria-hidden="true"
-                                                    />
-                                                    <span className="tabular-nums">{world.locations} Locations</span>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <UserRound
-                                                        className="size-4"
-                                                        aria-hidden="true"
-                                                    />
-                                                    <span className="tabular-nums">{world.characters} Characters</span>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <PawPrint
-                                                        className="size-4"
-                                                        aria-hidden="true"
-                                                    />
-                                                    <span className="tabular-nums">{world.beasts} Beasts</span>
-                                                </div>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                ))}
-                            </div>
+                                            </CardHeader>
+                                        </Card>
+                                    ))}
+                                </div>
+                            ) : (
+                                <Card className="border-dashed">
+                                    <CardHeader className="items-start gap-4 md:flex-row md:items-center md:justify-between">
+                                        <div className="space-y-1">
+                                            <CardTitle>No Worlds yet</CardTitle>
+                                            <CardDescription>Create your first World to start organizing files, folders, and images.</CardDescription>
+                                        </div>
+                                        <Button render={<Link href={route('worlds.create')} />}>Create World</Button>
+                                    </CardHeader>
+                                </Card>
+                            )}
                         </TabsContent>
 
                         <TabsContent

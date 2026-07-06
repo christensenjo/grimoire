@@ -86,7 +86,7 @@ export function AppSidebar() {
                                     size="sm"
                                     className="w-full cursor-pointer justify-start gap-2"
                                     tooltip="New World"
-                                    type="button"
+                                    render={<Link href={route('worlds.create')} />}
                                 >
                                     <PenTool
                                         className="size-4 shrink-0"
