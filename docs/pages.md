@@ -15,7 +15,7 @@
 ## Dashboard
 
 - **Editor**
-    - Choose among settings to determine filesystem
+    - Choose among worlds to determine filesystem
     - Filesystem explorer in sidebar
     - Create new files
     - Organize files into folders
@@ -33,7 +33,7 @@
 
 ## Templates
 
-- Setting
+- World
 - Location
 - Character
 - Creature
@@ -54,7 +54,7 @@
 
 - Music player
 - Connect to your Spotify account
-- Chat feature to create soundscapes for your account or setting via ElevenLabs Music API
+- Chat feature to create soundscapes for your account or world via ElevenLabs Music API
 - Filesystem explorer for viewing created/saved music
 
 ## Sandbox
@@ -66,7 +66,7 @@
     - Travel feature for wide-region journeys with random encounters
     - “Campaigns” inside sandboxes: campaign creation alters NPC dialogue & world, with persistent changes
     - Campaign session decisions, outcomes, and changes are recorded with AI updating worldbuilding assets
-    - Persist multiple versions of a world/setting per campaign (multiple per user); might require large-scale asset management or versioning (e.g., via Github)
+    - Persist multiple versions of a world per campaign (multiple per user); might require large-scale asset management or versioning (e.g., via Github)
     - Private worlds: allow/disallow persisting changes in Sandbox sessions (no campaigns needed, just a single world)
 - _Similar implementations:_
     - [Sprite Sheet Creator on GitHub](https://github.com/blendi-remade/sprite-sheet-creator)
@@ -75,7 +75,7 @@
 ## Showcase Mode
 
 - Set a backdrop or put your works on display
-- Works with both your own setting and public community settings from the Library
+- Works with both your own world and public community worlds from the Library
 
 ## Settings
 

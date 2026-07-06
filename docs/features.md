@@ -9,7 +9,7 @@
 
 ## Templates
 - Use preset editor configurations to spark your imagination and help you worldbuild even faster
-- Includes settings, locations, characters, magic systems, monsters, items, maps, and more
+- Includes worlds, locations, characters, magic systems, monsters, items, maps, and more
 
 ## Plugins 
 - Opt-in instant compatibility for popular use cases, including:
@@ -19,14 +19,14 @@
   - Video games
 
 ## Soundscapes
-- Create custom ambient or soundtrack music to elevate your setting’s mood
+- Create custom ambient or soundtrack music to elevate your world’s mood
 - Powered by licensed, responsible AI
 - ElevenLabs Music API
 
 ## Explorer
 - Inspired by classic RPG games such as Pokémon or Dragonfable
 - Navigate between your locations and chat directly with characters you’ve created
-- Works with both your own settings and community settings
+- Works with both your own worlds and community worlds
 
 ## Integrations
 - Sync your existing worldbuilding content flawlessly

@@ -8,7 +8,7 @@
 ---
 
 ## Free Tier
-- **File Limit:** Limited number of files (e.g., 1 setting, X locations, Y characters, Z monsters, etc., or a total file limit)
+- **File Limit:** Limited number of files (e.g., 1 world, X locations, Y characters, Z monsters, etc., or a total file limit)
 - **Templates:** Limited selection
 - **Integrations:** Limited options
 - **Library Access:** Limited copy/paste from Library

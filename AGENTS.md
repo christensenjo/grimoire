@@ -297,3 +297,17 @@ See `.cursor/rules/laravel-boost.mdc` for comprehensive Laravel Boost guidelines
 - Inertia v2 features (polling, prefetching, deferred props)
 - React + Inertia form patterns
 - Tailwind v4 migration notes
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in Linear (workspace `grimoire-worldbuilding`, team key `JBC`), accessed via the Linear MCP server; external PRs are not a triage surface. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical triage roles map 1:1 to Linear labels (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` at the repo root is the domain glossary; ADRs live in `docs/adr/`. See `docs/agents/domain.md`.

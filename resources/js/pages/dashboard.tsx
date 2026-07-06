@@ -23,13 +23,13 @@ export default function Dashboard() {
     const firstName = auth.user.name.trim().split(' ')[0];
     const greeting = firstName ? `Welcome back, ${firstName}` : 'Welcome back';
     const summaryStats = [
-        { label: 'Settings', value: '4' },
+        { label: 'Worlds', value: '4' },
         { label: 'Locations', value: '27' },
         { label: 'Characters', value: '19' },
         { label: 'Beasts', value: '8' },
     ];
 
-    const settings = [
+    const worlds = [
         {
             id: 'marrow-falls',
             name: 'Marrow Falls',
@@ -71,7 +71,7 @@ export default function Dashboard() {
         id: string;
         type: AssetType;
         name: string;
-        setting: string;
+        world: string;
         detail: string;
         updated: string;
     }> = [
@@ -79,7 +79,7 @@ export default function Dashboard() {
             id: 'asset-1',
             type: 'Location',
             name: 'The Gilded Pier',
-            setting: 'Marrow Falls',
+            world: 'Marrow Falls',
             detail: 'Merchant docks & hidden tunnels',
             updated: 'Today',
         },
@@ -87,7 +87,7 @@ export default function Dashboard() {
             id: 'asset-2',
             type: 'Character',
             name: 'Captain Lyra Vale',
-            setting: 'Sunbreak Archipelago',
+            world: 'Sunbreak Archipelago',
             detail: 'Skyship captain with a storm pact',
             updated: 'Yesterday',
         },
@@ -95,7 +95,7 @@ export default function Dashboard() {
             id: 'asset-3',
             type: 'Beast',
             name: 'The Glass Stag',
-            setting: 'Glassreach',
+            world: 'Glassreach',
             detail: 'Guardian spirit of the dune-temples',
             updated: '3 days ago',
         },
@@ -103,7 +103,7 @@ export default function Dashboard() {
             id: 'asset-4',
             type: 'Location',
             name: 'Vault of Quiet Bells',
-            setting: 'Glassreach',
+            world: 'Glassreach',
             detail: 'Silent shrine beneath the dunes',
             updated: '4 days ago',
         },
@@ -120,7 +120,7 @@ export default function Dashboard() {
                                 <Lombardic text={greeting} />
                             </h1>
                             <p className="text-sm text-pretty text-muted-foreground">
-                                Keep your worldbuilding organized across settings, locations, and characters.
+                                Keep your worldbuilding organized across worlds, locations, and characters.
                             </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-2">
@@ -132,7 +132,7 @@ export default function Dashboard() {
                                     className="size-4"
                                     aria-hidden="true"
                                 />
-                                New Setting
+                                New World
                             </Button>
                             <Button className="gap-2">
                                 <Sparkles
@@ -162,7 +162,7 @@ export default function Dashboard() {
                     <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                         <div className="space-y-1">
                             <h2 className="text-xl font-semibold text-balance text-foreground">My Grimoire Summary</h2>
-                            <p className="text-sm text-pretty text-muted-foreground">Review your settings and most recent assets at a glance.</p>
+                            <p className="text-sm text-pretty text-muted-foreground">Review your worlds and most recent assets at a glance.</p>
                         </div>
                         <Badge
                             variant="secondary"
@@ -172,33 +172,33 @@ export default function Dashboard() {
                                 className="size-3.5"
                                 aria-hidden="true"
                             />
-                            3 Active Settings
+                            3 Active Worlds
                         </Badge>
                     </div>
 
                     <Tabs
-                        defaultValue="settings"
+                        defaultValue="worlds"
                         className="w-full"
                     >
                         <TabsList>
-                            <TabsTrigger value="settings">Settings</TabsTrigger>
+                            <TabsTrigger value="worlds">Worlds</TabsTrigger>
                             <TabsTrigger value="assets">Assets</TabsTrigger>
                         </TabsList>
 
                         <TabsContent
-                            value="settings"
+                            value="worlds"
                             className="pt-4"
                         >
                             <div className="grid gap-4 lg:grid-cols-2">
-                                {settings.map((setting) => (
+                                {worlds.map((world) => (
                                     <Card
-                                        key={setting.id}
+                                        key={world.id}
                                         className="h-full"
                                     >
                                         <CardHeader className="flex flex-row items-start gap-4">
                                             <Avatar className="size-10">
                                                 <AvatarFallback className="text-xs font-semibold">
-                                                    {setting.name
+                                                    {world.name
                                                         .split(' ')
                                                         .map((word) => word[0])
                                                         .join('')
@@ -207,15 +207,15 @@ export default function Dashboard() {
                                             </Avatar>
                                             <div className="flex-1 space-y-2">
                                                 <div className="flex flex-wrap items-center gap-2">
-                                                    <CardTitle className="text-base font-semibold text-foreground">{setting.name}</CardTitle>
+                                                    <CardTitle className="text-base font-semibold text-foreground">{world.name}</CardTitle>
                                                     <Badge
                                                         variant="outline"
                                                         className="text-xs"
                                                     >
-                                                        Updated {setting.updated}
+                                                        Updated {world.updated}
                                                     </Badge>
                                                 </div>
-                                                <CardDescription className="text-sm text-pretty">{setting.description}</CardDescription>
+                                                <CardDescription className="text-sm text-pretty">{world.description}</CardDescription>
                                             </div>
                                         </CardHeader>
                                         <CardContent>
@@ -225,21 +225,21 @@ export default function Dashboard() {
                                                         className="size-4"
                                                         aria-hidden="true"
                                                     />
-                                                    <span className="tabular-nums">{setting.locations} Locations</span>
+                                                    <span className="tabular-nums">{world.locations} Locations</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
                                                     <UserRound
                                                         className="size-4"
                                                         aria-hidden="true"
                                                     />
-                                                    <span className="tabular-nums">{setting.characters} Characters</span>
+                                                    <span className="tabular-nums">{world.characters} Characters</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
                                                     <PawPrint
                                                         className="size-4"
                                                         aria-hidden="true"
                                                     />
-                                                    <span className="tabular-nums">{setting.beasts} Beasts</span>
+                                                    <span className="tabular-nums">{world.beasts} Beasts</span>
                                                 </div>
                                             </div>
                                         </CardContent>
@@ -281,7 +281,7 @@ export default function Dashboard() {
                                                     className="size-3.5"
                                                     aria-hidden="true"
                                                 />
-                                                <span>{asset.setting}</span>
+                                                <span>{asset.world}</span>
                                             </CardContent>
                                         </Card>
                                     );

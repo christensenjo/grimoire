@@ -32,7 +32,7 @@ const comingSoonNavGroups: NavGroup[] = [
         title: 'AI Companion',
         items: [
             {
-                title: 'Setting Explorer',
+                title: 'World Explorer',
                 href: '#',
                 icon: MountainSnow,
                 disabled: true,
@@ -85,14 +85,14 @@ export function AppSidebar() {
                                 <SidebarMenuButton
                                     size="sm"
                                     className="w-full cursor-pointer justify-start gap-2"
-                                    tooltip="New Setting"
+                                    tooltip="New World"
                                     type="button"
                                 >
                                     <PenTool
                                         className="size-4 shrink-0"
                                         aria-hidden="true"
                                     />
-                                    <span className="font-sans text-sm">New Setting</span>
+                                    <span className="font-sans text-sm">New World</span>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
