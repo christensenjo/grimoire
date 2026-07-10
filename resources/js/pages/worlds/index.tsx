@@ -56,7 +56,7 @@ export default function WorldsIndex({ worlds }: WorldsIndexProps) {
                                         <div className="flex flex-wrap items-center gap-2">
                                             <CardTitle className="text-base font-semibold">
                                                 <Link
-                                                    href={route('worlds.show', world.id)}
+                                                    href={route('worlds.show', world.slug)}
                                                     className="hover:underline"
                                                 >
                                                     {world.name}

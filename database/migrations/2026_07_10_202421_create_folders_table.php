@@ -16,9 +16,11 @@ return new class extends Migration
             $table->foreignId('world_id')->constrained()->cascadeOnDelete();
             $table->foreignId('parent_id')->nullable()->constrained('folders')->cascadeOnDelete();
             $table->string('name');
+            $table->string('slug');
             $table->timestamps();
 
             $table->index(['world_id', 'parent_id']);
+            $table->unique(['world_id', 'slug']);
         });
     }
 

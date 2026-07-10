@@ -2,6 +2,7 @@
 
 use App\Models\File;
 use App\Models\Folder;
+use App\Models\SlugRedirect;
 use App\Models\User;
 use App\Models\World;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,6 +32,7 @@ test('user can create a root folder in their world', function () {
     $folder = Folder::query()->where('name', 'Characters')->firstOrFail();
 
     expect($folder)
+        ->slug->toBe('characters')
         ->world_id->toBe($world->id)
         ->parent_id->toBeNull();
 });
@@ -53,6 +55,7 @@ test('user can nest rename and move folders', function () {
 
     expect($child->refresh())
         ->name->toBe('River Cities')
+        ->slug->toBe('river-cities')
         ->parent_id->toBeNull();
 
     $this->actingAs($user)
@@ -133,15 +136,15 @@ test('user cannot manage folders in another users world', function () {
 
     $this->actingAs($user)
         ->post(route('worlds.folders.store', $world), ['name' => 'Stolen'])
-        ->assertForbidden();
+        ->assertNotFound();
 
     $this->actingAs($user)
         ->patch(route('worlds.folders.update', [$world, $folder]), ['name' => 'Stolen'])
-        ->assertForbidden();
+        ->assertNotFound();
 
     $this->actingAs($user)
         ->delete(route('worlds.folders.destroy', [$world, $folder]))
-        ->assertForbidden();
+        ->assertNotFound();
 });
 
 test('folder from another world cannot be addressed under this world', function () {
@@ -225,12 +228,100 @@ test('world show includes the folder and file tree', function () {
         ->assertInertia(fn (Assert $page) => $page
             ->component('worlds/show')
             ->where('world.id', $world->id)
+            ->where('world.slug', $world->slug)
             ->has('tree.folders', 1)
             ->where('tree.folders.0.id', $folder->id)
+            ->where('tree.folders.0.slug', 'places')
             ->where('tree.folders.0.name', 'Places')
             ->has('tree.files', 1)
             ->where('tree.files.0.id', $file->id)
+            ->where('tree.files.0.slug', 'marrow-falls')
             ->where('tree.files.0.folderId', $folder->id)
             ->where('file', null)
         );
+});
+
+test('folder slugs are unique within a world', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create();
+    $otherWorld = World::factory()->for($user)->create();
+
+    $first = Folder::factory()->for($world)->create(['name' => 'Characters']);
+    $second = Folder::factory()->for($world)->create(['name' => 'Characters']);
+    $otherWorldFolder = Folder::factory()->for($otherWorld)->create(['name' => 'Characters']);
+
+    expect($first->slug)->toBe('characters')
+        ->and($second->slug)->toBe('characters-2')
+        ->and($otherWorldFolder->slug)->toBe('characters');
+});
+
+test('folder rename creates a redirect to the world url for now', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create(['name' => 'World']);
+    $folder = Folder::factory()->for($world)->create(['name' => 'Old Folder']);
+
+    $this->actingAs($user)
+        ->patch(route('worlds.folders.update', [$world, $folder]), [
+            'name' => 'New Folder',
+            'parent_id' => null,
+        ])
+        ->assertRedirect('/worlds/world');
+
+    $this->actingAs($user)
+        ->patch('/worlds/world/folders/old-folder', [
+            'name' => 'Renamed Again',
+            'parent_id' => null,
+        ])
+        ->assertRedirect('/worlds/world')
+        ->assertMovedPermanently();
+});
+
+test('live folder slug reclaims redirect history', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create();
+    $folder = Folder::factory()->for($world)->create(['name' => 'Old Folder']);
+
+    $this->actingAs($user)->patch(route('worlds.folders.update', [$world, $folder]), [
+        'name' => 'New Folder',
+        'parent_id' => null,
+    ]);
+
+    $replacement = Folder::factory()->for($world)->create(['name' => 'Old Folder']);
+
+    expect($replacement->slug)->toBe('old-folder');
+    $this->assertDatabaseMissing('slug_redirects', [
+        'redirectable_type' => (new Folder)->getMorphClass(),
+        'world_id' => $world->id,
+        'from_slug' => 'old-folder',
+    ]);
+});
+
+test('folder delete removes slug redirect history', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create();
+    $folder = Folder::factory()->for($world)->create(['name' => 'Old Folder']);
+
+    $this->actingAs($user)->patch(route('worlds.folders.update', [$world, $folder]), [
+        'name' => 'New Folder',
+        'parent_id' => null,
+    ]);
+
+    expect(SlugRedirect::query()->count())->toBe(1);
+
+    $folder->refresh()->delete();
+
+    expect(SlugRedirect::query()->count())->toBe(0);
+});
+
+test('folder name must be slugifiable', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create();
+
+    $this->actingAs($user)
+        ->from(route('worlds.show', $world))
+        ->post(route('worlds.folders.store', $world), [
+            'name' => '!!!',
+        ])
+        ->assertRedirect(route('worlds.show', $world, absolute: false))
+        ->assertSessionHasErrors('name');
 });

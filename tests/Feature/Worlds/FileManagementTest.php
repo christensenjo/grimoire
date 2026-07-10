@@ -2,6 +2,7 @@
 
 use App\Models\File;
 use App\Models\Folder;
+use App\Models\SlugRedirect;
 use App\Models\User;
 use App\Models\World;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -48,7 +49,9 @@ test('user can create a file at world root and in a folder', function () {
 
     $response->assertRedirect(route('worlds.files.show', [$world, $nestedFile], absolute: false));
 
-    expect($nestedFile->folder_id)->toBe($folder->id);
+    expect($nestedFile)
+        ->slug->toBe('aria-vale')
+        ->folder_id->toBe($folder->id);
 });
 
 test('file content round-trips through update and show', function () {
@@ -98,10 +101,11 @@ test('user can rename and move a file between folders', function () {
             'folder_id' => $to->id,
             'content' => $file->content,
         ])
-        ->assertRedirect(route('worlds.files.show', [$world, $file], absolute: false));
+        ->assertRedirect('/worlds/'.$world->slug.'/files/canon-title');
 
     expect($file->refresh())
         ->name->toBe('Canon Title')
+        ->slug->toBe('canon-title')
         ->folder_id->toBe($to->id);
 });
 
@@ -124,22 +128,22 @@ test('user cannot manage files in another users world', function () {
 
     $this->actingAs($user)
         ->post(route('worlds.files.store', $world), ['name' => 'Stolen'])
-        ->assertForbidden();
+        ->assertNotFound();
 
     $this->actingAs($user)
         ->get(route('worlds.files.show', [$world, $file]))
-        ->assertForbidden();
+        ->assertNotFound();
 
     $this->actingAs($user)
         ->patch(route('worlds.files.update', [$world, $file]), [
             'name' => 'Stolen',
             'content' => 'Nope',
         ])
-        ->assertForbidden();
+        ->assertNotFound();
 
     $this->actingAs($user)
         ->delete(route('worlds.files.destroy', [$world, $file]))
-        ->assertForbidden();
+        ->assertNotFound();
 });
 
 test('file cannot move into a folder from another world', function () {
@@ -179,6 +183,88 @@ test('file name is required', function () {
         ->from(route('worlds.show', $world))
         ->post(route('worlds.files.store', $world), [
             'name' => '',
+        ])
+        ->assertRedirect(route('worlds.show', $world, absolute: false))
+        ->assertSessionHasErrors('name');
+});
+
+test('file slugs are unique within a world', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create();
+    $otherWorld = World::factory()->for($user)->create();
+
+    $first = File::factory()->for($world)->create(['name' => 'Map']);
+    $second = File::factory()->for($world)->create(['name' => 'Map']);
+    $otherWorldFile = File::factory()->for($otherWorld)->create(['name' => 'Map']);
+
+    expect($first->slug)->toBe('map')
+        ->and($second->slug)->toBe('map-2')
+        ->and($otherWorldFile->slug)->toBe('map');
+});
+
+test('file rename creates a redirect to the canonical file url', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create(['name' => 'World']);
+    $file = File::factory()->for($world)->create(['name' => 'Old File']);
+
+    $this->actingAs($user)
+        ->patch(route('worlds.files.update', [$world, $file]), [
+            'name' => 'New File',
+            'content' => $file->content,
+        ])
+        ->assertRedirect('/worlds/world/files/new-file');
+
+    $this->actingAs($user)
+        ->get('/worlds/world/files/old-file')
+        ->assertRedirect('/worlds/world/files/new-file')
+        ->assertMovedPermanently();
+});
+
+test('live file slug reclaims redirect history', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create();
+    $file = File::factory()->for($world)->create(['name' => 'Old File']);
+
+    $this->actingAs($user)->patch(route('worlds.files.update', [$world, $file]), [
+        'name' => 'New File',
+        'content' => $file->content,
+    ]);
+
+    $replacement = File::factory()->for($world)->create(['name' => 'Old File']);
+
+    expect($replacement->slug)->toBe('old-file');
+    $this->assertDatabaseMissing('slug_redirects', [
+        'redirectable_type' => (new File)->getMorphClass(),
+        'world_id' => $world->id,
+        'from_slug' => 'old-file',
+    ]);
+});
+
+test('file delete removes slug redirect history', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create();
+    $file = File::factory()->for($world)->create(['name' => 'Old File']);
+
+    $this->actingAs($user)->patch(route('worlds.files.update', [$world, $file]), [
+        'name' => 'New File',
+        'content' => $file->content,
+    ]);
+
+    expect(SlugRedirect::query()->count())->toBe(1);
+
+    $file->refresh()->delete();
+
+    expect(SlugRedirect::query()->count())->toBe(0);
+});
+
+test('file name must be slugifiable', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create();
+
+    $this->actingAs($user)
+        ->from(route('worlds.show', $world))
+        ->post(route('worlds.files.store', $world), [
+            'name' => '!!!',
         ])
         ->assertRedirect(route('worlds.show', $world, absolute: false))
         ->assertSessionHasErrors('name');

@@ -20,11 +20,11 @@ export default function EditWorld({ world }: EditWorldProps) {
         },
         {
             title: world.name,
-            href: route('worlds.show', world.id),
+            href: route('worlds.show', world.slug),
         },
         {
             title: 'Edit',
-            href: route('worlds.edit', world.id),
+            href: route('worlds.edit', world.slug),
         },
     ];
 
@@ -40,7 +40,7 @@ export default function EditWorld({ world }: EditWorldProps) {
                     </div>
                     <Button
                         variant="outline"
-                        render={<Link href={route('worlds.show', world.id)} />}
+                        render={<Link href={route('worlds.show', world.slug)} />}
                     >
                         Back to World
                     </Button>
@@ -53,7 +53,7 @@ export default function EditWorld({ world }: EditWorldProps) {
                     </CardHeader>
                     <CardContent>
                         <WorldForm
-                            action={route('worlds.update', world.id)}
+                            action={route('worlds.update', world.slug)}
                             method="patch"
                             submitLabel="Save World"
                             world={world}

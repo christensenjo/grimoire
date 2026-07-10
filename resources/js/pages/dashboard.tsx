@@ -181,7 +181,7 @@ export default function Dashboard({ worlds }: DashboardProps) {
                                                     <div className="flex flex-wrap items-center gap-2">
                                                         <CardTitle className="text-base font-semibold text-foreground">
                                                             <Link
-                                                                href={route('worlds.show', world.id)}
+                                                                href={route('worlds.show', world.slug)}
                                                                 className="hover:underline"
                                                             >
                                                                 {world.name}

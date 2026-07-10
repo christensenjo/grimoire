@@ -26,14 +26,14 @@ export default function ShowWorld({ world, tree, file }: ShowWorldProps) {
         },
         {
             title: world.name,
-            href: route('worlds.show', world.id),
+            href: route('worlds.show', world.slug),
         },
     ];
 
     if (file) {
         breadcrumbs.push({
             title: file.name,
-            href: route('worlds.files.show', [world.id, file.id]),
+            href: route('worlds.files.show', [world.slug, file.slug]),
         });
     }
 
@@ -51,7 +51,7 @@ export default function ShowWorld({ world, tree, file }: ShowWorldProps) {
                         <Button
                             variant="outline"
                             className="gap-2"
-                            render={<Link href={route('worlds.edit', world.id)} />}
+                            render={<Link href={route('worlds.edit', world.slug)} />}
                         >
                             <Pencil
                                 className="size-4"
@@ -113,7 +113,7 @@ export default function ShowWorld({ world, tree, file }: ShowWorldProps) {
                         </Button>
                         <Form
                             method="delete"
-                            action={route('worlds.destroy', world.id)}
+                            action={route('worlds.destroy', world.slug)}
                         >
                             {({ processing }) => (
                                 <Button

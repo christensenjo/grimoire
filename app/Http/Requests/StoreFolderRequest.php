@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\World;
+use App\Rules\SlugifiableName;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -17,7 +18,7 @@ class StoreFolderRequest extends FormRequest
         $world = $this->route('world');
 
         return [
-            'name' => ['required', 'string', 'max:120'],
+            'name' => ['required', 'string', 'max:120', new SlugifiableName],
             'parent_id' => [
                 'nullable',
                 'integer',

@@ -1,5 +1,6 @@
 export interface World {
     id: number;
+    slug: string;
     name: string;
     description: string | null;
     updatedAt: string | null;
@@ -8,12 +9,14 @@ export interface World {
 
 export interface TreeFolder {
     id: number;
+    slug: string;
     name: string;
     parentId: number | null;
 }
 
 export interface TreeFile {
     id: number;
+    slug: string;
     name: string;
     folderId: number | null;
 }
@@ -25,6 +28,7 @@ export interface WorldTree {
 
 export interface WorldFile {
     id: number;
+    slug: string;
     name: string;
     folderId: number | null;
     content: string;

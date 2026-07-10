@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\SlugifiableName;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreWorldRequest extends FormRequest
@@ -12,7 +13,7 @@ class StoreWorldRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:120'],
+            'name' => ['required', 'string', 'max:120', new SlugifiableName],
             'description' => ['nullable', 'string', 'max:2000'],
         ];
     }

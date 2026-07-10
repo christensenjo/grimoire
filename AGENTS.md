@@ -134,10 +134,11 @@ tests/
 
 1. **Laravel 13 Structure**: No `app/Console/Kernel.php`, no middleware directory by default
 2. **Routes**: Use named routes with `route()` helper
-3. **Config**: Use `config()` helper, never `env()` outside config files
-4. **Database**: Prefer Eloquent over `DB::` facade, eager load to avoid N+1
-5. **Queues**: Implement `ShouldQueue` for time-consuming operations
-6. **Imports**: Check sibling files for existing conventions before writing new code
+3. **Slugs**: User-facing models exposed through resource/Inertia routes use readable slugs; see `docs/agents/slugs.md`
+4. **Config**: Use `config()` helper, never `env()` outside config files
+5. **Database**: Prefer Eloquent over `DB::` facade, eager load to avoid N+1
+6. **Queues**: Implement `ShouldQueue` for time-consuming operations
+7. **Imports**: Check sibling files for existing conventions before writing new code
 
 ## Pre-commit Checklist
 

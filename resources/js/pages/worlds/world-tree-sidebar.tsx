@@ -22,7 +22,7 @@ interface FolderNodeProps {
     depth: number;
     foldersByParent: Map<number | null, TreeFolder[]>;
     filesByFolder: Map<number | null, TreeFile[]>;
-    worldId: number;
+    worldSlug: string;
     activeFileId: number | null;
     onEditFolder: (folder: TreeFolder) => void;
     onDeleteFolder: (folder: TreeFolder) => void;
@@ -55,7 +55,7 @@ function FolderNode({
     depth,
     foldersByParent,
     filesByFolder,
-    worldId,
+    worldSlug,
     activeFileId,
     onEditFolder,
     onDeleteFolder,
@@ -110,7 +110,7 @@ function FolderNode({
                             depth={depth + 1}
                             foldersByParent={foldersByParent}
                             filesByFolder={filesByFolder}
-                            worldId={worldId}
+                            worldSlug={worldSlug}
                             activeFileId={activeFileId}
                             onEditFolder={onEditFolder}
                             onDeleteFolder={onDeleteFolder}
@@ -122,7 +122,7 @@ function FolderNode({
                             key={file.id}
                             file={file}
                             depth={depth + 1}
-                            worldId={worldId}
+                            worldSlug={worldSlug}
                             isActive={activeFileId === file.id}
                             onDelete={onDeleteFile}
                         />
@@ -136,13 +136,13 @@ function FolderNode({
 function FileRow({
     file,
     depth,
-    worldId,
+    worldSlug,
     isActive,
     onDelete,
 }: {
     file: TreeFile;
     depth: number;
-    worldId: number;
+    worldSlug: string;
     isActive: boolean;
     onDelete: (file: TreeFile) => void;
 }) {
@@ -152,7 +152,7 @@ function FileRow({
             style={{ paddingLeft: `${0.5 + depth * 0.75}rem` }}
         >
             <Link
-                href={route('worlds.files.show', [worldId, file.id])}
+                href={route('worlds.files.show', [worldSlug, file.slug])}
                 className="flex min-w-0 flex-1 items-center gap-1.5"
                 prefetch
             >
@@ -245,7 +245,7 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                                 depth={0}
                                 foldersByParent={foldersByParent}
                                 filesByFolder={filesByFolder}
-                                worldId={world.id}
+                                worldSlug={world.slug}
                                 activeFileId={activeFile?.id ?? null}
                                 onEditFolder={setFolderToEdit}
                                 onDeleteFolder={setFolderToDelete}
@@ -257,7 +257,7 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                                 key={file.id}
                                 file={file}
                                 depth={0}
-                                worldId={world.id}
+                                worldSlug={world.slug}
                                 isActive={activeFile?.id === file.id}
                                 onDelete={setFileToDelete}
                             />
@@ -286,7 +286,7 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                     {createKind ? (
                         <Form
                             method="post"
-                            action={createKind === 'folder' ? route('worlds.folders.store', world.id) : route('worlds.files.store', world.id)}
+                            action={createKind === 'folder' ? route('worlds.folders.store', world.slug) : route('worlds.files.store', world.slug)}
                             className="space-y-4"
                             options={{ preserveScroll: true }}
                             onSuccess={() => setCreateKind(null)}
@@ -360,7 +360,7 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                     {folderToEdit ? (
                         <Form
                             method="patch"
-                            action={route('worlds.folders.update', [world.id, folderToEdit.id])}
+                            action={route('worlds.folders.update', [world.slug, folderToEdit.slug])}
                             className="space-y-4"
                             options={{ preserveScroll: true }}
                             onSuccess={() => setFolderToEdit(null)}
@@ -447,7 +447,7 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                                     return;
                                 }
 
-                                router.delete(route('worlds.folders.destroy', [world.id, folderToDelete.id]), {
+                                router.delete(route('worlds.folders.destroy', [world.slug, folderToDelete.slug]), {
                                     preserveScroll: true,
                                     onSuccess: () => setFolderToDelete(null),
                                 });
@@ -487,7 +487,7 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                                     return;
                                 }
 
-                                router.delete(route('worlds.files.destroy', [world.id, fileToDelete.id]), {
+                                router.delete(route('worlds.files.destroy', [world.slug, fileToDelete.slug]), {
                                     preserveScroll: true,
                                     onSuccess: () => setFileToDelete(null),
                                 });

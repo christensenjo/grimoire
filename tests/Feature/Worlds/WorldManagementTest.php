@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\SlugRedirect;
 use App\Models\User;
 use App\Models\World;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -39,6 +40,7 @@ test('user can see only their worlds', function () {
             ->component('worlds/index')
             ->has('worlds', 1)
             ->where('worlds.0.id', $ownedWorld->id)
+            ->where('worlds.0.slug', 'marrow-falls')
             ->where('worlds.0.name', 'Marrow Falls')
             ->where('worlds.0.description', 'A fogbound river city.')
             ->where('worlds.0.updatedAt', $expectedUpdatedAt)
@@ -59,6 +61,7 @@ test('user can create a world', function () {
     $response->assertRedirect(route('worlds.show', $world, absolute: false));
     expect($world)
         ->user_id->toBe($user->id)
+        ->slug->toBe('sunbreak-archipelago')
         ->description->toBe('Tide-locked islands.');
 });
 
@@ -88,6 +91,7 @@ test('user can view and update their world', function () {
         ->assertInertia(fn (Assert $page) => $page
             ->component('worlds/show')
             ->where('world.id', $world->id)
+            ->where('world.slug', 'glassreach')
             ->where('world.name', 'Glassreach')
             ->where('world.updatedAt', $world->updated_at->toISOString())
             ->has('tree.folders', 0)
@@ -100,10 +104,11 @@ test('user can view and update their world', function () {
             'name' => 'Glassreach Empire',
             'description' => 'A crystalline desert kingdom.',
         ])
-        ->assertRedirect(route('worlds.show', $world, absolute: false));
+        ->assertRedirect('/worlds/glassreach-empire');
 
     expect($world->refresh())
         ->name->toBe('Glassreach Empire')
+        ->slug->toBe('glassreach-empire')
         ->description->toBe('A crystalline desert kingdom.');
 });
 
@@ -124,11 +129,88 @@ test('user cannot access another users world', function () {
     $user = User::factory()->create();
     $world = World::factory()->create();
 
-    $this->actingAs($user)->get(route('worlds.show', $world))->assertForbidden();
-    $this->actingAs($user)->get(route('worlds.edit', $world))->assertForbidden();
+    $this->actingAs($user)->get(route('worlds.show', $world))->assertNotFound();
+    $this->actingAs($user)->get(route('worlds.edit', $world))->assertNotFound();
     $this->actingAs($user)->patch(route('worlds.update', $world), [
         'name' => 'Stolen World',
         'description' => 'Nope.',
-    ])->assertForbidden();
-    $this->actingAs($user)->delete(route('worlds.destroy', $world))->assertForbidden();
+    ])->assertNotFound();
+    $this->actingAs($user)->delete(route('worlds.destroy', $world))->assertNotFound();
+});
+
+test('world slugs are unique per user with silent suffixing', function () {
+    $user = User::factory()->create();
+
+    $first = World::factory()->for($user)->create(['name' => 'Shared Name']);
+    $second = World::factory()->for($user)->create(['name' => 'Shared Name']);
+    $otherUsersWorld = World::factory()->create(['name' => 'Shared Name']);
+
+    expect($first->slug)->toBe('shared-name')
+        ->and($second->slug)->toBe('shared-name-2')
+        ->and($otherUsersWorld->slug)->toBe('shared-name');
+});
+
+test('world rename creates a path preserving redirect', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create(['name' => 'Old World']);
+
+    $this->actingAs($user)
+        ->patch(route('worlds.update', $world), [
+            'name' => 'New World',
+            'description' => null,
+        ])
+        ->assertRedirect('/worlds/new-world');
+
+    $this->actingAs($user)
+        ->get('/worlds/old-world/files/anything?tab=notes')
+        ->assertRedirect('/worlds/new-world/files/anything?tab=notes')
+        ->assertMovedPermanently();
+});
+
+test('live world slug reclaims redirect history', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create(['name' => 'First Name']);
+
+    $this->actingAs($user)->patch(route('worlds.update', $world), [
+        'name' => 'Second Name',
+        'description' => null,
+    ]);
+
+    $replacement = World::factory()->for($user)->create(['name' => 'First Name']);
+
+    expect($replacement->slug)->toBe('first-name');
+    $this->assertDatabaseMissing('slug_redirects', [
+        'redirectable_type' => (new World)->getMorphClass(),
+        'user_id' => $user->id,
+        'from_slug' => 'first-name',
+    ]);
+});
+
+test('world delete removes slug redirect history', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create(['name' => 'Old World']);
+
+    $this->actingAs($user)->patch(route('worlds.update', $world), [
+        'name' => 'New World',
+        'description' => null,
+    ]);
+
+    expect(SlugRedirect::query()->count())->toBe(1);
+
+    $world->refresh()->delete();
+
+    expect(SlugRedirect::query()->count())->toBe(0);
+});
+
+test('world name must be slugifiable', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->from(route('worlds.create'))
+        ->post(route('worlds.store'), [
+            'name' => '!!!',
+            'description' => null,
+        ])
+        ->assertRedirect(route('worlds.create', absolute: false))
+        ->assertSessionHasErrors('name');
 });

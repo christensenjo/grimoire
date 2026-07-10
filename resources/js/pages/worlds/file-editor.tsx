@@ -28,7 +28,7 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
     return (
         <Form
             method="patch"
-            action={route('worlds.files.update', [world.id, file.id])}
+            action={route('worlds.files.update', [world.slug, file.slug])}
             className="flex h-full min-h-0 flex-1 flex-col gap-4 p-4 md:p-6"
             options={{ preserveScroll: true }}
             transform={() => ({

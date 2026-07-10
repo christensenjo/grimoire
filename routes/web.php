@@ -5,6 +5,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\WorldController;
 use App\Models\World;
+use App\Support\WorkspaceSlugRedirector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -46,15 +47,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
     })->name('dashboard');
 
-    Route::resource('worlds', WorldController::class);
+    $redirectStaleWorkspaceSlug = fn (Request $request) => app(WorkspaceSlugRedirector::class)->redirect($request) ?? abort(404);
+
+    Route::resource('worlds', WorldController::class)
+        ->missing($redirectStaleWorkspaceSlug);
 
     Route::resource('worlds.folders', FolderController::class)
         ->only(['store', 'update', 'destroy'])
-        ->scoped();
+        ->scoped(['folder' => 'slug'])
+        ->missing($redirectStaleWorkspaceSlug);
 
     Route::resource('worlds.files', FileController::class)
         ->only(['store', 'show', 'update', 'destroy'])
-        ->scoped();
+        ->scoped(['file' => 'slug'])
+        ->missing($redirectStaleWorkspaceSlug);
 });
 
 // Route to serve private assets (like .riv files)
