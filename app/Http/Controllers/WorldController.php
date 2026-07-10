@@ -48,6 +48,8 @@ class WorldController extends Controller
 
         return Inertia::render('worlds/show', [
             'world' => $world->toInertiaArray(),
+            'tree' => $world->toTreeInertiaArray(),
+            'file' => null,
         ]);
     }
 

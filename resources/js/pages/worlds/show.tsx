@@ -2,19 +2,22 @@ import { Form, Head, Link } from '@inertiajs/react';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 
-import { type World } from './types';
+import { FileEditor } from './file-editor';
+import { type World, type WorldFile, type WorldTree } from './types';
+import { WorldTreeSidebar } from './world-tree-sidebar';
 
 interface ShowWorldProps {
     world: World;
+    tree: WorldTree;
+    file: WorldFile | null;
 }
 
-export default function ShowWorld({ world }: ShowWorldProps) {
+export default function ShowWorld({ world, tree, file }: ShowWorldProps) {
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -27,27 +30,22 @@ export default function ShowWorld({ world }: ShowWorldProps) {
         },
     ];
 
+    if (file) {
+        breadcrumbs.push({
+            title: file.name,
+            href: route('worlds.files.show', [world.id, file.id]),
+        });
+    }
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={world.name} />
+            <Head title={file ? `${file.name} · ${world.name}` : world.name} />
 
-            <div className="flex h-full flex-1 flex-col gap-6 rounded-xl p-4 md:p-6">
-                <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                    <div className="space-y-2">
-                        <div className="flex flex-wrap items-center gap-2">
-                            <h1 className="text-2xl font-semibold text-foreground">{world.name}</h1>
-                            {world.updatedForHumans && (
-                                <Badge
-                                    variant="outline"
-                                    className="text-xs"
-                                >
-                                    Updated {world.updatedForHumans}
-                                </Badge>
-                            )}
-                        </div>
-                        <p className="max-w-2xl text-sm text-pretty text-muted-foreground">
-                            {world.description || 'No description yet. Add one to summarize the shape and tone of this World.'}
-                        </p>
+            <div className="flex h-full min-h-0 flex-1 flex-col">
+                <div className="flex flex-col gap-3 border-b px-4 py-3 md:flex-row md:items-center md:justify-between md:px-6">
+                    <div className="min-w-0 space-y-1">
+                        <h1 className="truncate text-xl font-semibold text-foreground">{world.name}</h1>
+                        <p className="truncate text-sm text-muted-foreground">{world.description || 'No description yet.'}</p>
                     </div>
                     <div className="flex flex-wrap gap-2">
                         <Button
@@ -59,7 +57,7 @@ export default function ShowWorld({ world }: ShowWorldProps) {
                                 className="size-4"
                                 aria-hidden="true"
                             />
-                            Edit
+                            Edit World
                         </Button>
                         <Button
                             variant="destructive"
@@ -70,13 +68,30 @@ export default function ShowWorld({ world }: ShowWorldProps) {
                                 className="size-4"
                                 aria-hidden="true"
                             />
-                            Delete
+                            Delete World
                         </Button>
                     </div>
                 </div>
 
-                <div className="rounded-lg border border-dashed p-6 text-sm text-muted-foreground">
-                    Folders, files, and asset counts arrive in later slices.
+                <div className="flex min-h-0 flex-1 flex-col md:flex-row">
+                    <WorldTreeSidebar
+                        world={world}
+                        tree={tree}
+                        activeFile={file}
+                    />
+                    <section className="flex min-h-0 min-w-0 flex-1 flex-col">
+                        {file ? (
+                            <FileEditor
+                                world={world}
+                                file={file}
+                                folders={tree.folders}
+                            />
+                        ) : (
+                            <div className="flex flex-1 items-center justify-center p-6 text-center text-sm text-muted-foreground">
+                                Select a File from the sidebar, or create one to start writing.
+                            </div>
+                        )}
+                    </section>
                 </div>
             </div>
 

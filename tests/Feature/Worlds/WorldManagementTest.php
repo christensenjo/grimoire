@@ -29,6 +29,9 @@ test('user can see only their worlds', function () {
         'name' => 'Other User World',
     ]);
 
+    $expectedUpdatedAt = $ownedWorld->updated_at->toISOString();
+    $expectedUpdatedForHumans = $ownedWorld->updated_at->diffForHumans();
+
     $this->actingAs($user)
         ->get(route('worlds.index'))
         ->assertOk()
@@ -38,8 +41,8 @@ test('user can see only their worlds', function () {
             ->where('worlds.0.id', $ownedWorld->id)
             ->where('worlds.0.name', 'Marrow Falls')
             ->where('worlds.0.description', 'A fogbound river city.')
-            ->where('worlds.0.updatedAt', $ownedWorld->updated_at->toISOString())
-            ->where('worlds.0.updatedForHumans', $ownedWorld->updated_at->diffForHumans())
+            ->where('worlds.0.updatedAt', $expectedUpdatedAt)
+            ->where('worlds.0.updatedForHumans', $expectedUpdatedForHumans)
         );
 });
 
@@ -87,6 +90,9 @@ test('user can view and update their world', function () {
             ->where('world.id', $world->id)
             ->where('world.name', 'Glassreach')
             ->where('world.updatedAt', $world->updated_at->toISOString())
+            ->has('tree.folders', 0)
+            ->has('tree.files', 0)
+            ->where('file', null)
         );
 
     $this->actingAs($user)

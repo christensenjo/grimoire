@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\FolderController;
 use App\Http\Controllers\WorldController;
 use App\Models\World;
 use Illuminate\Http\Request;
@@ -45,6 +47,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::resource('worlds', WorldController::class);
+
+    Route::resource('worlds.folders', FolderController::class)
+        ->only(['store', 'update', 'destroy'])
+        ->scoped();
+
+    Route::resource('worlds.files', FileController::class)
+        ->only(['store', 'show', 'update', 'destroy'])
+        ->scoped();
 });
 
 // Route to serve private assets (like .riv files)

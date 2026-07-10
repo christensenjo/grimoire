@@ -21,6 +21,9 @@ test('authenticated users can visit the dashboard', function () {
         'name' => 'Other User World',
     ]);
 
+    $expectedUpdatedAt = $world->updated_at->toISOString();
+    $expectedUpdatedForHumans = $world->updated_at->diffForHumans();
+
     $this->get('/dashboard')
         ->assertOk()
         ->assertInertia(fn (Assert $page) => $page
@@ -31,8 +34,8 @@ test('authenticated users can visit the dashboard', function () {
             ->where('worlds.0.id', $world->id)
             ->where('worlds.0.name', 'Marrow Falls')
             ->where('worlds.0.description', 'A fogbound river city.')
-            ->where('worlds.0.updatedAt', $world->updated_at->toISOString())
-            ->where('worlds.0.updatedForHumans', $world->updated_at->diffForHumans())
+            ->where('worlds.0.updatedAt', $expectedUpdatedAt)
+            ->where('worlds.0.updatedForHumans', $expectedUpdatedForHumans)
         );
 });
 
