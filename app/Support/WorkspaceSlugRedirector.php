@@ -46,7 +46,7 @@ class WorkspaceSlugRedirector
 
         $world = $redirect?->redirectable;
 
-        if (! $world instanceof World) {
+        if (!$world instanceof World) {
             return null;
         }
 
@@ -77,7 +77,7 @@ class WorkspaceSlugRedirector
 
         $model = $redirect?->redirectable;
 
-        if (! $model instanceof $modelClass) {
+        if (!$model instanceof $modelClass) {
             return null;
         }
 

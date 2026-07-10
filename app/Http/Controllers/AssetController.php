@@ -14,12 +14,12 @@ class AssetController extends Controller
     public function serve(Request $request, string $filename): Response
     {
         // Validate the filename to prevent directory traversal
-        if (! preg_match('/^[a-zA-Z0-9._-]+$/', $filename)) {
+        if (!preg_match('/^[a-zA-Z0-9._-]+$/', $filename)) {
             abort(404);
         }
 
         // Check if file exists in private storage
-        if (! Storage::disk('local')->exists($filename)) {
+        if (!Storage::disk('local')->exists($filename)) {
             abort(404);
         }
 

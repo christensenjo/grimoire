@@ -12,7 +12,7 @@ trait HasWorkspaceSlug
     protected static function bootHasWorkspaceSlug(): void
     {
         static::saving(function (Model $model): void {
-            if (! $model->isDirty('name')) {
+            if (!$model->isDirty('name')) {
                 return;
             }
 
