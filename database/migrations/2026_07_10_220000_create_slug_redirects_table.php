@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('from_slug');
             $table->timestamps();
 
+            // PostgreSQL treats NULLs as distinct, so each index enforces only its non-null slug scope.
             $table->unique(['redirectable_type', 'user_id', 'from_slug']);
             $table->unique(['redirectable_type', 'world_id', 'from_slug']);
         });
