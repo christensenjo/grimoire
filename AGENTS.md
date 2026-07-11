@@ -316,3 +316,13 @@ The five canonical triage roles map 1:1 to Linear labels (`needs-triage`, `needs
 ### Domain docs
 
 Single-context: `CONTEXT.md` at the repo root is the domain glossary; ADRs live in `docs/adr/`. See `docs/agents/domain.md`.
+
+## Cursor Cloud specific instructions
+
+Durable notes for cloud agents (the startup update script already runs `composer install` + `pnpm install`; system tooling PHP 8.4 and Composer, plus `.env`, `APP_KEY`, and `database/database.sqlite`, persist in the VM snapshot):
+
+- **No Laravel Herd in the cloud.** The Herd note in `.cursor/rules/laravel-boost.mdc` (site at a `*.test` domain, "always available") does not apply here. Run the app yourself and reach it at `http://127.0.0.1:8000`.
+- **Run the stack:** `composer run dev` starts everything concurrently — `php artisan serve` (`:8000`), `php artisan queue:listen`, and the Vite+ dev server `vp dev` (`:5173`). Standard commands are in the Build/Testing/Lint sections above.
+- **No external services needed.** Defaults are SQLite (`database/database.sqlite`) plus `database` drivers for cache/session/queue, `MAIL_MAILER=log`, and `FILESYSTEM_DISK=local` — no MySQL/Postgres/Redis/SMTP required. `php artisan test` runs against SQLite via `phpunit.xml`, so no `.env.testing` setup is required.
+- **After `composer install`/`pnpm install`, run `php artisan migrate` yourself if migrations changed** — the update script intentionally does not migrate.
+- **pnpm skips build scripts** for `esbuild`, `msw`, and `sharp` (not approved). This is fine: Vite+ uses rolldown, and `pnpm run build` / `vp dev` work without them. Don't run the interactive `pnpm approve-builds`.
