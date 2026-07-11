@@ -5,6 +5,7 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 import { type TreeFolder, type World, type WorldFile } from './types';
 
@@ -84,11 +85,11 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
 
                     <div className="grid min-h-0 flex-1 gap-2">
                         <Label htmlFor="file-content">Content</Label>
-                        <textarea
+                        <Textarea
                             id="file-content"
                             value={content}
                             onChange={(event) => setContent(event.target.value)}
-                            className="min-h-80 w-full flex-1 resize-y rounded-md border border-input bg-transparent px-3 py-2 font-mono text-sm shadow-xs outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+                            className="min-h-80 flex-1 resize-y font-mono text-sm"
                             placeholder="Start writing in markdown…"
                             aria-invalid={errors.content ? true : undefined}
                         />

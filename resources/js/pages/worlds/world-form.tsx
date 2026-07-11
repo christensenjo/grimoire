@@ -4,6 +4,7 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 import { type World } from './types';
 
@@ -43,13 +44,13 @@ export function WorldForm({ action, method = 'post', submitLabel, world }: World
 
                     <div className="grid gap-2">
                         <Label htmlFor="description">Description</Label>
-                        <textarea
+                        <Textarea
                             id="description"
                             name="description"
                             defaultValue={world?.description ?? ''}
                             maxLength={2000}
                             rows={5}
-                            className="min-h-24 w-full rounded-md border border-input bg-transparent px-2.5 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40"
+                            className="min-h-24"
                             placeholder="A fogbound river city of guilds, hidden canals, and whispered oaths."
                             aria-invalid={errors.description ? true : undefined}
                         />

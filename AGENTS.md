@@ -276,10 +276,12 @@ Reference these guidelines when adding or changing UI animations:
 We use **shadcn/ui** as our component library. When creating components or building features:
 
 - **Check shadcn first** - Look for existing components at https://ui.shadcn.com/docs/components before building custom ones
+- **Install missing primitives** - Prefer `pnpm dlx shadcn@latest add <component>` over hand-rolling a styled native control with copied token classes
 - **shadcn MCP available** - Use the shadcn MCP server (configured in `opencode.json`) for component discovery and documentation
 - **Brand colors configured** - Our `resources/css/app.css` is set up with brand colors mapped to shadcn CSS variables
 - **Base UI only** - shadcn components must use Base UI (`@base-ui/react`), not Radix UI. Do not add `@radix-ui/*` dependencies. Install components with `pnpm dlx shadcn@latest add <component>` using the existing `base-vega` style in `components.json`, then verify generated components import from `@base-ui/react`.
 - **Extend, don't replace** - Build on top of existing shadcn components rather than creating parallel implementations
+- **Native form controls when needed** - Native `<select>` (and similar) is acceptable when a Base UI compound control is a poor fit for uncontrolled Inertia `<Form>` `name` submission; still avoid duplicating Input-like class strings across call sites when a primitive exists
 
 ## Interim Design Philosophy
 
