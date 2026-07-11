@@ -18,12 +18,22 @@ const FileContentEditor = lazy(async () => {
 type SaveStatus = 'idle' | 'dirty' | 'saving' | 'saved' | 'error';
 
 const AUTOSAVE_DELAY_MS = 1500;
+/** Chromium keepalive body limit is ~64KiB; stay under it with headroom. */
+const KEEPALIVE_BODY_LIMIT_BYTES = 60_000;
 
 interface FileEditorProps {
     world: World;
     file: WorldFile;
     folders: TreeFolder[];
 }
+
+type FileContentPayload = {
+    worldSlug: string;
+    fileSlug: string;
+    name: string;
+    folderId: number | null;
+    content: string;
+};
 
 function saveStatusLabel(status: SaveStatus): string | null {
     switch (status) {
@@ -47,6 +57,57 @@ function EditorFallback() {
             <div className="min-h-80 flex-1 animate-pulse rounded-md border border-input bg-muted/40" />
         </div>
     );
+}
+
+function readXsrfToken(): string | null {
+    const match = document.cookie.match(/(?:^|; )XSRF-TOKEN=([^;]*)/);
+
+    if (!match?.[1]) {
+        return null;
+    }
+
+    return decodeURIComponent(match[1]);
+}
+
+/**
+ * Persist File content during page teardown (tab close / refresh / unmount).
+ * Uses fetch keepalive so the request can outlive the document.
+ */
+function flushFileContentKeepalive(payload: FileContentPayload): boolean {
+    const token = readXsrfToken();
+
+    if (!token) {
+        return false;
+    }
+
+    const body = JSON.stringify({
+        name: payload.name,
+        folder_id: payload.folderId,
+        content: payload.content,
+    });
+
+    if (new Blob([body]).size > KEEPALIVE_BODY_LIMIT_BYTES) {
+        return false;
+    }
+
+    try {
+        void fetch(route('worlds.files.update', [payload.worldSlug, payload.fileSlug]), {
+            method: 'PATCH',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-XSRF-TOKEN': token,
+            },
+            body,
+            credentials: 'same-origin',
+            keepalive: true,
+        });
+
+        return true;
+    } catch {
+        return false;
+    }
 }
 
 export function FileEditor({ world, file, folders }: FileEditorProps) {
@@ -191,7 +252,32 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
 
     useEffect(() => {
         const onBeforeUnload = (event: BeforeUnloadEvent) => {
-            if (!dirtyRef.current) {
+            if (!dirtyRef.current && !debounceTimerRef.current) {
+                return;
+            }
+
+            clearDebounce();
+
+            const markdown = editorRef.current?.getMarkdown() ?? pendingMarkdownRef.current;
+            pendingMarkdownRef.current = markdown;
+
+            if (markdown === lastSavedMarkdownRef.current && !dirtyRef.current) {
+                return;
+            }
+
+            const meta = fileMetaRef.current;
+            const flushed = flushFileContentKeepalive({
+                worldSlug: meta.worldSlug,
+                fileSlug: meta.fileSlug,
+                name: meta.name,
+                folderId: meta.folderId,
+                content: markdown,
+            });
+
+            if (flushed) {
+                dirtyRef.current = false;
+                lastSavedMarkdownRef.current = markdown;
+
                 return;
             }
 
@@ -204,7 +290,7 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
         return () => {
             window.removeEventListener('beforeunload', onBeforeUnload);
         };
-    }, []);
+    }, [clearDebounce]);
 
     useEffect(() => {
         const removeListener = router.on('before', (event) => {
@@ -249,18 +335,13 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
             const meta = fileMetaRef.current;
             const markdown = pendingMarkdownRef.current;
 
-            router.patch(
-                route('worlds.files.update', [meta.worldSlug, meta.fileSlug]),
-                {
-                    name: meta.name,
-                    folder_id: meta.folderId,
-                    content: markdown,
-                },
-                {
-                    preserveScroll: true,
-                    preserveState: true,
-                },
-            );
+            flushFileContentKeepalive({
+                worldSlug: meta.worldSlug,
+                fileSlug: meta.fileSlug,
+                name: meta.name,
+                folderId: meta.folderId,
+                content: markdown,
+            });
         };
     }, [clearDebounce]);
 
