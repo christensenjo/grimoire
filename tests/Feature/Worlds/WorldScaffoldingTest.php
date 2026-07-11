@@ -205,9 +205,52 @@ test('dashboard resolves the most recently active world scratchpad', function ()
             ->where('recentScratchpad.worldSlug', $worldB->slug)
             ->where('recentScratchpad.worldName', 'Sunbreak Archipelago')
             ->where('recentScratchpad.fileSlug', $scratchpadB->slug)
+            ->where('recentScratchpad.fileName', $scratchpadB->name)
+            ->where('recentScratchpad.content', $scratchpadB->content ?? '')
             ->has('worlds', 2)
             ->where('worlds.0.scratchpadSlug', fn ($slug) => is_string($slug) && $slug !== '')
             ->where('worlds.1.scratchpadSlug', fn ($slug) => is_string($slug) && $slug !== '')
+        );
+});
+
+test('dashboard scratchpad can be edited without leaving the dashboard', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create(['name' => 'Marrow Falls']);
+    app(SeedWorldDefaults::class)($world);
+    $scratchpad = $world->files()->where('is_scratchpad', true)->sole();
+
+    $this->actingAs($user)
+        ->from(route('dashboard'))
+        ->patch(route('worlds.files.update', [$world, $scratchpad]), [
+            'name' => $scratchpad->name,
+            'folder_id' => null,
+            'content' => 'A note from the dashboard.',
+        ])
+        ->assertRedirect(route('dashboard', absolute: false));
+
+    expect($scratchpad->refresh()->content)->toBe('A note from the dashboard.');
+});
+
+test('dashboard can switch to another world scratchpad via query', function () {
+    $user = User::factory()->create();
+    $worldA = World::factory()->for($user)->create(['name' => 'Marrow Falls']);
+    $worldB = World::factory()->for($user)->create(['name' => 'Sunbreak Archipelago']);
+    $seed = app(SeedWorldDefaults::class);
+    $seed($worldA);
+    $seed($worldB);
+
+    $scratchpadA = $worldA->files()->where('is_scratchpad', true)->sole();
+    $scratchpadA->update(['content' => 'Notes for Marrow Falls.']);
+
+    $this->actingAs($user)->get(route('worlds.show', $worldB))->assertOk();
+
+    $this->actingAs($user)
+        ->get(route('dashboard', ['scratchpad' => $worldA->slug]))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('dashboard')
+            ->where('recentScratchpad.worldSlug', $worldA->slug)
+            ->where('recentScratchpad.content', 'Notes for Marrow Falls.')
         );
 });
 

@@ -43,6 +43,8 @@ export interface RecentScratchpad {
     worldSlug: string;
     worldName: string;
     fileSlug: string;
+    fileName: string;
+    content: string;
 }
 
 export function initialsForWorld(name: string) {

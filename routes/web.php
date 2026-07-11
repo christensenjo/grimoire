@@ -36,7 +36,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('components.playground');
 
     Route::get('dashboard', function (Request $request) {
-        return Inertia::render('dashboard', app(BuildDashboardProps::class)($request->user()));
+        $scratchpadWorld = $request->query('scratchpad');
+
+        return Inertia::render('dashboard', app(BuildDashboardProps::class)(
+            $request->user(),
+            is_string($scratchpadWorld) ? $scratchpadWorld : null,
+        ));
     })->name('dashboard');
 
     $redirectStaleWorkspaceSlug = fn (Request $request) => app(RedirectStaleWorkspaceSlug::class)($request) ?? abort(404);

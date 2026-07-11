@@ -45,6 +45,12 @@ class FileController extends Controller
 
         $file->update($request->validated());
 
+        $previousPath = parse_url((string) url()->previous(), PHP_URL_PATH) ?: '';
+
+        if (str_starts_with($previousPath, '/dashboard')) {
+            return redirect()->to(url()->previous());
+        }
+
         return to_route('worlds.files.show', [$world, $file]);
     }
 
