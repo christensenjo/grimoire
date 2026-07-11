@@ -75,6 +75,34 @@ class World extends Model
         });
     }
 
+    /**
+     * Whether this world is already the one the dashboard Scratchpad would show
+     * (most recently accessed world that has a Scratchpad).
+     */
+    public function isMostRecentScratchpadWorld(): bool
+    {
+        $mostRecentId = static::query()
+            ->where('user_id', $this->user_id)
+            ->whereHas('scratchpadFile')
+            ->orderByRecentAccess()
+            ->value('id');
+
+        return $mostRecentId === $this->id;
+    }
+
+    /**
+     * @param  Builder<World>  $query
+     * @return Builder<World>
+     */
+    public function scopeOrderByRecentAccess(Builder $query): Builder
+    {
+        return $query
+            ->orderByRaw('last_accessed_at is null')
+            ->orderByDesc('last_accessed_at')
+            ->orderByDesc('updated_at')
+            ->orderByDesc('id');
+    }
+
     public function resolveRouteBinding($value, $field = null): self
     {
         $world = static::query()

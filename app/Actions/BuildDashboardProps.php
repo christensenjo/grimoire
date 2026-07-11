@@ -51,10 +51,7 @@ final class BuildDashboardProps
         return $user->worlds()
             ->with('scratchpadFile')
             ->whereHas('scratchpadFile')
-            ->orderByRaw('last_accessed_at is null')
-            ->orderByDesc('last_accessed_at')
-            ->orderByDesc('updated_at')
-            ->orderByDesc('id')
+            ->orderByRecentAccess()
             ->first();
     }
 }

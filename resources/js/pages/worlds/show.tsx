@@ -1,6 +1,6 @@
-import { Form, Head, Link } from '@inertiajs/react';
+import { Form, Head, Link, router } from '@inertiajs/react';
 import { Pencil, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -15,10 +15,18 @@ interface ShowWorldProps {
     world: World;
     tree: WorldTree;
     file: WorldFile | null;
+    invalidateDashboardPrefetch: boolean;
 }
 
-export default function ShowWorld({ world, tree, file }: ShowWorldProps) {
+export default function ShowWorld({ world, tree, file, invalidateDashboardPrefetch }: ShowWorldProps) {
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+    useEffect(() => {
+        if (invalidateDashboardPrefetch) {
+            router.flushByCacheTags('dashboard');
+        }
+    }, [invalidateDashboardPrefetch, world.id]);
+
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Worlds',

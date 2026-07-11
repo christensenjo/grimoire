@@ -17,6 +17,7 @@ const primaryNavGroups: NavGroup[] = [
                 title: 'Dashboard',
                 href: '/dashboard',
                 icon: LayoutGrid,
+                cacheTags: 'dashboard',
             },
             {
                 title: 'Library',
@@ -72,6 +73,7 @@ export function AppSidebar() {
                                     <Link
                                         href="/dashboard"
                                         prefetch
+                                        cacheTags="dashboard"
                                     />
                                 }
                             >

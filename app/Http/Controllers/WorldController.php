@@ -48,12 +48,14 @@ class WorldController extends Controller
     {
         Gate::authorize('view', $world);
 
+        $invalidateDashboardPrefetch = !$world->isMostRecentScratchpadWorld();
         $world->markAccessed();
 
         return Inertia::render('worlds/show', [
             'world' => $world->toInertiaArray(),
             'tree' => $world->toTreeInertiaArray(),
             'file' => null,
+            'invalidateDashboardPrefetch' => $invalidateDashboardPrefetch,
         ]);
     }
 

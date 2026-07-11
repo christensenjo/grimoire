@@ -63,6 +63,7 @@ function NavMainItem({ item, isActive }: { item: NavItem; isActive: boolean }) {
                 <Link
                     href={item.href}
                     prefetch
+                    cacheTags={item.cacheTags}
                 />
             }
             className={buttonClasses}

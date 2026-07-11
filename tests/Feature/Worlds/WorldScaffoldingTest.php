@@ -213,6 +213,46 @@ test('dashboard resolves the most recently active world scratchpad', function ()
         );
 });
 
+test('world and file show request dashboard prefetch invalidation when access order changes', function () {
+    $user = User::factory()->create();
+    $worldA = World::factory()->for($user)->create(['name' => 'Marrow Falls']);
+    $worldB = World::factory()->for($user)->create(['name' => 'Sunbreak Archipelago']);
+    $seed = app(SeedWorldDefaults::class);
+    $seed($worldA);
+    $seed($worldB);
+
+    $fileA = File::factory()->for($worldA)->create(['name' => 'Notes']);
+
+    $this->actingAs($user)->get(route('worlds.show', $worldB))->assertOk();
+    $this->travel(1)->seconds();
+
+    $this->actingAs($user)
+        ->get(route('worlds.show', $worldA))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('worlds/show')
+            ->where('invalidateDashboardPrefetch', true)
+        );
+
+    $this->travel(1)->seconds();
+
+    $this->actingAs($user)
+        ->get(route('worlds.files.show', [$worldA, $fileA]))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('worlds/show')
+            ->where('invalidateDashboardPrefetch', false)
+        );
+
+    $this->actingAs($user)
+        ->get(route('worlds.show', $worldA))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('worlds/show')
+            ->where('invalidateDashboardPrefetch', false)
+        );
+});
+
 test('dashboard scratchpad can be edited without leaving the dashboard', function () {
     $user = User::factory()->create();
     $world = World::factory()->for($user)->create(['name' => 'Marrow Falls']);
