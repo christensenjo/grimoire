@@ -30,6 +30,10 @@ class FilePolicy
 
     public function delete(User $user, File $file): bool
     {
+        if ($file->is_scratchpad) {
+            return false;
+        }
+
         return $file->world->user()->is($user);
     }
 }

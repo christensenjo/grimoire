@@ -30,6 +30,8 @@ class FileController extends Controller
     {
         Gate::authorize('view', $file);
 
+        $world->markAccessed();
+
         return Inertia::render('worlds/show', [
             'world' => $world->toInertiaArray(),
             'tree' => $world->toTreeInertiaArray(),

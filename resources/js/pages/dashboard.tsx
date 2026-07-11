@@ -1,17 +1,25 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { Castle, MapPin, PawPrint, ScrollText, Sparkles, Sword, UserRound } from 'lucide-react';
+import { Castle, ChevronDown, MapPin, NotebookPen, PawPrint, ScrollText, Sparkles, Sword, UserRound } from 'lucide-react';
 
 import { Lombardic } from '@/components/lombardic';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 
-import { initialsForWorld, type World } from './worlds/types';
+import { initialsForWorld, type RecentScratchpad, type World } from './worlds/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -22,9 +30,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface DashboardProps {
     worlds: World[];
+    recentScratchpad: RecentScratchpad | null;
 }
 
-export default function Dashboard({ worlds }: DashboardProps) {
+export default function Dashboard({ worlds, recentScratchpad }: DashboardProps) {
     const { auth } = usePage<SharedData>().props;
     const firstName = auth.user.name.trim().split(' ')[0];
     const greeting = firstName ? `Welcome back, ${firstName}` : 'Welcome back';
@@ -34,6 +43,7 @@ export default function Dashboard({ worlds }: DashboardProps) {
         { label: 'Characters', value: '19' },
         { label: 'Beasts', value: '8' },
     ];
+    const scratchpadWorlds = worlds.filter((world): world is World & { scratchpadSlug: string } => Boolean(world.scratchpadSlug));
 
     const assetIcons = {
         Location: MapPin,
@@ -100,6 +110,55 @@ export default function Dashboard({ worlds }: DashboardProps) {
                             </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-2">
+                            {recentScratchpad ? (
+                                <div className="flex items-center gap-1">
+                                    <Button
+                                        className="gap-2"
+                                        title={`${recentScratchpad.worldName} Scratchpad`}
+                                        render={<Link href={route('worlds.files.show', [recentScratchpad.worldSlug, recentScratchpad.fileSlug])} />}
+                                    >
+                                        <NotebookPen
+                                            className="size-4"
+                                            aria-hidden="true"
+                                        />
+                                        Open Scratchpad
+                                        <span className="hidden text-xs font-normal opacity-80 sm:inline">· {recentScratchpad.worldName}</span>
+                                    </Button>
+                                    {scratchpadWorlds.length > 1 ? (
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger
+                                                render={
+                                                    <Button
+                                                        variant="outline"
+                                                        size="icon"
+                                                        aria-label="Choose another World Scratchpad"
+                                                    />
+                                                }
+                                            >
+                                                <ChevronDown
+                                                    className="size-4"
+                                                    aria-hidden="true"
+                                                />
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent
+                                                align="end"
+                                                className="w-64"
+                                            >
+                                                <DropdownMenuLabel>Scratchpads</DropdownMenuLabel>
+                                                <DropdownMenuSeparator />
+                                                {scratchpadWorlds.map((world) => (
+                                                    <DropdownMenuItem
+                                                        key={world.id}
+                                                        render={<Link href={route('worlds.files.show', [world.slug, world.scratchpadSlug])} />}
+                                                    >
+                                                        {world.name}
+                                                    </DropdownMenuItem>
+                                                ))}
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    ) : null}
+                                </div>
+                            ) : null}
                             <Button
                                 variant="outline"
                                 className="gap-2"
