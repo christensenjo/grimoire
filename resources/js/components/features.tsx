@@ -21,14 +21,14 @@ const features = [
     {
         title: 'Explorer',
         description:
-            'Experience your settings like never before by stepping into a JRPG/MUD-like sandbox environment filled with your worldbuilding assets. Have conversations with NPCs and full SRPG playthroughs with the power of AI.',
+            'Experience your worlds like never before by stepping into a JRPG/MUD-like sandbox environment filled with your worldbuilding assets. Have conversations with NPCs and full SRPG playthroughs with the power of AI.',
         icon: Compass,
         className: 'md:col-span-2 md:row-span-2',
     },
     {
         title: 'Soundscapes',
         description:
-            'Connect a Spotify account to enrich your worldbuilding and tie sound to locations or characters. Use a chat feature to create custom soundscapes for your settings via ElevenLabs Music API.',
+            'Connect a Spotify account to enrich your worldbuilding and tie sound to locations or characters. Use a chat feature to create custom soundscapes for your worlds via ElevenLabs Music API.',
         icon: Music,
         className: 'md:col-span-2',
     },

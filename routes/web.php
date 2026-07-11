@@ -1,8 +1,14 @@
 <?php
 
+use App\Actions\RedirectStaleWorkspaceSlug;
+use App\Http\Controllers\AssetController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\FolderController;
+use App\Http\Controllers\WorldController;
+use App\Models\World;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\AssetController;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -29,9 +35,32 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('components');
     })->name('components.playground');
 
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+    Route::get('dashboard', function (Request $request) {
+        $worlds = $request->user()
+            ->worlds()
+            ->latest('updated_at')
+            ->get()
+            ->map(fn (World $world): array => $world->toInertiaArray());
+
+        return Inertia::render('dashboard', [
+            'worlds' => $worlds,
+        ]);
     })->name('dashboard');
+
+    $redirectStaleWorkspaceSlug = fn (Request $request) => app(RedirectStaleWorkspaceSlug::class)($request) ?? abort(404);
+
+    Route::resource('worlds', WorldController::class)
+        ->missing($redirectStaleWorkspaceSlug);
+
+    Route::resource('worlds.folders', FolderController::class)
+        ->only(['store', 'update', 'destroy'])
+        ->scoped(['folder' => 'slug'])
+        ->missing($redirectStaleWorkspaceSlug);
+
+    Route::resource('worlds.files', FileController::class)
+        ->only(['store', 'show', 'update', 'destroy'])
+        ->scoped(['file' => 'slug'])
+        ->missing($redirectStaleWorkspaceSlug);
 });
 
 // Route to serve private assets (like .riv files)

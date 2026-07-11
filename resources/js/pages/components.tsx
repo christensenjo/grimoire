@@ -400,7 +400,7 @@ export default function Components() {
                             <DialogContent>
                                 <DialogHeader>
                                     <DialogTitle>New campaign</DialogTitle>
-                                    <DialogDescription>Create a fresh setting for your next adventure.</DialogDescription>
+                                    <DialogDescription>Create a fresh world for your next adventure.</DialogDescription>
                                 </DialogHeader>
                                 <div className="grid gap-2">
                                     <Label htmlFor="campaign-name">Campaign name</Label>
@@ -420,7 +420,9 @@ export default function Components() {
                         <DropdownMenu>
                             <DropdownMenuTrigger render={<Button variant="outline" />}>Open menu</DropdownMenuTrigger>
                             <DropdownMenuContent className="w-56">
-                                <DropdownMenuLabel>Profile</DropdownMenuLabel>
+                                <DropdownMenuGroup>
+                                    <DropdownMenuLabel>Profile</DropdownMenuLabel>
+                                </DropdownMenuGroup>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuGroup>
                                     <DropdownMenuItem>
@@ -643,7 +645,7 @@ export default function Components() {
                                 <TabsTrigger value="stats">Stats</TabsTrigger>
                                 <TabsTrigger value="notes">Notes</TabsTrigger>
                             </TabsList>
-                            <TabsContent value="overview">Summary of the setting.</TabsContent>
+                            <TabsContent value="overview">Summary of the world.</TabsContent>
                             <TabsContent value="stats">Key metrics and campaign status.</TabsContent>
                             <TabsContent value="notes">Lore notes and highlights.</TabsContent>
                         </Tabs>

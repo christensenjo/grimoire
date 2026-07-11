@@ -1,4 +1,4 @@
-import { Head, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { Castle, MapPin, PawPrint, ScrollText, Sparkles, Sword, UserRound } from 'lucide-react';
 
 import { Lombardic } from '@/components/lombardic';
@@ -11,6 +11,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 
+import { initialsForWorld, type World } from './worlds/types';
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
@@ -18,45 +20,19 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Dashboard() {
+interface DashboardProps {
+    worlds: World[];
+}
+
+export default function Dashboard({ worlds }: DashboardProps) {
     const { auth } = usePage<SharedData>().props;
     const firstName = auth.user.name.trim().split(' ')[0];
     const greeting = firstName ? `Welcome back, ${firstName}` : 'Welcome back';
     const summaryStats = [
-        { label: 'Settings', value: '4' },
+        { label: 'Worlds', value: worlds.length.toString() },
         { label: 'Locations', value: '27' },
         { label: 'Characters', value: '19' },
         { label: 'Beasts', value: '8' },
-    ];
-
-    const settings = [
-        {
-            id: 'marrow-falls',
-            name: 'Marrow Falls',
-            description: 'A fogbound river city of guilds, hidden canals, and whispered oaths.',
-            updated: '2 days ago',
-            locations: 12,
-            characters: 5,
-            beasts: 2,
-        },
-        {
-            id: 'sunbreak-archipelago',
-            name: 'Sunbreak Archipelago',
-            description: 'Tide-locked islands where sky sailors barter with stormcallers.',
-            updated: '5 days ago',
-            locations: 7,
-            characters: 8,
-            beasts: 3,
-        },
-        {
-            id: 'glassreach',
-            name: 'Glassreach',
-            description: 'A crystalline desert kingdom guarded by mirage-bound sentinels.',
-            updated: '1 week ago',
-            locations: 5,
-            characters: 4,
-            beasts: 1,
-        },
     ];
 
     const assetIcons = {
@@ -71,7 +47,7 @@ export default function Dashboard() {
         id: string;
         type: AssetType;
         name: string;
-        setting: string;
+        world: string;
         detail: string;
         updated: string;
     }> = [
@@ -79,7 +55,7 @@ export default function Dashboard() {
             id: 'asset-1',
             type: 'Location',
             name: 'The Gilded Pier',
-            setting: 'Marrow Falls',
+            world: 'Marrow Falls',
             detail: 'Merchant docks & hidden tunnels',
             updated: 'Today',
         },
@@ -87,7 +63,7 @@ export default function Dashboard() {
             id: 'asset-2',
             type: 'Character',
             name: 'Captain Lyra Vale',
-            setting: 'Sunbreak Archipelago',
+            world: 'Sunbreak Archipelago',
             detail: 'Skyship captain with a storm pact',
             updated: 'Yesterday',
         },
@@ -95,7 +71,7 @@ export default function Dashboard() {
             id: 'asset-3',
             type: 'Beast',
             name: 'The Glass Stag',
-            setting: 'Glassreach',
+            world: 'Glassreach',
             detail: 'Guardian spirit of the dune-temples',
             updated: '3 days ago',
         },
@@ -103,7 +79,7 @@ export default function Dashboard() {
             id: 'asset-4',
             type: 'Location',
             name: 'Vault of Quiet Bells',
-            setting: 'Glassreach',
+            world: 'Glassreach',
             detail: 'Silent shrine beneath the dunes',
             updated: '4 days ago',
         },
@@ -120,19 +96,20 @@ export default function Dashboard() {
                                 <Lombardic text={greeting} />
                             </h1>
                             <p className="text-sm text-pretty text-muted-foreground">
-                                Keep your worldbuilding organized across settings, locations, and characters.
+                                Keep your worldbuilding organized across worlds, locations, and characters.
                             </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-2">
                             <Button
                                 variant="outline"
                                 className="gap-2"
+                                render={<Link href={route('worlds.create')} />}
                             >
                                 <ScrollText
                                     className="size-4"
                                     aria-hidden="true"
                                 />
-                                New Setting
+                                New World
                             </Button>
                             <Button className="gap-2">
                                 <Sparkles
@@ -162,7 +139,7 @@ export default function Dashboard() {
                     <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                         <div className="space-y-1">
                             <h2 className="text-xl font-semibold text-balance text-foreground">My Grimoire Summary</h2>
-                            <p className="text-sm text-pretty text-muted-foreground">Review your settings and most recent assets at a glance.</p>
+                            <p className="text-sm text-pretty text-muted-foreground">Review your worlds and most recent assets at a glance.</p>
                         </div>
                         <Badge
                             variant="secondary"
@@ -172,80 +149,72 @@ export default function Dashboard() {
                                 className="size-3.5"
                                 aria-hidden="true"
                             />
-                            3 Active Settings
+                            {worlds.length} Active {worlds.length === 1 ? 'World' : 'Worlds'}
                         </Badge>
                     </div>
 
                     <Tabs
-                        defaultValue="settings"
+                        defaultValue="worlds"
                         className="w-full"
                     >
                         <TabsList>
-                            <TabsTrigger value="settings">Settings</TabsTrigger>
+                            <TabsTrigger value="worlds">Worlds</TabsTrigger>
                             <TabsTrigger value="assets">Assets</TabsTrigger>
                         </TabsList>
 
                         <TabsContent
-                            value="settings"
+                            value="worlds"
                             className="pt-4"
                         >
-                            <div className="grid gap-4 lg:grid-cols-2">
-                                {settings.map((setting) => (
-                                    <Card
-                                        key={setting.id}
-                                        className="h-full"
-                                    >
-                                        <CardHeader className="flex flex-row items-start gap-4">
-                                            <Avatar className="size-10">
-                                                <AvatarFallback className="text-xs font-semibold">
-                                                    {setting.name
-                                                        .split(' ')
-                                                        .map((word) => word[0])
-                                                        .join('')
-                                                        .slice(0, 2)}
-                                                </AvatarFallback>
-                                            </Avatar>
-                                            <div className="flex-1 space-y-2">
-                                                <div className="flex flex-wrap items-center gap-2">
-                                                    <CardTitle className="text-base font-semibold text-foreground">{setting.name}</CardTitle>
-                                                    <Badge
-                                                        variant="outline"
-                                                        className="text-xs"
-                                                    >
-                                                        Updated {setting.updated}
-                                                    </Badge>
+                            {worlds.length > 0 ? (
+                                <div className="grid gap-4 lg:grid-cols-2">
+                                    {worlds.map((world) => (
+                                        <Card
+                                            key={world.id}
+                                            className="h-full"
+                                        >
+                                            <CardHeader className="flex flex-row items-start gap-4">
+                                                <Avatar className="size-10">
+                                                    <AvatarFallback className="text-xs font-semibold">{initialsForWorld(world.name)}</AvatarFallback>
+                                                </Avatar>
+                                                <div className="flex-1 space-y-2">
+                                                    <div className="flex flex-wrap items-center gap-2">
+                                                        <CardTitle className="text-base font-semibold text-foreground">
+                                                            <Link
+                                                                href={route('worlds.show', world.slug)}
+                                                                className="hover:underline"
+                                                            >
+                                                                {world.name}
+                                                            </Link>
+                                                        </CardTitle>
+                                                        {world.updatedForHumans && (
+                                                            <Badge
+                                                                variant="outline"
+                                                                className="text-xs"
+                                                            >
+                                                                Updated {world.updatedForHumans}
+                                                            </Badge>
+                                                        )}
+                                                    </div>
+                                                    <CardDescription className="text-sm text-pretty">
+                                                        {world.description || 'No description yet.'}
+                                                    </CardDescription>
                                                 </div>
-                                                <CardDescription className="text-sm text-pretty">{setting.description}</CardDescription>
-                                            </div>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <div className="grid grid-cols-3 gap-3 text-xs text-muted-foreground">
-                                                <div className="flex items-center gap-2">
-                                                    <MapPin
-                                                        className="size-4"
-                                                        aria-hidden="true"
-                                                    />
-                                                    <span className="tabular-nums">{setting.locations} Locations</span>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <UserRound
-                                                        className="size-4"
-                                                        aria-hidden="true"
-                                                    />
-                                                    <span className="tabular-nums">{setting.characters} Characters</span>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <PawPrint
-                                                        className="size-4"
-                                                        aria-hidden="true"
-                                                    />
-                                                    <span className="tabular-nums">{setting.beasts} Beasts</span>
-                                                </div>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                ))}
-                            </div>
+                                            </CardHeader>
+                                        </Card>
+                                    ))}
+                                </div>
+                            ) : (
+                                <Card className="border-dashed">
+                                    <CardHeader className="items-start gap-4 md:flex-row md:items-center md:justify-between">
+                                        <div className="space-y-1">
+                                            <CardTitle>No Worlds yet</CardTitle>
+                                            <CardDescription>Create your first World to start organizing files, folders, and images.</CardDescription>
+                                        </div>
+                                        <Button render={<Link href={route('worlds.create')} />}>Create World</Button>
+                                    </CardHeader>
+                                </Card>
+                            )}
                         </TabsContent>
 
                         <TabsContent
@@ -281,7 +250,7 @@ export default function Dashboard() {
                                                     className="size-3.5"
                                                     aria-hidden="true"
                                                 />
-                                                <span>{asset.setting}</span>
+                                                <span>{asset.world}</span>
                                             </CardContent>
                                         </Card>
                                     );

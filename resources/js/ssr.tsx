@@ -1,6 +1,8 @@
 import { createInertiaApp } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 
+import { AppearanceProvider } from './hooks/use-appearance';
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 void createInertiaApp({
@@ -18,6 +20,10 @@ void createInertiaApp({
                 location: new URL(ziggy.location),
             });
 
-        return <App {...props} />;
+        return (
+            <AppearanceProvider>
+                <App {...props} />
+            </AppearanceProvider>
+        );
     },
 });

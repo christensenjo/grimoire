@@ -20,7 +20,7 @@
 - Considering more robust storage options
 
 ### VI. Local-First Database Features
-- Exploring: [ElectricSQL](https://electric-sql.com/), [Zero](https://zerodb.io/)
+- Exploring: [ElectricSQL](https://electric-sql.com/), [Zero](https://zero.rocicorp.dev/)
 - Goal: Instant database operations on local worldbuilding assets and user-owned Free tier usage
 - Motivation: Experience with local-first databases and improved UX
 - Note: Requires further research and planning

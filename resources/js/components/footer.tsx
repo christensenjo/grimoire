@@ -1,31 +1,25 @@
 import { Link } from '@inertiajs/react';
 import { Github, Mail, MessageCircle, Twitter } from 'lucide-react';
 
-const footerLinks = {
-    product: [
-        { label: 'Features', href: route('features') },
-        { label: 'Pricing', href: route('pricing') },
-        { label: 'Library', href: route('library') },
-        { label: 'Integrations', href: route('integrations') },
-    ],
-    company: [
-        { label: 'About', href: '#' },
-        { label: 'Blog', href: '#' },
-        { label: 'Careers', href: '#' },
-        { label: 'Contact', href: '#' },
-    ],
-    resources: [
-        { label: 'Documentation', href: '#' },
-        { label: 'Templates', href: '#' },
-        { label: 'Community', href: '#' },
-        { label: 'Support', href: '#' },
-    ],
-    legal: [
-        { label: 'Privacy', href: '#' },
-        { label: 'Terms', href: '#' },
-        { label: 'Cookie Policy', href: '#' },
-    ],
-};
+const companyLinks = [
+    { label: 'About', href: '#' },
+    { label: 'Blog', href: '#' },
+    { label: 'Careers', href: '#' },
+    { label: 'Contact', href: '#' },
+];
+
+const resourceLinks = [
+    { label: 'Documentation', href: '#' },
+    { label: 'Templates', href: '#' },
+    { label: 'Community', href: '#' },
+    { label: 'Support', href: '#' },
+];
+
+const legalLinks = [
+    { label: 'Privacy', href: '#' },
+    { label: 'Terms', href: '#' },
+    { label: 'Cookie Policy', href: '#' },
+];
 
 const socialLinks = [
     { label: 'Twitter', href: '#', icon: Twitter },
@@ -35,6 +29,13 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+    const productLinks = [
+        { label: 'Features', href: route('features') },
+        { label: 'Pricing', href: route('pricing') },
+        { label: 'Library', href: route('library') },
+        { label: 'Integrations', href: route('integrations') },
+    ];
+
     return (
         <footer className="w-full border-t border-tome/10 bg-parchment-100 py-12 dark:border-parchment/10 dark:bg-jet">
             <div className="mx-auto max-w-screen-2xl px-4">
@@ -85,7 +86,7 @@ export default function Footer() {
                     <div>
                         <h4 className="mb-4 font-serif font-semibold text-tome dark:text-parchment">Product</h4>
                         <ul className="space-y-2">
-                            {footerLinks.product.map((link) => (
+                            {productLinks.map((link) => (
                                 <li key={link.label}>
                                     <Link
                                         href={link.href}
@@ -101,7 +102,7 @@ export default function Footer() {
                     <div>
                         <h4 className="mb-4 font-serif font-semibold text-tome dark:text-parchment">Company</h4>
                         <ul className="space-y-2">
-                            {footerLinks.company.map((link) => (
+                            {companyLinks.map((link) => (
                                 <li key={link.label}>
                                     <Link
                                         href={link.href}
@@ -117,7 +118,7 @@ export default function Footer() {
                     <div>
                         <h4 className="mb-4 font-serif font-semibold text-tome dark:text-parchment">Resources</h4>
                         <ul className="space-y-2">
-                            {footerLinks.resources.map((link) => (
+                            {resourceLinks.map((link) => (
                                 <li key={link.label}>
                                     <Link
                                         href={link.href}
@@ -133,7 +134,7 @@ export default function Footer() {
                     <div>
                         <h4 className="mb-4 font-serif font-semibold text-tome dark:text-parchment">Legal</h4>
                         <ul className="space-y-2">
-                            {footerLinks.legal.map((link) => (
+                            {legalLinks.map((link) => (
                                 <li key={link.label}>
                                     <Link
                                         href={link.href}

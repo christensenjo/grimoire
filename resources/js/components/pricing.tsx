@@ -18,7 +18,7 @@ const freePlan: Plan = {
     price: '$0',
     description: 'Perfect for getting started',
     features: [
-        'Limited number of files (1 setting, 5 locations, 10 characters, etc.)',
+        'Limited number of files (1 world, 5 locations, 10 characters, etc.)',
         'Access to basic templates',
         'Limited Library access (copy 3 assets/month)',
         'Local file storage only',

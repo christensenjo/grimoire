@@ -101,6 +101,7 @@ vp check                      # Format, lint, and type-check
 
 ```
 app/
+  Actions/                  # Invokable application Actions (see docs/agents/actions.md)
   Console/Commands/         # Auto-registered commands
   Http/
     Controllers/            # Follow existing patterns
@@ -134,10 +135,12 @@ tests/
 
 1. **Laravel 13 Structure**: No `app/Console/Kernel.php`, no middleware directory by default
 2. **Routes**: Use named routes with `route()` helper
-3. **Config**: Use `config()` helper, never `env()` outside config files
-4. **Database**: Prefer Eloquent over `DB::` facade, eager load to avoid N+1
-5. **Queues**: Implement `ShouldQueue` for time-consuming operations
-6. **Imports**: Check sibling files for existing conventions before writing new code
+3. **Actions**: Application-layer behavior lives in invokable `App\Actions` classes; see `docs/agents/actions.md`
+4. **Slugs**: User-facing models exposed through resource/Inertia routes use readable slugs; see `docs/agents/slugs.md`
+5. **Config**: Use `config()` helper, never `env()` outside config files
+6. **Database**: Prefer Eloquent over `DB::` facade, eager load to avoid N+1
+7. **Queues**: Implement `ShouldQueue` for time-consuming operations
+8. **Imports**: Check sibling files for existing conventions before writing new code
 
 ## Pre-commit Checklist
 
@@ -273,10 +276,12 @@ Reference these guidelines when adding or changing UI animations:
 We use **shadcn/ui** as our component library. When creating components or building features:
 
 - **Check shadcn first** - Look for existing components at https://ui.shadcn.com/docs/components before building custom ones
+- **Install missing primitives** - Prefer `pnpm dlx shadcn@latest add <component>` over hand-rolling a styled native control with copied token classes
 - **shadcn MCP available** - Use the shadcn MCP server (configured in `opencode.json`) for component discovery and documentation
 - **Brand colors configured** - Our `resources/css/app.css` is set up with brand colors mapped to shadcn CSS variables
 - **Base UI only** - shadcn components must use Base UI (`@base-ui/react`), not Radix UI. Do not add `@radix-ui/*` dependencies. Install components with `pnpm dlx shadcn@latest add <component>` using the existing `base-vega` style in `components.json`, then verify generated components import from `@base-ui/react`.
 - **Extend, don't replace** - Build on top of existing shadcn components rather than creating parallel implementations
+- **Native form controls when needed** - Native `<select>` (and similar) is acceptable when a Base UI compound control is a poor fit for uncontrolled Inertia `<Form>` `name` submission; still avoid duplicating Input-like class strings across call sites when a primitive exists
 
 ## Interim Design Philosophy
 
@@ -297,3 +302,17 @@ See `.cursor/rules/laravel-boost.mdc` for comprehensive Laravel Boost guidelines
 - Inertia v2 features (polling, prefetching, deferred props)
 - React + Inertia form patterns
 - Tailwind v4 migration notes
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in Linear (workspace `grimoire-worldbuilding`, team key `JBC`), accessed via the Linear MCP server; external PRs are not a triage surface. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical triage roles map 1:1 to Linear labels (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` at the repo root is the domain glossary; ADRs live in `docs/adr/`. See `docs/agents/domain.md`.
