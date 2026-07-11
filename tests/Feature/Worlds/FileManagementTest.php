@@ -62,7 +62,25 @@ test('file content round-trips through update and show', function () {
         'content' => '',
     ]);
 
-    $markdown = "# Chronicle\n\nThe river woke before dawn.";
+    $markdown = <<<'MD'
+# Chronicle
+
+The river woke before dawn with **bold** and *italic* notes.
+
+## Notes
+
+- First beat
+- Second beat
+
+1. Ordered one
+2. Ordered two
+
+> A quiet quote from the bank.
+
+```
+const omen = true;
+```
+MD;
 
     $this->actingAs($user)
         ->patch(route('worlds.files.update', [$world, $file]), [
