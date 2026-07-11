@@ -101,6 +101,7 @@ vp check                      # Format, lint, and type-check
 
 ```
 app/
+  Actions/                  # Invokable application Actions (see docs/agents/actions.md)
   Console/Commands/         # Auto-registered commands
   Http/
     Controllers/            # Follow existing patterns
@@ -134,11 +135,12 @@ tests/
 
 1. **Laravel 13 Structure**: No `app/Console/Kernel.php`, no middleware directory by default
 2. **Routes**: Use named routes with `route()` helper
-3. **Slugs**: User-facing models exposed through resource/Inertia routes use readable slugs; see `docs/agents/slugs.md`
-4. **Config**: Use `config()` helper, never `env()` outside config files
-5. **Database**: Prefer Eloquent over `DB::` facade, eager load to avoid N+1
-6. **Queues**: Implement `ShouldQueue` for time-consuming operations
-7. **Imports**: Check sibling files for existing conventions before writing new code
+3. **Actions**: Application-layer behavior lives in invokable `App\Actions` classes; see `docs/agents/actions.md`
+4. **Slugs**: User-facing models exposed through resource/Inertia routes use readable slugs; see `docs/agents/slugs.md`
+5. **Config**: Use `config()` helper, never `env()` outside config files
+6. **Database**: Prefer Eloquent over `DB::` facade, eager load to avoid N+1
+7. **Queues**: Implement `ShouldQueue` for time-consuming operations
+8. **Imports**: Check sibling files for existing conventions before writing new code
 
 ## Pre-commit Checklist
 

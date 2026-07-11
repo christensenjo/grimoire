@@ -1,11 +1,11 @@
 <?php
 
+use App\Actions\RedirectStaleWorkspaceSlug;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\WorldController;
 use App\Models\World;
-use App\Support\WorkspaceSlugRedirector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -47,7 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
     })->name('dashboard');
 
-    $redirectStaleWorkspaceSlug = fn (Request $request) => app(WorkspaceSlugRedirector::class)->redirect($request) ?? abort(404);
+    $redirectStaleWorkspaceSlug = fn (Request $request) => app(RedirectStaleWorkspaceSlug::class)($request) ?? abort(404);
 
     Route::resource('worlds', WorldController::class)
         ->missing($redirectStaleWorkspaceSlug);

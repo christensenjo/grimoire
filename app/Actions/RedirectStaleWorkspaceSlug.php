@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support;
+namespace App\Actions;
 
 use App\Models\File;
 use App\Models\Folder;
@@ -9,9 +9,9 @@ use App\Models\World;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class WorkspaceSlugRedirector
+final class RedirectStaleWorkspaceSlug
 {
-    public function redirect(Request $request): ?RedirectResponse
+    public function __invoke(Request $request): ?RedirectResponse
     {
         $worldParameter = $request->route('world');
 
