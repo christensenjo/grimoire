@@ -11,9 +11,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import {
     DropdownMenu,
     DropdownMenuContent,
+    DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
@@ -145,28 +145,29 @@ function DashboardScratchpad({ scratchpad, worlds }: { scratchpad: RecentScratch
                                 align="end"
                                 className="w-64"
                             >
-                                <DropdownMenuLabel>Scratchpads</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                {worlds.map((world) => (
-                                    <DropdownMenuItem
-                                        key={world.id}
-                                        onClick={() => {
-                                            router.get(
-                                                route('dashboard'),
-                                                { scratchpad: world.slug },
-                                                {
-                                                    preserveScroll: true,
-                                                    only: ['recentScratchpad'],
-                                                },
-                                            );
-                                        }}
-                                    >
-                                        {world.name}
-                                        {world.slug === scratchpad.worldSlug ? (
-                                            <span className="ml-auto text-xs text-muted-foreground">Current</span>
-                                        ) : null}
-                                    </DropdownMenuItem>
-                                ))}
+                                <DropdownMenuGroup>
+                                    <DropdownMenuLabel>Scratchpads</DropdownMenuLabel>
+                                    {worlds.map((world) => (
+                                        <DropdownMenuItem
+                                            key={world.id}
+                                            onClick={() => {
+                                                router.get(
+                                                    route('dashboard'),
+                                                    { scratchpad: world.slug },
+                                                    {
+                                                        preserveScroll: true,
+                                                        only: ['recentScratchpad'],
+                                                    },
+                                                );
+                                            }}
+                                        >
+                                            {world.name}
+                                            {world.slug === scratchpad.worldSlug ? (
+                                                <span className="ml-auto text-xs text-muted-foreground">Current</span>
+                                            ) : null}
+                                        </DropdownMenuItem>
+                                    ))}
+                                </DropdownMenuGroup>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     ) : null}
