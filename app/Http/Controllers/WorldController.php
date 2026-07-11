@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\SeedWorldDefaults;
 use App\Http\Requests\StoreWorldRequest;
 use App\Http\Requests\UpdateWorldRequest;
 use App\Models\World;
@@ -33,11 +34,12 @@ class WorldController extends Controller
         return Inertia::render('worlds/create');
     }
 
-    public function store(StoreWorldRequest $request): RedirectResponse
+    public function store(StoreWorldRequest $request, SeedWorldDefaults $seedWorldDefaults): RedirectResponse
     {
         Gate::authorize('create', World::class);
 
         $world = $request->user()->worlds()->create($request->validated());
+        $seedWorldDefaults($world);
 
         return to_route('worlds.show', $world);
     }
@@ -46,10 +48,14 @@ class WorldController extends Controller
     {
         Gate::authorize('view', $world);
 
+        $invalidateDashboardPrefetch = !$world->isMostRecentScratchpadWorld();
+        $world->markAccessed();
+
         return Inertia::render('worlds/show', [
             'world' => $world->toInertiaArray(),
             'tree' => $world->toTreeInertiaArray(),
             'file' => null,
+            'invalidateDashboardPrefetch' => $invalidateDashboardPrefetch,
         ]);
     }
 

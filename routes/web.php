@@ -1,11 +1,11 @@
 <?php
 
+use App\Actions\BuildDashboardProps;
 use App\Actions\RedirectStaleWorkspaceSlug;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\WorldController;
-use App\Models\World;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,15 +36,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('components.playground');
 
     Route::get('dashboard', function (Request $request) {
-        $worlds = $request->user()
-            ->worlds()
-            ->latest('updated_at')
-            ->get()
-            ->map(fn (World $world): array => $world->toInertiaArray());
+        $scratchpadWorld = $request->query('scratchpad');
 
-        return Inertia::render('dashboard', [
-            'worlds' => $worlds,
-        ]);
+        return Inertia::render('dashboard', app(BuildDashboardProps::class)(
+            $request->user(),
+            is_string($scratchpadWorld) ? $scratchpadWorld : null,
+        ));
     })->name('dashboard');
 
     $redirectStaleWorkspaceSlug = fn (Request $request) => app(RedirectStaleWorkspaceSlug::class)($request) ?? abort(404);

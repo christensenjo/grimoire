@@ -5,6 +5,7 @@ export interface World {
     description: string | null;
     updatedAt: string | null;
     updatedForHumans: string | null;
+    scratchpadSlug?: string | null;
 }
 
 export interface TreeFolder {
@@ -19,6 +20,7 @@ export interface TreeFile {
     slug: string;
     name: string;
     folderId: number | null;
+    isScratchpad: boolean;
 }
 
 export interface WorldTree {
@@ -34,6 +36,15 @@ export interface WorldFile {
     content: string;
     format: string;
     updatedAt: string | null;
+    isScratchpad: boolean;
+}
+
+export interface RecentScratchpad {
+    worldSlug: string;
+    worldName: string;
+    fileSlug: string;
+    fileName: string;
+    content: string;
 }
 
 export function initialsForWorld(name: string) {

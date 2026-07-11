@@ -162,14 +162,16 @@ function FileRow({
                 />
                 <span className="truncate">{file.name}</span>
             </Link>
-            <button
-                type="button"
-                className="rounded p-1 text-muted-foreground opacity-0 group-hover:opacity-100 hover:bg-background hover:text-destructive"
-                aria-label={`Delete file ${file.name}`}
-                onClick={() => onDelete(file)}
-            >
-                <Trash2 className="size-3.5" />
-            </button>
+            {!file.isScratchpad ? (
+                <button
+                    type="button"
+                    className="rounded p-1 text-muted-foreground opacity-0 group-hover:opacity-100 hover:bg-background hover:text-destructive"
+                    aria-label={`Delete file ${file.name}`}
+                    onClick={() => onDelete(file)}
+                >
+                    <Trash2 className="size-3.5" />
+                </button>
+            ) : null}
         </div>
     );
 }

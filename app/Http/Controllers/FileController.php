@@ -30,10 +30,14 @@ class FileController extends Controller
     {
         Gate::authorize('view', $file);
 
+        $invalidateDashboardPrefetch = !$world->isMostRecentScratchpadWorld();
+        $world->markAccessed();
+
         return Inertia::render('worlds/show', [
             'world' => $world->toInertiaArray(),
             'tree' => $world->toTreeInertiaArray(),
             'file' => $file->toInertiaArray(),
+            'invalidateDashboardPrefetch' => $invalidateDashboardPrefetch,
         ]);
     }
 
@@ -42,6 +46,12 @@ class FileController extends Controller
         Gate::authorize('update', $file);
 
         $file->update($request->validated());
+
+        $previousPath = parse_url((string) url()->previous(), PHP_URL_PATH) ?: '';
+
+        if (str_starts_with($previousPath, '/dashboard')) {
+            return redirect()->to(url()->previous());
+        }
 
         return to_route('worlds.files.show', [$world, $file]);
     }

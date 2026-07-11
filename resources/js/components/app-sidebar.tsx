@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpenCheck, BrainCircuit, FilePenLine, LayoutGrid, MessageSquareText, MountainSnow, PenTool } from 'lucide-react';
+import { BookOpenCheck, BrainCircuit, LayoutGrid, MessageSquareText, MountainSnow, PenTool } from 'lucide-react';
 
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -17,6 +17,7 @@ const primaryNavGroups: NavGroup[] = [
                 title: 'Dashboard',
                 href: '/dashboard',
                 icon: LayoutGrid,
+                cacheTags: 'dashboard',
             },
             {
                 title: 'Library',
@@ -72,6 +73,7 @@ export function AppSidebar() {
                                     <Link
                                         href="/dashboard"
                                         prefetch
+                                        cacheTags="dashboard"
                                     />
                                 }
                             >
@@ -84,7 +86,7 @@ export function AppSidebar() {
                             <SidebarMenuItem>
                                 <SidebarMenuButton
                                     size="sm"
-                                    className="w-full cursor-pointer justify-start gap-2"
+                                    className="w-full cursor-pointer justify-start gap-2 bg-armor text-parchment hover:bg-fortress hover:text-parchment active:bg-fortress active:text-parchment"
                                     tooltip="New World"
                                     render={<Link href={route('worlds.create')} />}
                                 >
@@ -93,21 +95,6 @@ export function AppSidebar() {
                                         aria-hidden="true"
                                     />
                                     <span className="font-sans text-sm">New World</span>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton
-                                    size="sm"
-                                    variant="default"
-                                    className="w-full cursor-pointer justify-start gap-2 bg-armor"
-                                    tooltip="New Document"
-                                    type="button"
-                                >
-                                    <FilePenLine
-                                        className="size-4 shrink-0"
-                                        aria-hidden="true"
-                                    />
-                                    <span className="font-sans text-sm">New Document</span>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         </SidebarMenu>

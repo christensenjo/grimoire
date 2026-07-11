@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class World extends Model
 {
@@ -24,6 +25,16 @@ class World extends Model
         'slug',
         'description',
     ];
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'last_accessed_at' => 'datetime',
+        ];
+    }
 
     /**
      * @return BelongsTo<User, $this>
@@ -49,6 +60,49 @@ class World extends Model
         return $this->hasMany(File::class);
     }
 
+    /**
+     * @return HasOne<File, $this>
+     */
+    public function scratchpadFile(): HasOne
+    {
+        return $this->hasOne(File::class)->where('is_scratchpad', true);
+    }
+
+    public function markAccessed(): void
+    {
+        static::withoutTimestamps(function (): void {
+            $this->forceFill(['last_accessed_at' => now()])->saveQuietly();
+        });
+    }
+
+    /**
+     * Whether this world is already the one the dashboard Scratchpad would show
+     * (most recently accessed world that has a Scratchpad).
+     */
+    public function isMostRecentScratchpadWorld(): bool
+    {
+        $mostRecentId = static::query()
+            ->where('user_id', $this->user_id)
+            ->whereHas('scratchpadFile')
+            ->orderByRecentAccess()
+            ->value('id');
+
+        return $mostRecentId === $this->id;
+    }
+
+    /**
+     * @param  Builder<World>  $query
+     * @return Builder<World>
+     */
+    public function scopeOrderByRecentAccess(Builder $query): Builder
+    {
+        return $query
+            ->orderByRaw('last_accessed_at is null')
+            ->orderByDesc('last_accessed_at')
+            ->orderByDesc('updated_at')
+            ->orderByDesc('id');
+    }
+
     public function resolveRouteBinding($value, $field = null): self
     {
         $world = static::query()
@@ -64,7 +118,7 @@ class World extends Model
     }
 
     /**
-     * @return array{folders: list<array{id: int, slug: string, name: string, parentId: int|null}>, files: list<array{id: int, slug: string, name: string, folderId: int|null}>}
+     * @return array{folders: list<array{id: int, slug: string, name: string, parentId: int|null}>, files: list<array{id: int, slug: string, name: string, folderId: int|null, isScratchpad: bool}>}
      */
     public function toTreeInertiaArray(): array
     {
@@ -85,7 +139,7 @@ class World extends Model
     }
 
     /**
-     * @return array{id: int, slug: string, name: string, description: string|null, updatedAt: string|null, updatedForHumans: string|null}
+     * @return array{id: int, slug: string, name: string, description: string|null, updatedAt: string|null, updatedForHumans: string|null, scratchpadSlug: string|null}
      */
     public function toInertiaArray(): array
     {
@@ -96,6 +150,9 @@ class World extends Model
             'description' => $this->description,
             'updatedAt' => $this->updated_at?->toISOString(),
             'updatedForHumans' => $this->updated_at?->diffForHumans(),
+            'scratchpadSlug' => $this->relationLoaded('scratchpadFile')
+                ? $this->scratchpadFile?->slug
+                : null,
         ];
     }
 

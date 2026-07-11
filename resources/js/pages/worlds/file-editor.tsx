@@ -383,27 +383,29 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
                                 />
                                 <InputError message={errors.name} />
                             </div>
-                            <div className="grid gap-2">
-                                <Label htmlFor="file-folder">Folder</Label>
-                                <select
-                                    id="file-folder"
-                                    value={folderId}
-                                    onChange={(event) => setFolderId(event.target.value)}
-                                    className="h-9 w-full rounded-md border border-input bg-transparent px-2.5 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
-                                    aria-invalid={errors.folder_id ? true : undefined}
-                                >
-                                    <option value="">World root</option>
-                                    {folders.map((folder) => (
-                                        <option
-                                            key={folder.id}
-                                            value={folder.id}
-                                        >
-                                            {folder.name}
-                                        </option>
-                                    ))}
-                                </select>
-                                <InputError message={errors.folder_id} />
-                            </div>
+                            {!file.isScratchpad ? (
+                                <div className="grid gap-2">
+                                    <Label htmlFor="file-folder">Folder</Label>
+                                    <select
+                                        id="file-folder"
+                                        value={folderId}
+                                        onChange={(event) => setFolderId(event.target.value)}
+                                        className="h-9 w-full rounded-md border border-input bg-transparent px-2.5 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+                                        aria-invalid={errors.folder_id ? true : undefined}
+                                    >
+                                        <option value="">World root</option>
+                                        {folders.map((folder) => (
+                                            <option
+                                                key={folder.id}
+                                                value={folder.id}
+                                            >
+                                                {folder.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <InputError message={errors.folder_id} />
+                                </div>
+                            ) : null}
                         </div>
                         <div className="flex items-center gap-3">
                             {statusLabel ? (

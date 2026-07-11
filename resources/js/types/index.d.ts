@@ -22,6 +22,7 @@ export interface NavItem {
     isActive?: boolean;
     disabled?: boolean;
     isExternal?: boolean;
+    cacheTags?: string | string[];
 }
 
 export interface SharedData {

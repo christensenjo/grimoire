@@ -11,15 +11,17 @@ interface NavLinkProps {
     children: React.ReactNode;
     className?: string;
     prefetch?: boolean;
+    cacheTags?: string | string[];
 }
 
-function NavLink({ href, children, className, prefetch = true }: NavLinkProps) {
+function NavLink({ href, children, className, prefetch = true, cacheTags }: NavLinkProps) {
     return (
         <NavigationMenuLink
             render={
                 <Link
                     href={href}
                     prefetch={prefetch}
+                    cacheTags={cacheTags}
                 />
             }
             className={cn(
@@ -94,6 +96,7 @@ export default function PublicNav() {
                                 <NavigationMenuItem>
                                     <NavLink
                                         href={route('dashboard')}
+                                        cacheTags="dashboard"
                                         className="bg-magic font-sans text-white hover:bg-magic/80 hover:text-white"
                                     >
                                         Dashboard

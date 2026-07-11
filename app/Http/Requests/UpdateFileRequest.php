@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Models\File;
 use App\Models\World;
 use App\Rules\SlugifiableName;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
 class UpdateFileRequest extends FormRequest
 {
@@ -38,5 +40,27 @@ class UpdateFileRequest extends FormRequest
             'name.max' => 'File names may not be longer than 120 characters.',
             'folder_id.exists' => 'That Folder is not in this World.',
         ];
+    }
+
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function (Validator $validator): void {
+            /** @var File $file */
+            $file = $this->route('file');
+
+            if (!$file->is_scratchpad) {
+                return;
+            }
+
+            if (!$this->exists('folder_id')) {
+                return;
+            }
+
+            $folderId = $this->input('folder_id');
+
+            if ($folderId !== null && $folderId !== '') {
+                $validator->errors()->add('folder_id', 'The Scratchpad must stay at the World root.');
+            }
+        });
     }
 }

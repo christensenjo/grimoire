@@ -26,6 +26,16 @@ class File extends Model
     ];
 
     /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_scratchpad' => 'boolean',
+        ];
+    }
+
+    /**
      * @return BelongsTo<World, $this>
      */
     public function world(): BelongsTo
@@ -42,7 +52,7 @@ class File extends Model
     }
 
     /**
-     * @return array{id: int, slug: string, name: string, folderId: int|null, content: string, format: string, updatedAt: string|null}
+     * @return array{id: int, slug: string, name: string, folderId: int|null, content: string, format: string, updatedAt: string|null, isScratchpad: bool}
      */
     public function toInertiaArray(): array
     {
@@ -54,11 +64,12 @@ class File extends Model
             'content' => $this->content ?? '',
             'format' => $this->format,
             'updatedAt' => $this->updated_at?->toISOString(),
+            'isScratchpad' => $this->is_scratchpad,
         ];
     }
 
     /**
-     * @return array{id: int, slug: string, name: string, folderId: int|null}
+     * @return array{id: int, slug: string, name: string, folderId: int|null, isScratchpad: bool}
      */
     public function toTreeArray(): array
     {
@@ -67,6 +78,7 @@ class File extends Model
             'slug' => $this->slug,
             'name' => $this->name,
             'folderId' => $this->folder_id,
+            'isScratchpad' => $this->is_scratchpad,
         ];
     }
 
