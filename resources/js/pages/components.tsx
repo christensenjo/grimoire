@@ -420,7 +420,9 @@ export default function Components() {
                         <DropdownMenu>
                             <DropdownMenuTrigger render={<Button variant="outline" />}>Open menu</DropdownMenuTrigger>
                             <DropdownMenuContent className="w-56">
-                                <DropdownMenuLabel>Profile</DropdownMenuLabel>
+                                <DropdownMenuGroup>
+                                    <DropdownMenuLabel>Profile</DropdownMenuLabel>
+                                </DropdownMenuGroup>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuGroup>
                                     <DropdownMenuItem>

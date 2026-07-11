@@ -23,14 +23,16 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
 
     return (
         <>
-            <DropdownMenuLabel className="p-0 font-normal">
-                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <UserInfo
-                        user={user}
-                        showEmail={true}
-                    />
-                </div>
-            </DropdownMenuLabel>
+            <DropdownMenuGroup>
+                <DropdownMenuLabel className="p-0 font-normal">
+                    <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                        <UserInfo
+                            user={user}
+                            showEmail={true}
+                        />
+                    </div>
+                </DropdownMenuLabel>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem
@@ -93,20 +95,22 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                 </ToggleGroup>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-                render={
-                    <Link
-                        method="post"
-                        href={route('logout')}
-                        as="button"
-                        onClick={handleLogout}
-                    />
-                }
-                className="cursor-pointer focus:bg-armor/10 focus:text-armor"
-            >
-                <LogOut className="mr-2" />
-                <span className="font-sans">Log out</span>
-            </DropdownMenuItem>
+            <DropdownMenuGroup>
+                <DropdownMenuItem
+                    render={
+                        <Link
+                            method="post"
+                            href={route('logout')}
+                            as="button"
+                            onClick={handleLogout}
+                        />
+                    }
+                    className="cursor-pointer focus:bg-armor/10 focus:text-armor"
+                >
+                    <LogOut className="mr-2" />
+                    <span className="font-sans">Log out</span>
+                </DropdownMenuItem>
+            </DropdownMenuGroup>
         </>
     );
 }

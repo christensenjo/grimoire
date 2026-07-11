@@ -28,6 +28,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
                 {({ processing }) => (
                     <>
                         <Button
+                            type="submit"
                             disabled={processing}
                             variant="secondary"
                             className="font-sans"

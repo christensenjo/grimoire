@@ -7,18 +7,18 @@ import { type BreadcrumbItem } from '@/types';
 
 import { WorldForm } from './world-form';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Worlds',
-        href: route('worlds.index'),
-    },
-    {
-        title: 'Create',
-        href: route('worlds.create'),
-    },
-];
-
 export default function CreateWorld() {
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: 'Worlds',
+            href: route('worlds.index'),
+        },
+        {
+            title: 'Create',
+            href: route('worlds.create'),
+        },
+    ];
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Create World" />

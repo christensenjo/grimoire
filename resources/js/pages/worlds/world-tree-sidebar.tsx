@@ -335,7 +335,12 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                                         >
                                             Cancel
                                         </Button>
-                                        <Button disabled={processing}>{createKind === 'folder' ? 'Create Folder' : 'Create File'}</Button>
+                                        <Button
+                                            type="submit"
+                                            disabled={processing}
+                                        >
+                                            {createKind === 'folder' ? 'Create Folder' : 'Create File'}
+                                        </Button>
                                     </DialogFooter>
                                 </>
                             )}
@@ -408,7 +413,12 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                                         >
                                             Cancel
                                         </Button>
-                                        <Button disabled={processing}>Save Folder</Button>
+                                        <Button
+                                            type="submit"
+                                            disabled={processing}
+                                        >
+                                            Save Folder
+                                        </Button>
                                     </DialogFooter>
                                 </>
                             )}

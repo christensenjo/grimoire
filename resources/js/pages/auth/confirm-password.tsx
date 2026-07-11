@@ -39,6 +39,7 @@ export default function ConfirmPassword() {
 
                         <div className="flex items-center">
                             <Button
+                                type="submit"
                                 className="w-full font-sans"
                                 disabled={processing}
                             >

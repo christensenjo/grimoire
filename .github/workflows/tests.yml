@@ -52,4 +52,7 @@ jobs:
               run: php artisan key:generate
 
             - name: Tests
+              env:
+                  DB_CONNECTION: sqlite
+                  DB_DATABASE: ':memory:'
               run: ./vendor/bin/pest

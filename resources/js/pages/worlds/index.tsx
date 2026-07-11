@@ -10,18 +10,18 @@ import { type BreadcrumbItem } from '@/types';
 
 import { initialsForWorld, type World } from './types';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Worlds',
-        href: route('worlds.index'),
-    },
-];
-
 interface WorldsIndexProps {
     worlds: World[];
 }
 
 export default function WorldsIndex({ worlds }: WorldsIndexProps) {
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: 'Worlds',
+            href: route('worlds.index'),
+        },
+    ];
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Worlds" />

@@ -57,7 +57,12 @@ export function WorldForm({ action, method = 'post', submitLabel, world }: World
                         <InputError message={errors.description} />
                     </div>
 
-                    <Button disabled={processing}>{submitLabel}</Button>
+                    <Button
+                        type="submit"
+                        disabled={processing}
+                    >
+                        {submitLabel}
+                    </Button>
                 </>
             )}
         </Form>

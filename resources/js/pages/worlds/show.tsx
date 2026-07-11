@@ -117,6 +117,7 @@ export default function ShowWorld({ world, tree, file }: ShowWorldProps) {
                         >
                             {({ processing }) => (
                                 <Button
+                                    type="submit"
                                     variant="destructive"
                                     disabled={processing}
                                 >

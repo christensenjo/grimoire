@@ -79,7 +79,12 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
                         </div>
                         <div className="flex items-center gap-3">
                             {recentlySuccessful ? <p className="text-sm text-muted-foreground">Saved</p> : null}
-                            <Button disabled={processing}>{processing ? 'Saving…' : 'Save'}</Button>
+                            <Button
+                                type="submit"
+                                disabled={processing}
+                            >
+                                {processing ? 'Saving…' : 'Save'}
+                            </Button>
                         </div>
                     </div>
 
