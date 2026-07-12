@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class File extends Model
 {
@@ -57,6 +58,32 @@ class File extends Model
     public function template(): BelongsTo
     {
         return $this->belongsTo(Template::class);
+    }
+
+    /**
+     * @return BelongsToMany<File, $this>
+     */
+    public function outgoingWikiLinks(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            File::class,
+            'file_links',
+            'source_file_id',
+            'target_file_id',
+        )->withTimestamps();
+    }
+
+    /**
+     * @return BelongsToMany<File, $this>
+     */
+    public function incomingWikiLinks(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            File::class,
+            'file_links',
+            'target_file_id',
+            'source_file_id',
+        )->withTimestamps();
     }
 
     /**

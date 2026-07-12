@@ -82,6 +82,24 @@
     max-width: 100%;
 }
 
+.tiptap [data-wiki-link] {
+    border-radius: 0.25rem;
+    background: color-mix(in oklab, var(--primary) 12%, transparent);
+    color: var(--primary);
+    cursor: pointer;
+    padding: 0.1em 0.25em;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--primary) 40%, transparent);
+    text-underline-offset: 0.15em;
+}
+
+.tiptap [data-wiki-link-broken] {
+    background: color-mix(in oklab, var(--destructive) 12%, transparent);
+    color: var(--destructive);
+    cursor: not-allowed;
+    text-decoration-style: dashed;
+}
+
 .tiptap p.is-editor-empty:first-child::before {
     color: var(--muted-foreground);
     content: attr(data-placeholder);

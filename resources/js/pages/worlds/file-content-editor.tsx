@@ -1,3 +1,4 @@
+import { router } from '@inertiajs/react';
 import Image from '@tiptap/extension-image';
 import { Placeholder } from '@tiptap/extensions';
 import { Markdown } from '@tiptap/markdown';
@@ -29,6 +30,7 @@ import { cn } from '@/lib/utils';
 
 import './file-content-editor.css';
 import { uploadEditorImage } from './image-upload';
+import { createWikiLinkExtension, type WikiLinkFile, wikiLinkHrefFromTarget } from './wiki-link-extension';
 
 export type FileContentEditorHandle = {
     getMarkdown: () => string;
@@ -39,6 +41,7 @@ interface FileContentEditorProps {
     fileId: number;
     initialContent: string;
     imageUploadUrl: string;
+    wikiLinkFiles: WikiLinkFile[];
     editable?: boolean;
     onChange: (markdown: string) => void;
     onUploadStateChange?: (isUploading: boolean) => void;
@@ -299,12 +302,18 @@ export function FileContentEditor({
     fileId,
     initialContent,
     imageUploadUrl,
+    wikiLinkFiles,
     editable = true,
     onChange,
     onUploadStateChange,
     ref,
     className,
 }: FileContentEditorProps) {
+    const wikiLinkFilesRef = useRef(wikiLinkFiles);
+    wikiLinkFilesRef.current = wikiLinkFiles;
+    const wikiLinkVersion = wikiLinkFiles.map((file) => `${file.id}:${file.name}:${file.href}`).join('|');
+    const wikiLinkVersionRef = useRef(wikiLinkVersion);
+    const [wikiLinkExtension] = useState(() => createWikiLinkExtension(() => wikiLinkFilesRef.current));
     const editor = useEditor(
         {
             immediatelyRender: false,
@@ -318,6 +327,7 @@ export function FileContentEditor({
                     allowBase64: false,
                     inline: true,
                 }),
+                wikiLinkExtension,
                 Markdown,
             ],
             content: initialContent,
@@ -326,6 +336,18 @@ export function FileContentEditor({
                 attributes: {
                     class: 'tiptap focus:outline-none min-h-72 px-3 py-2',
                     'aria-label': 'File content',
+                },
+                handleClick: (_view, _position, event) => {
+                    const href = wikiLinkHrefFromTarget(event.target);
+
+                    if (!href) {
+                        return false;
+                    }
+
+                    event.preventDefault();
+                    router.visit(href);
+
+                    return true;
                 },
             },
             onUpdate: ({ editor: current }) => {
@@ -338,6 +360,18 @@ export function FileContentEditor({
     useEffect(() => {
         editor?.setEditable(editable);
     }, [editor, editable]);
+
+    useEffect(() => {
+        if (!editor || wikiLinkVersionRef.current === wikiLinkVersion) {
+            return;
+        }
+
+        wikiLinkVersionRef.current = wikiLinkVersion;
+        editor.commands.setContent(editor.getMarkdown(), {
+            contentType: 'markdown',
+            emitUpdate: false,
+        });
+    }, [editor, wikiLinkVersion]);
 
     useImperativeHandle(
         ref,

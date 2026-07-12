@@ -12,7 +12,7 @@ import { PromiseQueue } from '@/lib/promise-queue';
 import { readXsrfToken } from '@/lib/xsrf';
 
 import { type FileContentEditorHandle } from './file-content-editor';
-import { type Template, type TreeFolder, type World, type WorldFile } from './types';
+import { type Template, type TreeFile, type TreeFolder, type World, type WorldFile } from './types';
 
 const FileContentEditor = lazy(async () => {
     const module = await import('./file-content-editor');
@@ -29,6 +29,7 @@ const KEEPALIVE_BODY_LIMIT_BYTES = 60_000;
 interface FileEditorProps {
     world: World;
     file: WorldFile;
+    files: TreeFile[];
     folders: TreeFolder[];
     templates: Template[];
 }
@@ -106,7 +107,7 @@ function flushFileContentKeepalive(payload: FileContentPayload): boolean {
     }
 }
 
-export function FileEditor({ world, file, folders, templates }: FileEditorProps) {
+export function FileEditor({ world, file, files, folders, templates }: FileEditorProps) {
     const [name, setName] = useState(file.name);
     const [folderId, setFolderId] = useState<string>(file.folderId?.toString() ?? '');
     const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
@@ -418,16 +419,8 @@ export function FileEditor({ world, file, folders, templates }: FileEditorProps)
                 }}
                 transform={() => ({
                     name,
-                    content: editorRef.current?.getMarkdown() ?? pendingMarkdownRef.current,
                     folder_id: folderId === '' ? null : Number(folderId),
                 })}
-                onSuccess={() => {
-                    dirtyRef.current = false;
-                    lastSavedMarkdownRef.current = editorRef.current?.getMarkdown() ?? pendingMarkdownRef.current;
-                    setSaveStatus('saved');
-                    saveStatusRef.current = 'saved';
-                    clearDebounce();
-                }}
                 onFinish={() => {
                     isSavingDetailsRef.current = false;
                     setIsSavingDetails(false);
@@ -575,6 +568,11 @@ export function FileEditor({ world, file, folders, templates }: FileEditorProps)
                         fileId={file.id}
                         initialContent={file.content}
                         imageUploadUrl={route('worlds.images.store', world.slug)}
+                        wikiLinkFiles={files.map((wikiLinkFile) => ({
+                            id: wikiLinkFile.id,
+                            name: wikiLinkFile.name,
+                            href: route('worlds.files.show', [world.slug, wikiLinkFile.slug]),
+                        }))}
                         editable={!isApplyingTemplate}
                         onChange={handleContentChange}
                         onUploadStateChange={setIsUploadingImage}

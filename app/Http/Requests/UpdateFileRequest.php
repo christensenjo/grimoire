@@ -45,6 +45,10 @@ class UpdateFileRequest extends FormRequest
     public function withValidator(Validator $validator): void
     {
         $validator->after(function (Validator $validator): void {
+            if ($validator->errors()->isNotEmpty()) {
+                return;
+            }
+
             /** @var File $file */
             $file = $this->route('file');
 
