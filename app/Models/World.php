@@ -61,6 +61,14 @@ class World extends Model
     }
 
     /**
+     * @return HasMany<Image, $this>
+     */
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    /**
      * @return HasOne<File, $this>
      */
     public function scratchpadFile(): HasOne

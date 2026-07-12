@@ -76,6 +76,12 @@
     padding: 0;
 }
 
+.tiptap img {
+    border-radius: 0.5rem;
+    height: auto;
+    max-width: 100%;
+}
+
 .tiptap p.is-editor-empty:first-child::before {
     color: var(--muted-foreground);
     content: attr(data-placeholder);

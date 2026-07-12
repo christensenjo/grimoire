@@ -13,6 +13,7 @@ export interface TreeFolder {
     slug: string;
     name: string;
     parentId: number | null;
+    isImagesFolder: boolean;
 }
 
 export interface TreeFile {

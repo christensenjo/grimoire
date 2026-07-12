@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\DeleteFolder;
 use App\Http\Requests\StoreFolderRequest;
 use App\Http\Requests\UpdateFolderRequest;
 use App\Models\Folder;
@@ -29,11 +30,11 @@ class FolderController extends Controller
         return to_route('worlds.show', $world);
     }
 
-    public function destroy(World $world, Folder $folder): RedirectResponse
+    public function destroy(World $world, Folder $folder, DeleteFolder $deleteFolder): RedirectResponse
     {
         Gate::authorize('delete', $folder);
 
-        $folder->delete();
+        $deleteFolder($folder);
 
         return to_route('worlds.show', $world);
     }
