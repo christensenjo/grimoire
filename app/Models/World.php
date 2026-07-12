@@ -126,7 +126,7 @@ class World extends Model
     }
 
     /**
-     * @return array{folders: list<array{id: int, slug: string, name: string, parentId: int|null}>, files: list<array{id: int, slug: string, name: string, folderId: int|null, isScratchpad: bool}>}
+     * @return array{folders: list<array{id: int, slug: string, name: string, parentId: int|null, isImagesFolder: bool}>, files: list<array{id: int, slug: string, name: string, folderId: int|null, isScratchpad: bool, template: array{id: int, slug: string, name: string}|null}>}
      */
     public function toTreeInertiaArray(): array
     {
@@ -138,6 +138,7 @@ class World extends Model
                 ->values()
                 ->all(),
             'files' => $this->files()
+                ->with('template')
                 ->orderBy('name')
                 ->get()
                 ->map(fn (File $file): array => $file->toTreeArray())

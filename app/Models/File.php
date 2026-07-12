@@ -52,7 +52,15 @@ class File extends Model
     }
 
     /**
-     * @return array{id: int, slug: string, name: string, folderId: int|null, content: string, format: string, updatedAt: string|null, isScratchpad: bool}
+     * @return BelongsTo<Template, $this>
+     */
+    public function template(): BelongsTo
+    {
+        return $this->belongsTo(Template::class);
+    }
+
+    /**
+     * @return array{id: int, slug: string, name: string, folderId: int|null, content: string, format: string, updatedAt: string|null, isScratchpad: bool, template: array{id: int, slug: string, name: string}|null}
      */
     public function toInertiaArray(): array
     {
@@ -65,11 +73,12 @@ class File extends Model
             'format' => $this->format,
             'updatedAt' => $this->updated_at?->toISOString(),
             'isScratchpad' => $this->is_scratchpad,
+            'template' => $this->template?->toInertiaArray(),
         ];
     }
 
     /**
-     * @return array{id: int, slug: string, name: string, folderId: int|null, isScratchpad: bool}
+     * @return array{id: int, slug: string, name: string, folderId: int|null, isScratchpad: bool, template: array{id: int, slug: string, name: string}|null}
      */
     public function toTreeArray(): array
     {
@@ -79,6 +88,7 @@ class File extends Model
             'name' => $this->name,
             'folderId' => $this->folder_id,
             'isScratchpad' => $this->is_scratchpad,
+            'template' => $this->template?->toInertiaArray(),
         ];
     }
 

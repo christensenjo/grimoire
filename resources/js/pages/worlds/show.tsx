@@ -8,17 +8,18 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 
 import { FileEditor } from './file-editor';
-import { type World, type WorldFile, type WorldTree } from './types';
+import { type Template, type World, type WorldFile, type WorldTree } from './types';
 import { WorldTreeSidebar } from './world-tree-sidebar';
 
 interface ShowWorldProps {
     world: World;
     tree: WorldTree;
     file: WorldFile | null;
+    templates: Template[];
     invalidateDashboardPrefetch: boolean;
 }
 
-export default function ShowWorld({ world, tree, file, invalidateDashboardPrefetch }: ShowWorldProps) {
+export default function ShowWorld({ world, tree, file, templates, invalidateDashboardPrefetch }: ShowWorldProps) {
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
     useEffect(() => {
@@ -86,13 +87,16 @@ export default function ShowWorld({ world, tree, file, invalidateDashboardPrefet
                         world={world}
                         tree={tree}
                         activeFile={file}
+                        templates={templates}
                     />
                     <section className="flex min-h-0 min-w-0 flex-1 flex-col">
                         {file ? (
                             <FileEditor
+                                key={file.id}
                                 world={world}
                                 file={file}
                                 folders={tree.folders}
+                                templates={templates}
                             />
                         ) : (
                             <div className="flex flex-1 items-center justify-center p-6 text-center text-sm text-muted-foreground">
