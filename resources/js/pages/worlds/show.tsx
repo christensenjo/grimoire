@@ -95,6 +95,7 @@ export default function ShowWorld({ world, tree, file, templates, invalidateDash
                                 key={file.id}
                                 world={world}
                                 file={file}
+                                files={tree.files}
                                 folders={tree.folders}
                                 templates={templates}
                             />
