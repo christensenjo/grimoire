@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\DeleteWorld;
+use App\Actions\ListTemplates;
 use App\Actions\SeedWorldDefaults;
 use App\Http\Requests\StoreWorldRequest;
 use App\Http\Requests\UpdateWorldRequest;
@@ -45,7 +46,7 @@ class WorldController extends Controller
         return to_route('worlds.show', $world);
     }
 
-    public function show(World $world): Response
+    public function show(World $world, ListTemplates $listTemplates): Response
     {
         Gate::authorize('view', $world);
 
@@ -56,6 +57,7 @@ class WorldController extends Controller
             'world' => $world->toInertiaArray(),
             'tree' => $world->toTreeInertiaArray(),
             'file' => null,
+            'templates' => $listTemplates(),
             'invalidateDashboardPrefetch' => $invalidateDashboardPrefetch,
         ]);
     }

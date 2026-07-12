@@ -60,6 +60,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->scoped(['file' => 'slug'])
         ->missing($redirectStaleWorkspaceSlug);
 
+    Route::patch('worlds/{world}/files/{file}/template', [FileController::class, 'updateTemplate'])
+        ->scopeBindings()
+        ->name('worlds.files.template.update');
+
     Route::post('worlds/{world}/images', [ImageController::class, 'store'])
         ->name('worlds.images.store');
     Route::get('images/{image}', [ImageController::class, 'show'])

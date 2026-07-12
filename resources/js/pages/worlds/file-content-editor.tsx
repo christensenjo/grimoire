@@ -20,7 +20,7 @@ import {
     Strikethrough,
     Undo2,
 } from 'lucide-react';
-import { useImperativeHandle, useRef, useState } from 'react';
+import { useEffect, useImperativeHandle, useRef, useState } from 'react';
 
 import { Separator } from '@/components/ui/separator';
 import { Toggle } from '@/components/ui/toggle';
@@ -32,13 +32,16 @@ import { uploadEditorImage } from './image-upload';
 
 export type FileContentEditorHandle = {
     getMarkdown: () => string;
+    setMarkdown: (markdown: string) => void;
 };
 
 interface FileContentEditorProps {
     fileId: number;
     initialContent: string;
     imageUploadUrl: string;
+    editable?: boolean;
     onChange: (markdown: string) => void;
+    onUploadStateChange?: (isUploading: boolean) => void;
     ref?: React.Ref<FileContentEditorHandle | null>;
     className?: string;
 }
@@ -72,7 +75,17 @@ function ToolbarButton({ label, pressed = false, disabled = false, onPressedChan
     );
 }
 
-function EditorToolbar({ editor, imageUploadUrl }: { editor: NonNullable<ReturnType<typeof useEditor>>; imageUploadUrl: string }) {
+function EditorToolbar({
+    editor,
+    imageUploadUrl,
+    disabled,
+    onUploadStateChange,
+}: {
+    editor: NonNullable<ReturnType<typeof useEditor>>;
+    imageUploadUrl: string;
+    disabled: boolean;
+    onUploadStateChange?: (isUploading: boolean) => void;
+}) {
     const imageInputRef = useRef<HTMLInputElement>(null);
     const [isUploadingImage, setIsUploadingImage] = useState(false);
     const [imageUploadError, setImageUploadError] = useState<string>();
@@ -97,6 +110,7 @@ function EditorToolbar({ editor, imageUploadUrl }: { editor: NonNullable<ReturnT
 
     const uploadImage = async (file: globalThis.File) => {
         setIsUploadingImage(true);
+        onUploadStateChange?.(true);
         setImageUploadError(undefined);
 
         try {
@@ -106,162 +120,169 @@ function EditorToolbar({ editor, imageUploadUrl }: { editor: NonNullable<ReturnT
             setImageUploadError(error instanceof Error ? error.message : 'The image could not be uploaded. Check your connection and try again.');
         } finally {
             setIsUploadingImage(false);
+            onUploadStateChange?.(false);
         }
     };
 
     return (
         <div className="grid gap-2">
-            <TooltipProvider delay={300}>
-                <div
-                    className="flex flex-wrap items-center gap-1 rounded-md border border-input bg-muted/40 p-1"
-                    role="toolbar"
-                    aria-label="Formatting"
-                >
-                    <ToolbarButton
-                        label="Bold"
-                        pressed={state.bold}
-                        onPressedChange={() => editor.chain().focus().toggleBold().run()}
+            <fieldset
+                disabled={disabled}
+                className="contents"
+            >
+                <TooltipProvider delay={300}>
+                    <div
+                        className="flex flex-wrap items-center gap-1 rounded-md border border-input bg-muted/40 p-1"
+                        role="toolbar"
+                        aria-label="Formatting"
+                        aria-disabled={disabled}
                     >
-                        <Bold />
-                    </ToolbarButton>
-                    <ToolbarButton
-                        label="Italic"
-                        pressed={state.italic}
-                        onPressedChange={() => editor.chain().focus().toggleItalic().run()}
-                    >
-                        <Italic />
-                    </ToolbarButton>
-                    <ToolbarButton
-                        label="Strikethrough"
-                        pressed={state.strike}
-                        onPressedChange={() => editor.chain().focus().toggleStrike().run()}
-                    >
-                        <Strikethrough />
-                    </ToolbarButton>
-                    <ToolbarButton
-                        label="Inline code"
-                        pressed={state.code}
-                        onPressedChange={() => editor.chain().focus().toggleCode().run()}
-                    >
-                        <Code />
-                    </ToolbarButton>
+                        <ToolbarButton
+                            label="Bold"
+                            pressed={state.bold}
+                            onPressedChange={() => editor.chain().focus().toggleBold().run()}
+                        >
+                            <Bold />
+                        </ToolbarButton>
+                        <ToolbarButton
+                            label="Italic"
+                            pressed={state.italic}
+                            onPressedChange={() => editor.chain().focus().toggleItalic().run()}
+                        >
+                            <Italic />
+                        </ToolbarButton>
+                        <ToolbarButton
+                            label="Strikethrough"
+                            pressed={state.strike}
+                            onPressedChange={() => editor.chain().focus().toggleStrike().run()}
+                        >
+                            <Strikethrough />
+                        </ToolbarButton>
+                        <ToolbarButton
+                            label="Inline code"
+                            pressed={state.code}
+                            onPressedChange={() => editor.chain().focus().toggleCode().run()}
+                        >
+                            <Code />
+                        </ToolbarButton>
 
-                    <Separator
-                        orientation="vertical"
-                        className="mx-1 h-6"
-                    />
+                        <Separator
+                            orientation="vertical"
+                            className="mx-1 h-6"
+                        />
 
-                    <ToolbarButton
-                        label="Heading 1"
-                        pressed={state.heading1}
-                        onPressedChange={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                    >
-                        <Heading1 />
-                    </ToolbarButton>
-                    <ToolbarButton
-                        label="Heading 2"
-                        pressed={state.heading2}
-                        onPressedChange={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                    >
-                        <Heading2 />
-                    </ToolbarButton>
-                    <ToolbarButton
-                        label="Heading 3"
-                        pressed={state.heading3}
-                        onPressedChange={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                    >
-                        <Heading3 />
-                    </ToolbarButton>
+                        <ToolbarButton
+                            label="Heading 1"
+                            pressed={state.heading1}
+                            onPressedChange={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+                        >
+                            <Heading1 />
+                        </ToolbarButton>
+                        <ToolbarButton
+                            label="Heading 2"
+                            pressed={state.heading2}
+                            onPressedChange={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                        >
+                            <Heading2 />
+                        </ToolbarButton>
+                        <ToolbarButton
+                            label="Heading 3"
+                            pressed={state.heading3}
+                            onPressedChange={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+                        >
+                            <Heading3 />
+                        </ToolbarButton>
 
-                    <Separator
-                        orientation="vertical"
-                        className="mx-1 h-6"
-                    />
+                        <Separator
+                            orientation="vertical"
+                            className="mx-1 h-6"
+                        />
 
-                    <ToolbarButton
-                        label="Bullet list"
-                        pressed={state.bulletList}
-                        onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
-                    >
-                        <List />
-                    </ToolbarButton>
-                    <ToolbarButton
-                        label="Ordered list"
-                        pressed={state.orderedList}
-                        onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
-                    >
-                        <ListOrdered />
-                    </ToolbarButton>
-                    <ToolbarButton
-                        label="Blockquote"
-                        pressed={state.blockquote}
-                        onPressedChange={() => editor.chain().focus().toggleBlockquote().run()}
-                    >
-                        <Quote />
-                    </ToolbarButton>
-                    <ToolbarButton
-                        label="Code block"
-                        pressed={state.codeBlock}
-                        onPressedChange={() => editor.chain().focus().toggleCodeBlock().run()}
-                    >
-                        <SquareCode />
-                    </ToolbarButton>
+                        <ToolbarButton
+                            label="Bullet list"
+                            pressed={state.bulletList}
+                            onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
+                        >
+                            <List />
+                        </ToolbarButton>
+                        <ToolbarButton
+                            label="Ordered list"
+                            pressed={state.orderedList}
+                            onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
+                        >
+                            <ListOrdered />
+                        </ToolbarButton>
+                        <ToolbarButton
+                            label="Blockquote"
+                            pressed={state.blockquote}
+                            onPressedChange={() => editor.chain().focus().toggleBlockquote().run()}
+                        >
+                            <Quote />
+                        </ToolbarButton>
+                        <ToolbarButton
+                            label="Code block"
+                            pressed={state.codeBlock}
+                            onPressedChange={() => editor.chain().focus().toggleCodeBlock().run()}
+                        >
+                            <SquareCode />
+                        </ToolbarButton>
 
-                    <Separator
-                        orientation="vertical"
-                        className="mx-1 h-6"
-                    />
+                        <Separator
+                            orientation="vertical"
+                            className="mx-1 h-6"
+                        />
 
-                    <ToolbarButton
-                        label="Undo"
-                        disabled={!state.canUndo}
-                        onPressedChange={() => editor.chain().focus().undo().run()}
-                    >
-                        <Undo2 />
-                    </ToolbarButton>
-                    <ToolbarButton
-                        label="Redo"
-                        disabled={!state.canRedo}
-                        onPressedChange={() => editor.chain().focus().redo().run()}
-                    >
-                        <Redo2 />
-                    </ToolbarButton>
+                        <ToolbarButton
+                            label="Undo"
+                            disabled={!state.canUndo}
+                            onPressedChange={() => editor.chain().focus().undo().run()}
+                        >
+                            <Undo2 />
+                        </ToolbarButton>
+                        <ToolbarButton
+                            label="Redo"
+                            disabled={!state.canRedo}
+                            onPressedChange={() => editor.chain().focus().redo().run()}
+                        >
+                            <Redo2 />
+                        </ToolbarButton>
 
-                    <Separator
-                        orientation="vertical"
-                        className="mx-1 h-6"
-                    />
+                        <Separator
+                            orientation="vertical"
+                            className="mx-1 h-6"
+                        />
 
-                    <ToolbarButton
-                        label={isUploadingImage ? 'Uploading image' : 'Upload image'}
-                        disabled={isUploadingImage}
-                        onPressedChange={() => imageInputRef.current?.click()}
-                    >
-                        {isUploadingImage ? (
-                            <span className="animate-spin">
-                                <LoaderCircle />
-                            </span>
-                        ) : (
-                            <ImagePlus />
-                        )}
-                    </ToolbarButton>
-                    <input
-                        ref={imageInputRef}
-                        type="file"
-                        accept="image/jpeg,image/png,image/gif,image/webp"
-                        className="sr-only"
-                        aria-label="Choose an image to upload"
-                        onChange={(event) => {
-                            const image = event.target.files?.[0];
-                            event.target.value = '';
+                        <ToolbarButton
+                            label={isUploadingImage ? 'Uploading image' : 'Upload image'}
+                            disabled={isUploadingImage}
+                            onPressedChange={() => imageInputRef.current?.click()}
+                        >
+                            {isUploadingImage ? (
+                                <span className="animate-spin">
+                                    <LoaderCircle />
+                                </span>
+                            ) : (
+                                <ImagePlus />
+                            )}
+                        </ToolbarButton>
+                        <input
+                            ref={imageInputRef}
+                            type="file"
+                            accept="image/jpeg,image/png,image/gif,image/webp"
+                            className="sr-only"
+                            aria-label="Choose an image to upload"
+                            onChange={(event) => {
+                                const image = event.target.files?.[0];
+                                event.target.value = '';
 
-                            if (image) {
-                                void uploadImage(image);
-                            }
-                        }}
-                    />
-                </div>
-            </TooltipProvider>
+                                if (image) {
+                                    void uploadImage(image);
+                                }
+                            }}
+                        />
+                    </div>
+                </TooltipProvider>
+            </fieldset>
             {imageUploadError ? (
                 <p
                     className="text-sm text-destructive"
@@ -274,10 +295,20 @@ function EditorToolbar({ editor, imageUploadUrl }: { editor: NonNullable<ReturnT
     );
 }
 
-export function FileContentEditor({ fileId, initialContent, imageUploadUrl, onChange, ref, className }: FileContentEditorProps) {
+export function FileContentEditor({
+    fileId,
+    initialContent,
+    imageUploadUrl,
+    editable = true,
+    onChange,
+    onUploadStateChange,
+    ref,
+    className,
+}: FileContentEditorProps) {
     const editor = useEditor(
         {
             immediatelyRender: false,
+            editable,
             extensions: [
                 StarterKit,
                 Placeholder.configure({
@@ -304,10 +335,20 @@ export function FileContentEditor({ fileId, initialContent, imageUploadUrl, onCh
         [fileId],
     );
 
+    useEffect(() => {
+        editor?.setEditable(editable);
+    }, [editor, editable]);
+
     useImperativeHandle(
         ref,
         () => ({
             getMarkdown: () => editor?.getMarkdown() ?? initialContent,
+            setMarkdown: (markdown: string) => {
+                editor?.commands.setContent(markdown, {
+                    contentType: 'markdown',
+                    emitUpdate: false,
+                });
+            },
         }),
         [editor, initialContent],
     );
@@ -326,6 +367,8 @@ export function FileContentEditor({ fileId, initialContent, imageUploadUrl, onCh
             <EditorToolbar
                 editor={editor}
                 imageUploadUrl={imageUploadUrl}
+                disabled={!editable}
+                onUploadStateChange={onUploadStateChange}
             />
             <div className="min-h-80 flex-1 overflow-y-auto rounded-md border border-input bg-transparent shadow-xs dark:bg-input/30">
                 <EditorContent editor={editor} />

@@ -16,12 +16,19 @@ export interface TreeFolder {
     isImagesFolder: boolean;
 }
 
+export interface Template {
+    id: number;
+    slug: string;
+    name: string;
+}
+
 export interface TreeFile {
     id: number;
     slug: string;
     name: string;
     folderId: number | null;
     isScratchpad: boolean;
+    template: Template | null;
 }
 
 export interface WorldTree {
@@ -38,6 +45,7 @@ export interface WorldFile {
     format: string;
     updatedAt: string | null;
     isScratchpad: boolean;
+    template: Template | null;
 }
 
 export interface RecentScratchpad {

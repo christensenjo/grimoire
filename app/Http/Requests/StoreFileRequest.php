@@ -24,6 +24,7 @@ class StoreFileRequest extends FormRequest
                 'integer',
                 Rule::exists('folders', 'id')->where('world_id', $world->id),
             ],
+            'template_id' => ['nullable', 'integer', Rule::exists('templates', 'id')],
         ];
     }
 
@@ -36,6 +37,7 @@ class StoreFileRequest extends FormRequest
             'name.required' => 'Give your File a name.',
             'name.max' => 'File names may not be longer than 120 characters.',
             'folder_id.exists' => 'That Folder is not in this World.',
+            'template_id.exists' => 'Choose an available Template.',
         ];
     }
 }
