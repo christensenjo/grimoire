@@ -46,7 +46,7 @@ export interface WorldFile {
     updatedAt: string | null;
     isScratchpad: boolean;
     template: Template | null;
-    brokenWikiLinkTargetIds: number[];
+    brokenWikiLinkTargetIds?: number[];
 }
 
 export interface RecentScratchpad {

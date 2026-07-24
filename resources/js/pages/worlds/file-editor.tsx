@@ -31,7 +31,7 @@ interface FileEditorProps {
     file: WorldFile;
     files: TreeFile[];
     folders: TreeFolder[];
-    templates: Template[];
+    templates?: Template[];
 }
 
 type FileContentPayload = {
@@ -107,7 +107,7 @@ function flushFileContentKeepalive(payload: FileContentPayload): boolean {
     }
 }
 
-export function FileEditor({ world, file, files, folders, templates }: FileEditorProps) {
+export function FileEditor({ world, file, files, folders, templates = [] }: FileEditorProps) {
     const [name, setName] = useState(file.name);
     const [folderId, setFolderId] = useState<string>(file.folderId?.toString() ?? '');
     const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
@@ -573,7 +573,7 @@ export function FileEditor({ world, file, files, folders, templates }: FileEdito
                             name: wikiLinkFile.name,
                             href: route('worlds.files.show', [world.slug, wikiLinkFile.slug]),
                         }))}
-                        brokenWikiLinkTargetIds={file.brokenWikiLinkTargetIds}
+                        brokenWikiLinkTargetIds={file.brokenWikiLinkTargetIds ?? []}
                         editable={!isApplyingTemplate}
                         onChange={handleContentChange}
                         onUploadStateChange={setIsUploadingImage}

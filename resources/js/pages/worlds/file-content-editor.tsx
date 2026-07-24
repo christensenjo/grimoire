@@ -42,7 +42,7 @@ interface FileContentEditorProps {
     initialContent: string;
     imageUploadUrl: string;
     wikiLinkFiles: WikiLinkFile[];
-    brokenWikiLinkTargetIds: number[];
+    brokenWikiLinkTargetIds?: number[];
     editable?: boolean;
     onChange: (markdown: string) => void;
     onUploadStateChange?: (isUploading: boolean) => void;
@@ -304,7 +304,7 @@ export function FileContentEditor({
     initialContent,
     imageUploadUrl,
     wikiLinkFiles,
-    brokenWikiLinkTargetIds,
+    brokenWikiLinkTargetIds = [],
     editable = true,
     onChange,
     onUploadStateChange,
@@ -330,7 +330,10 @@ export function FileContentEditor({
             immediatelyRender: false,
             editable,
             extensions: [
-                StarterKit,
+                StarterKit.configure({
+                    // StarterKit's Link mark fights multi-character `[[` triggers.
+                    link: false,
+                }),
                 Placeholder.configure({
                     placeholder: 'Start writing… Markdown shortcuts and the toolbar both work.',
                 }),

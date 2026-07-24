@@ -108,7 +108,23 @@ function createSuggestionRenderer() {
             root.setAttribute('role', 'listbox');
             root.setAttribute('aria-label', 'Wiki-link Files');
             renderItems(props);
-            unmount = props.mount(root);
+            // TipTap hides the popup until Floating UI's first position resolves.
+            // Provide onPosition so we never stay stuck at visibility:hidden if
+            // measurement is delayed in scrollable editor layouts.
+            unmount = props.mount(root, {
+                onPosition: ({ x, y, strategy }) => {
+                    if (!root) {
+                        return;
+                    }
+
+                    Object.assign(root.style, {
+                        position: strategy,
+                        left: `${x}px`,
+                        top: `${y}px`,
+                        visibility: 'visible',
+                    });
+                },
+            });
         },
         onUpdate: (props: SuggestionProps<WikiLinkSuggestionItem, WikiLinkSuggestionItem>) => {
             renderItems(props);

@@ -11,7 +11,7 @@ const editors: Editor[] = [];
 
 function createEditor(files: () => WikiLinkFile[], content = '', brokenTargetIds: () => number[] = () => []) {
     const editor = new Editor({
-        extensions: [StarterKit, createWikiLinkExtension(files, brokenTargetIds), Markdown],
+        extensions: [StarterKit.configure({ link: false }), createWikiLinkExtension(files, brokenTargetIds), Markdown],
         content,
         contentType: 'markdown',
     });
@@ -36,15 +36,53 @@ describe('wiki-link extension', () => {
         editor.commands.insertContent('[[ari');
         await new Promise((resolve) => setTimeout(resolve, 0));
 
-        const listbox = document.querySelector('[role="listbox"]');
+        const listbox = document.querySelector<HTMLElement>('[role="listbox"]');
         const option = listbox?.querySelector<HTMLButtonElement>('[role="option"]');
 
         expect(listbox?.getAttribute('aria-label')).toBe('Wiki-link Files');
+        expect(listbox?.style.visibility).not.toBe('hidden');
         expect(option?.textContent).toBe('Aria Vale');
 
         option?.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
 
         expect(editor.getMarkdown()).toContain('[[file:2]]');
+    });
+
+    it('opens suggestions when [[ is typed one character at a time at the end of a paragraph', async () => {
+        const files = [
+            { id: 2, name: 'Aria Vale', href: '/worlds/sunbreak/files/aria-vale' },
+            { id: 7, name: 'Ievus', href: '/worlds/sunbreak/files/ievus' },
+        ];
+        const characterTemplateBody = `## First impression
+
+What does someone notice before this Character says a word?
+
+## Desire and cost
+
+- What do they want badly enough to take a risk?
+- What would getting it cost them?
+
+## Contradiction
+
+Which two truths about this Character should not fit together, but do?
+
+## Ties to the World
+
+Who relies on them, who fears them, and where do they belong?
+
+`;
+        const editor = createEditor(() => files, characterTemplateBody);
+
+        editor.commands.focus('end');
+        editor.commands.insertContent('[');
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        editor.commands.insertContent('[');
+        await new Promise((resolve) => setTimeout(resolve, 0));
+
+        const listbox = document.querySelector('[role="listbox"]');
+
+        expect(listbox).not.toBeNull();
+        expect([...listbox!.querySelectorAll('[role="option"]')].map((option) => option.textContent)).toEqual(['Aria Vale', 'Ievus']);
     });
 
     it('only suggests Files from the provided current-World list', async () => {
