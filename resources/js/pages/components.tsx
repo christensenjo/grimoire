@@ -9,7 +9,6 @@ import AppearanceToggleDropdown from '@/components/appearance-dropdown';
 import AppearanceToggleTab from '@/components/appearance-tabs';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import CTASection from '@/components/cta-section';
-import DashboardPreview from '@/components/dashboard-preview';
 import DeleteUser from '@/components/delete-user';
 import Features from '@/components/features';
 import Footer from '@/components/footer';
@@ -706,7 +705,6 @@ export default function Components() {
                         <WhyChooseUs />
                         <Pricing />
                         <CTASection />
-                        <DashboardPreview />
                         <Footer />
                     </div>
                 </section>
