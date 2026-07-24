@@ -55,4 +55,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(World::class);
     }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (User $user): void {
+            $user->worlds()->eachById(function (World $world): void {
+                $world->delete();
+            });
+        });
+    }
 }

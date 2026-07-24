@@ -61,11 +61,28 @@ class World extends Model
     }
 
     /**
+     * @return HasMany<Image, $this>
+     */
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    /**
      * @return HasOne<File, $this>
      */
     public function scratchpadFile(): HasOne
     {
         return $this->hasOne(File::class)->where('is_scratchpad', true);
+    }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (World $world): void {
+            $world->images()->eachById(function (Image $image): void {
+                $image->delete();
+            });
+        });
     }
 
     public function markAccessed(): void

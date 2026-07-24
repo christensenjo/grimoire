@@ -17,8 +17,7 @@ final class SeedWorldDefaults
     protected function ensureImagesFolder(World $world): void
     {
         $exists = $world->folders()
-            ->where('name', 'images')
-            ->whereNull('parent_id')
+            ->where('is_images_folder', true)
             ->exists();
 
         if ($exists) {
@@ -30,6 +29,7 @@ final class SeedWorldDefaults
             'parent_id' => null,
         ]);
         $folder->world()->associate($world);
+        $folder->is_images_folder = true;
         $folder->save();
     }
 

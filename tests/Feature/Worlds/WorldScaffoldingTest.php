@@ -33,6 +33,7 @@ test('creating a world seeds an images folder and exactly one scratchpad file', 
         ->format->toBe('document')
         ->content->toBe('')
         ->and($imagesFolder->slug)->toBe('images')
+        ->and($imagesFolder->is_images_folder)->toBeTrue()
         ->and($scratchpad->slug)->toBe('scratchpad');
 });
 

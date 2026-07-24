@@ -5,6 +5,7 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { readXsrfToken } from '@/lib/xsrf';
 
 import { type FileContentEditorHandle } from './file-content-editor';
 import { type TreeFolder, type World, type WorldFile } from './types';
@@ -57,16 +58,6 @@ function EditorFallback() {
             <div className="min-h-80 flex-1 animate-pulse rounded-md border border-input bg-muted/40" />
         </div>
     );
-}
-
-function readXsrfToken(): string | null {
-    const match = document.cookie.match(/(?:^|; )XSRF-TOKEN=([^;]*)/);
-
-    if (!match?.[1]) {
-        return null;
-    }
-
-    return decodeURIComponent(match[1]);
 }
 
 /**
@@ -436,6 +427,7 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
                         ref={editorRef}
                         fileId={file.id}
                         initialContent={file.content}
+                        imageUploadUrl={route('worlds.images.store', world.slug)}
                         onChange={handleContentChange}
                     />
                 </Suspense>

@@ -30,6 +30,10 @@ class FolderPolicy
 
     public function delete(User $user, Folder $folder): bool
     {
+        if ($folder->is_images_folder) {
+            return false;
+        }
+
         return $folder->world->user()->is($user);
     }
 }

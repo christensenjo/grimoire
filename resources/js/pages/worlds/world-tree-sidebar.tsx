@@ -92,14 +92,16 @@ function FolderNode({
                 >
                     <Pencil className="size-3.5" />
                 </button>
-                <button
-                    type="button"
-                    className="rounded p-1 text-muted-foreground opacity-0 group-hover:opacity-100 hover:bg-background hover:text-destructive"
-                    aria-label={`Delete folder ${folder.name}`}
-                    onClick={() => onDeleteFolder(folder)}
-                >
-                    <Trash2 className="size-3.5" />
-                </button>
+                {!folder.isImagesFolder ? (
+                    <button
+                        type="button"
+                        className="rounded p-1 text-muted-foreground opacity-0 group-hover:opacity-100 hover:bg-background hover:text-destructive"
+                        aria-label={`Delete folder ${folder.name}`}
+                        onClick={() => onDeleteFolder(folder)}
+                    >
+                        <Trash2 className="size-3.5" />
+                    </button>
+                ) : null}
             </div>
             {isOpen ? (
                 <div>
@@ -393,6 +395,7 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                                             id="edit-folder-parent"
                                             name="parent_id"
                                             defaultValue={folderToEdit.parentId ?? ''}
+                                            disabled={folderToEdit.isImagesFolder}
                                             className="h-9 w-full rounded-md border border-input bg-transparent px-2.5 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
                                         >
                                             <option value="">World root</option>
