@@ -3,18 +3,21 @@ import { ChevronRight, FileText, Folder as FolderIcon, Pencil, Plus, Trash2 } fr
 import { useState } from 'react';
 
 import InputError from '@/components/input-error';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { NativeSelect } from '@/components/ui/native-select';
 import { cn } from '@/lib/utils';
 
-import { type TreeFile, type TreeFolder, type World, type WorldFile, type WorldTree } from './types';
+import { type Template, type TreeFile, type TreeFolder, type World, type WorldFile, type WorldTree } from './types';
 
 interface WorldTreeSidebarProps {
     world: World;
     tree: WorldTree;
     activeFile: WorldFile | null;
+    templates: Template[];
 }
 
 interface FolderNodeProps {
@@ -163,6 +166,14 @@ function FileRow({
                     aria-hidden="true"
                 />
                 <span className="truncate">{file.name}</span>
+                {file.template ? (
+                    <Badge
+                        variant="outline"
+                        className="h-4 px-1.5 text-[10px]"
+                    >
+                        {file.template.name}
+                    </Badge>
+                ) : null}
             </Link>
             {!file.isScratchpad ? (
                 <button
@@ -178,7 +189,7 @@ function FileRow({
     );
 }
 
-export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarProps) {
+export function WorldTreeSidebar({ world, tree, activeFile, templates }: WorldTreeSidebarProps) {
     const [createKind, setCreateKind] = useState<'folder' | 'file' | null>(null);
     const [folderToEdit, setFolderToEdit] = useState<TreeFolder | null>(null);
     const [folderToDelete, setFolderToDelete] = useState<TreeFolder | null>(null);
@@ -311,13 +322,33 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                                         />
                                         <InputError message={errors.name} />
                                     </div>
+                                    {createKind === 'file' ? (
+                                        <div className="grid gap-2">
+                                            <Label htmlFor="create-template">Template</Label>
+                                            <NativeSelect
+                                                id="create-template"
+                                                name="template_id"
+                                                defaultValue=""
+                                            >
+                                                <option value="">Blank File</option>
+                                                {templates.map((template) => (
+                                                    <option
+                                                        key={template.id}
+                                                        value={template.id}
+                                                    >
+                                                        {template.name}
+                                                    </option>
+                                                ))}
+                                            </NativeSelect>
+                                            <InputError message={errors.template_id} />
+                                        </div>
+                                    ) : null}
                                     <div className="grid gap-2">
                                         <Label htmlFor="create-parent">{createKind === 'folder' ? 'Parent folder' : 'Folder'}</Label>
-                                        <select
+                                        <NativeSelect
                                             id="create-parent"
                                             name={createKind === 'folder' ? 'parent_id' : 'folder_id'}
                                             defaultValue=""
-                                            className="h-9 w-full rounded-md border border-input bg-transparent px-2.5 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
                                         >
                                             <option value="">World root</option>
                                             {createParentOptions.map((folder) => (
@@ -328,7 +359,7 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                                                     {folder.name}
                                                 </option>
                                             ))}
-                                        </select>
+                                        </NativeSelect>
                                         <InputError message={errors.parent_id ?? errors.folder_id} />
                                     </div>
                                     <DialogFooter>
@@ -391,12 +422,11 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                                     </div>
                                     <div className="grid gap-2">
                                         <Label htmlFor="edit-folder-parent">Parent folder</Label>
-                                        <select
+                                        <NativeSelect
                                             id="edit-folder-parent"
                                             name="parent_id"
                                             defaultValue={folderToEdit.parentId ?? ''}
                                             disabled={folderToEdit.isImagesFolder}
-                                            className="h-9 w-full rounded-md border border-input bg-transparent px-2.5 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
                                         >
                                             <option value="">World root</option>
                                             {editParentOptions.map((folder) => (
@@ -407,7 +437,7 @@ export function WorldTreeSidebar({ world, tree, activeFile }: WorldTreeSidebarPr
                                                     {folder.name}
                                                 </option>
                                             ))}
-                                        </select>
+                                        </NativeSelect>
                                         <InputError message={errors.parent_id} />
                                     </div>
                                     <DialogFooter>

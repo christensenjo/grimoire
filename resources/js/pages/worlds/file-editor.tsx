@@ -1,14 +1,18 @@
-import { Form, router } from '@inertiajs/react';
+import { Form, router, useForm } from '@inertiajs/react';
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 
 import InputError from '@/components/input-error';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { NativeSelect } from '@/components/ui/native-select';
+import { PromiseQueue } from '@/lib/promise-queue';
 import { readXsrfToken } from '@/lib/xsrf';
 
 import { type FileContentEditorHandle } from './file-content-editor';
-import { type TreeFolder, type World, type WorldFile } from './types';
+import { type Template, type TreeFolder, type World, type WorldFile } from './types';
 
 const FileContentEditor = lazy(async () => {
     const module = await import('./file-content-editor');
@@ -26,6 +30,7 @@ interface FileEditorProps {
     world: World;
     file: WorldFile;
     folders: TreeFolder[];
+    templates: Template[];
 }
 
 type FileContentPayload = {
@@ -101,17 +106,26 @@ function flushFileContentKeepalive(payload: FileContentPayload): boolean {
     }
 }
 
-export function FileEditor({ world, file, folders }: FileEditorProps) {
+export function FileEditor({ world, file, folders, templates }: FileEditorProps) {
     const [name, setName] = useState(file.name);
     const [folderId, setFolderId] = useState<string>(file.folderId?.toString() ?? '');
     const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
     const [contentError, setContentError] = useState<string | undefined>();
+    const [isApplyingTemplate, setIsApplyingTemplate] = useState(false);
+    const [isUploadingImage, setIsUploadingImage] = useState(false);
+    const [isSavingDetails, setIsSavingDetails] = useState(false);
+    const templateForm = useForm({
+        template_id: file.template?.id.toString() ?? '',
+        append_body: false,
+    });
 
     const editorRef = useRef<FileContentEditorHandle | null>(null);
     const pendingMarkdownRef = useRef(file.content);
     const lastSavedMarkdownRef = useRef(file.content);
     const dirtyRef = useRef(false);
     const saveStatusRef = useRef<SaveStatus>('idle');
+    const isSavingDetailsRef = useRef(false);
+    const saveQueueRef = useRef(new PromiseQueue());
     const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const fileMetaRef = useRef({
         worldSlug: world.slug,
@@ -158,48 +172,56 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
         }
     }, []);
 
-    const persistContent = useCallback((markdown: string): Promise<void> => {
-        if (markdown === lastSavedMarkdownRef.current && saveStatusRef.current !== 'error') {
-            dirtyRef.current = false;
-            setSaveStatus('saved');
+    const persistContent = useCallback((_markdown: string): Promise<void> => {
+        const runSave = async (): Promise<void> => {
+            const markdown = pendingMarkdownRef.current;
 
-            return Promise.resolve();
-        }
+            if (markdown === lastSavedMarkdownRef.current && saveStatusRef.current !== 'error') {
+                dirtyRef.current = false;
+                setSaveStatus('saved');
 
-        const meta = fileMetaRef.current;
+                return;
+            }
 
-        setSaveStatus('saving');
-        saveStatusRef.current = 'saving';
-        setContentError(undefined);
+            const meta = fileMetaRef.current;
 
-        return new Promise((resolve) => {
-            router.patch(
-                route('worlds.files.update', [meta.worldSlug, meta.fileSlug]),
-                {
-                    name: meta.name,
-                    folder_id: meta.folderId,
-                    content: markdown,
-                },
-                {
-                    preserveScroll: true,
-                    preserveState: true,
-                    onSuccess: () => {
-                        lastSavedMarkdownRef.current = markdown;
-                        dirtyRef.current = false;
-                        setSaveStatus('saved');
-                        saveStatusRef.current = 'saved';
-                        resolve();
+            setSaveStatus('saving');
+            saveStatusRef.current = 'saving';
+            setContentError(undefined);
+
+            await new Promise<void>((resolve) => {
+                router.patch(
+                    route('worlds.files.update', [meta.worldSlug, meta.fileSlug]),
+                    {
+                        name: meta.name,
+                        folder_id: meta.folderId,
+                        content: markdown,
                     },
-                    onError: (errors) => {
-                        dirtyRef.current = true;
-                        setSaveStatus('error');
-                        saveStatusRef.current = 'error';
-                        setContentError(typeof errors.content === 'string' ? errors.content : 'Could not save content.');
-                        resolve();
+                    {
+                        preserveScroll: true,
+                        preserveState: true,
+                        onSuccess: () => {
+                            lastSavedMarkdownRef.current = markdown;
+                            const hasNewerChanges = pendingMarkdownRef.current !== markdown;
+
+                            dirtyRef.current = hasNewerChanges;
+                            setSaveStatus(hasNewerChanges ? 'dirty' : 'saved');
+                            saveStatusRef.current = hasNewerChanges ? 'dirty' : 'saved';
+                            resolve();
+                        },
+                        onError: (errors) => {
+                            dirtyRef.current = true;
+                            setSaveStatus('error');
+                            saveStatusRef.current = 'error';
+                            setContentError(typeof errors.content === 'string' ? errors.content : 'Could not save content.');
+                            resolve();
+                        },
                     },
-                },
-            );
-        });
+                );
+            });
+        };
+
+        return saveQueueRef.current.enqueue(runSave);
     }, []);
 
     const flushPendingSave = useCallback((): Promise<void> => {
@@ -240,6 +262,46 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
         },
         [clearDebounce, persistContent],
     );
+
+    const handleApplyTemplate = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        if (isApplyingTemplate || isUploadingImage || isSavingDetailsRef.current) {
+            return;
+        }
+
+        setIsApplyingTemplate(true);
+
+        void flushPendingSave()
+            .then(() => {
+                if (dirtyRef.current) {
+                    setIsApplyingTemplate(false);
+
+                    return;
+                }
+
+                templateForm.patch(route('worlds.files.template.update', [world.slug, file.slug]), {
+                    preserveScroll: true,
+                    preserveState: true,
+                    onSuccess: (page) => {
+                        const updatedFile = page.props.file as WorldFile | null;
+
+                        if (updatedFile) {
+                            pendingMarkdownRef.current = updatedFile.content;
+                            lastSavedMarkdownRef.current = updatedFile.content;
+                            dirtyRef.current = false;
+                            saveStatusRef.current = 'saved';
+                            setSaveStatus('saved');
+                            editorRef.current?.setMarkdown(updatedFile.content);
+                        }
+
+                        templateForm.reset('append_body');
+                    },
+                    onFinish: () => setIsApplyingTemplate(false),
+                });
+            })
+            .catch(() => setIsApplyingTemplate(false));
+    };
 
     useEffect(() => {
         const onBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -345,6 +407,15 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
                 action={route('worlds.files.update', [world.slug, file.slug])}
                 className="flex flex-col gap-3"
                 options={{ preserveScroll: true }}
+                onSubmit={(event) => {
+                    if (isApplyingTemplate || isUploadingImage || isSavingDetails) {
+                        event.preventDefault();
+                    }
+                }}
+                onStart={() => {
+                    isSavingDetailsRef.current = true;
+                    setIsSavingDetails(true);
+                }}
                 transform={() => ({
                     name,
                     content: editorRef.current?.getMarkdown() ?? pendingMarkdownRef.current,
@@ -356,6 +427,10 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
                     setSaveStatus('saved');
                     saveStatusRef.current = 'saved';
                     clearDebounce();
+                }}
+                onFinish={() => {
+                    isSavingDetailsRef.current = false;
+                    setIsSavingDetails(false);
                 }}
             >
                 {({ processing, errors }) => (
@@ -370,6 +445,7 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
                                     required
                                     maxLength={120}
                                     autoComplete="off"
+                                    disabled={isApplyingTemplate || isUploadingImage || isSavingDetails}
                                     aria-invalid={errors.name ? true : undefined}
                                 />
                                 <InputError message={errors.name} />
@@ -377,11 +453,11 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
                             {!file.isScratchpad ? (
                                 <div className="grid gap-2">
                                     <Label htmlFor="file-folder">Folder</Label>
-                                    <select
+                                    <NativeSelect
                                         id="file-folder"
                                         value={folderId}
                                         onChange={(event) => setFolderId(event.target.value)}
-                                        className="h-9 w-full rounded-md border border-input bg-transparent px-2.5 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+                                        disabled={isApplyingTemplate || isUploadingImage || isSavingDetails}
                                         aria-invalid={errors.folder_id ? true : undefined}
                                     >
                                         <option value="">World root</option>
@@ -393,7 +469,7 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
                                                 {folder.name}
                                             </option>
                                         ))}
-                                    </select>
+                                    </NativeSelect>
                                     <InputError message={errors.folder_id} />
                                 </div>
                             ) : null}
@@ -409,7 +485,7 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
                             ) : null}
                             <Button
                                 type="submit"
-                                disabled={processing}
+                                disabled={processing || isApplyingTemplate || isUploadingImage || isSavingDetails}
                             >
                                 {processing ? 'Saving…' : 'Save details'}
                             </Button>
@@ -419,8 +495,79 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
             </Form>
 
             <div className="grid min-h-0 flex-1 gap-2">
-                <div className="flex items-center justify-between gap-2">
-                    <Label>Content</Label>
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                        <Label>Content</Label>
+                        {file.template ? <Badge variant="outline">{file.template.name}</Badge> : null}
+                    </div>
+                    <form
+                        className="grid gap-1"
+                        onSubmit={handleApplyTemplate}
+                    >
+                        <div className="flex items-center gap-2">
+                            <Label
+                                htmlFor="file-template"
+                                className="sr-only"
+                            >
+                                Template
+                            </Label>
+                            <NativeSelect
+                                id="file-template"
+                                name="template_id"
+                                value={templateForm.data.template_id}
+                                onChange={(event) => templateForm.setData('template_id', event.target.value)}
+                                required
+                                disabled={isApplyingTemplate || isUploadingImage || isSavingDetails}
+                                className="w-auto"
+                            >
+                                <option
+                                    value=""
+                                    disabled
+                                >
+                                    Choose Template
+                                </option>
+                                {templates.map((template) => (
+                                    <option
+                                        key={template.id}
+                                        value={template.id}
+                                    >
+                                        {template.name}
+                                    </option>
+                                ))}
+                            </NativeSelect>
+                            <Button
+                                type="submit"
+                                variant="outline"
+                                disabled={isApplyingTemplate || isUploadingImage || isSavingDetails}
+                            >
+                                {isApplyingTemplate
+                                    ? 'Applying…'
+                                    : isUploadingImage
+                                      ? 'Uploading image…'
+                                      : isSavingDetails
+                                        ? 'Saving details…'
+                                        : file.template
+                                          ? 'Change type'
+                                          : 'Apply type'}
+                            </Button>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Checkbox
+                                id="append-template-body"
+                                name="append_body"
+                                checked={templateForm.data.append_body}
+                                onCheckedChange={(checked) => templateForm.setData('append_body', checked)}
+                                disabled={isApplyingTemplate || isUploadingImage || isSavingDetails}
+                            />
+                            <Label
+                                htmlFor="append-template-body"
+                                className="text-xs font-normal text-muted-foreground"
+                            >
+                                Add the Template prompts after existing content
+                            </Label>
+                        </div>
+                        <InputError message={templateForm.errors.template_id} />
+                    </form>
                 </div>
                 <Suspense fallback={<EditorFallback />}>
                     <FileContentEditor
@@ -428,7 +575,9 @@ export function FileEditor({ world, file, folders }: FileEditorProps) {
                         fileId={file.id}
                         initialContent={file.content}
                         imageUploadUrl={route('worlds.images.store', world.slug)}
+                        editable={!isApplyingTemplate}
                         onChange={handleContentChange}
+                        onUploadStateChange={setIsUploadingImage}
                     />
                 </Suspense>
                 <InputError message={contentError} />
