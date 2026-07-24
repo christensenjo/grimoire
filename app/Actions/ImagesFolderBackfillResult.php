@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Data;
+namespace App\Actions;
 
 final readonly class ImagesFolderBackfillResult
 {

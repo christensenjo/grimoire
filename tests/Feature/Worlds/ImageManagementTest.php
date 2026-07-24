@@ -202,6 +202,31 @@ test('deleting a world removes its stored images', function () {
     expect(Image::query()->count())->toBe(0);
 });
 
+test('deleting a user account removes stored images for their worlds', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create();
+    app(SeedWorldDefaults::class)($world);
+
+    $this->actingAs($user)->postJson(route('worlds.images.store', $world), [
+        'image' => UploadedFile::fake()->image('map.png'),
+    ])->assertCreated();
+
+    $image = Image::query()->sole();
+
+    Storage::disk('local')->assertExists($image->path);
+
+    $this->actingAs($user)
+        ->delete('/settings/profile', [
+            'password' => 'password',
+        ])
+        ->assertRedirect('/');
+
+    Storage::disk('local')->assertMissing($image->path);
+    expect(Image::query()->count())->toBe(0)
+        ->and(World::query()->count())->toBe(0)
+        ->and($user->fresh())->toBeNull();
+});
+
 test('image factory keeps its folder in the same world', function () {
     $image = Image::factory()->create();
 

@@ -76,6 +76,15 @@ class World extends Model
         return $this->hasOne(File::class)->where('is_scratchpad', true);
     }
 
+    protected static function booted(): void
+    {
+        static::deleting(function (World $world): void {
+            $world->images()->eachById(function (Image $image): void {
+                $image->delete();
+            });
+        });
+    }
+
     public function markAccessed(): void
     {
         static::withoutTimestamps(function (): void {

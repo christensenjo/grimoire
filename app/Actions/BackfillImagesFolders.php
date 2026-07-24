@@ -2,7 +2,6 @@
 
 namespace App\Actions;
 
-use App\Data\ImagesFolderBackfillResult;
 use App\Models\Folder;
 use App\Models\World;
 use Illuminate\Database\Eloquent\Builder;
