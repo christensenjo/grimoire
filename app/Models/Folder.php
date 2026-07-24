@@ -25,6 +25,16 @@ class Folder extends Model
     ];
 
     /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_images_folder' => 'boolean',
+        ];
+    }
+
+    /**
      * @return BelongsTo<World, $this>
      */
     public function world(): BelongsTo
@@ -54,6 +64,14 @@ class Folder extends Model
     public function files(): HasMany
     {
         return $this->hasMany(File::class);
+    }
+
+    /**
+     * @return HasMany<Image, $this>
+     */
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
     }
 
     public function isAncestorOf(Folder $folder): bool
@@ -91,7 +109,7 @@ class Folder extends Model
     }
 
     /**
-     * @return array{id: int, slug: string, name: string, parentId: int|null}
+     * @return array{id: int, slug: string, name: string, parentId: int|null, isImagesFolder: bool}
      */
     public function toInertiaArray(): array
     {
@@ -100,6 +118,7 @@ class Folder extends Model
             'slug' => $this->slug,
             'name' => $this->name,
             'parentId' => $this->parent_id,
+            'isImagesFolder' => $this->is_images_folder,
         ];
     }
 

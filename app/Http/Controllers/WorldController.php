@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\DeleteWorld;
 use App\Actions\SeedWorldDefaults;
 use App\Http\Requests\StoreWorldRequest;
 use App\Http\Requests\UpdateWorldRequest;
@@ -77,11 +78,11 @@ class WorldController extends Controller
         return to_route('worlds.show', $world);
     }
 
-    public function destroy(World $world): RedirectResponse
+    public function destroy(World $world, DeleteWorld $deleteWorld): RedirectResponse
     {
         Gate::authorize('delete', $world);
 
-        $world->delete();
+        $deleteWorld($world);
 
         return to_route('worlds.index');
     }

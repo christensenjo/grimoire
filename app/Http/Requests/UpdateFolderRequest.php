@@ -40,6 +40,15 @@ class UpdateFolderRequest extends FormRequest
             $folder = $this->route('folder');
             $parentId = $this->input('parent_id');
 
+            if ($folder->is_images_folder && $parentId !== null) {
+                $validator->errors()->add(
+                    'parent_id',
+                    'The images Folder must stay at the World root.',
+                );
+
+                return;
+            }
+
             if ($folder->wouldCreateCycle($parentId === null ? null : (int) $parentId)) {
                 $validator->errors()->add(
                     'parent_id',
