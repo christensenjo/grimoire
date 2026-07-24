@@ -573,6 +573,7 @@ export function FileEditor({ world, file, files, folders, templates }: FileEdito
                             name: wikiLinkFile.name,
                             href: route('worlds.files.show', [world.slug, wikiLinkFile.slug]),
                         }))}
+                        brokenWikiLinkTargetIds={file.brokenWikiLinkTargetIds}
                         editable={!isApplyingTemplate}
                         onChange={handleContentChange}
                         onUploadStateChange={setIsUploadingImage}

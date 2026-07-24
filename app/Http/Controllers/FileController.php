@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\ApplyTemplateToFile;
 use App\Actions\CreateFile;
+use App\Actions\ListBrokenWikiLinkTargetIds;
 use App\Actions\ListTemplates;
 use App\Actions\UpdateFile;
 use App\Http\Requests\ApplyTemplateRequest;
@@ -28,8 +29,12 @@ class FileController extends Controller
         return to_route('worlds.files.show', [$world, $file]);
     }
 
-    public function show(World $world, File $file, ListTemplates $listTemplates): Response
-    {
+    public function show(
+        World $world,
+        File $file,
+        ListTemplates $listTemplates,
+        ListBrokenWikiLinkTargetIds $listBrokenWikiLinkTargetIds,
+    ): Response {
         Gate::authorize('view', $file);
 
         $invalidateDashboardPrefetch = !$world->isMostRecentScratchpadWorld();
@@ -39,7 +44,7 @@ class FileController extends Controller
         return Inertia::render('worlds/show', [
             'world' => $world->toInertiaArray(),
             'tree' => $world->toTreeInertiaArray(),
-            'file' => $file->toInertiaArray(),
+            'file' => $file->toInertiaArray($listBrokenWikiLinkTargetIds($file)),
             'templates' => $listTemplates(),
             'invalidateDashboardPrefetch' => $invalidateDashboardPrefetch,
         ]);

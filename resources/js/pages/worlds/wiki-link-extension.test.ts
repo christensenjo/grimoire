@@ -9,9 +9,9 @@ import { createWikiLinkExtension, type WikiLinkFile, wikiLinkHrefFromTarget } fr
 
 const editors: Editor[] = [];
 
-function createEditor(files: () => WikiLinkFile[], content = '') {
+function createEditor(files: () => WikiLinkFile[], content = '', brokenTargetIds: () => number[] = () => []) {
     const editor = new Editor({
-        extensions: [StarterKit, createWikiLinkExtension(files), Markdown],
+        extensions: [StarterKit, createWikiLinkExtension(files, brokenTargetIds), Markdown],
         content,
         contentType: 'markdown',
     });
@@ -47,6 +47,20 @@ describe('wiki-link extension', () => {
         expect(editor.getMarkdown()).toContain('[[file:2]]');
     });
 
+    it('only suggests Files from the provided current-World list', async () => {
+        const currentWorldFiles = [{ id: 2, name: 'Aria Vale', href: '/worlds/sunbreak/files/aria-vale' }];
+        const editor = createEditor(() => currentWorldFiles);
+
+        editor.commands.insertContent('[[Other');
+        await new Promise((resolve) => setTimeout(resolve, 0));
+
+        const listbox = document.querySelector('[role="listbox"]');
+        const options = [...(listbox?.querySelectorAll('[role="option"]') ?? [])].map((option) => option.textContent);
+
+        expect(options).toEqual([]);
+        expect(listbox?.textContent).toContain('No matching Files');
+    });
+
     it('renders the current target name and navigable URL after a rename', () => {
         let files = [{ id: 2, name: 'Old Name', href: '/worlds/sunbreak/files/old-name' }];
         const editor = createEditor(() => files, 'Visit [[file:2]].');
@@ -68,9 +82,15 @@ describe('wiki-link extension', () => {
 
     it('renders a deleted target as visibly broken without navigation', () => {
         let files = [{ id: 99, name: 'Lost City', href: '/worlds/sunbreak/files/lost-city' }];
-        const editor = createEditor(() => files, 'Lost [[file:99]].');
+        let brokenTargetIds: number[] = [];
+        const editor = createEditor(
+            () => files,
+            'Lost [[file:99]].',
+            () => brokenTargetIds,
+        );
 
         files = [];
+        brokenTargetIds = [99];
         editor.commands.setContent(editor.getMarkdown(), {
             contentType: 'markdown',
             emitUpdate: false,
@@ -83,5 +103,21 @@ describe('wiki-link extension', () => {
         expect(html).not.toContain('data-wiki-link-href');
         expect(editor.getMarkdown()).toContain('[[file:99]]');
         expect(wikiLinkHrefFromTarget(editor.view.dom.querySelector('[data-wiki-link-broken]'))).toBeNull();
+    });
+
+    it('treats file_links-reported broken targets as broken even if a stale File remains in the list', () => {
+        const files = [{ id: 99, name: 'Stale Name', href: '/worlds/sunbreak/files/stale-name' }];
+        const editor = createEditor(
+            () => files,
+            'Lost [[file:99]].',
+            () => [99],
+        );
+
+        const html = editor.getHTML();
+
+        expect(html).toContain('Missing File');
+        expect(html).toContain('data-wiki-link-broken');
+        expect(html).not.toContain('Stale Name');
+        expect(html).not.toContain('data-wiki-link-href');
     });
 });
