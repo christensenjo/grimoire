@@ -74,6 +74,35 @@ test('user can apply a template type without changing existing file content', fu
     expect($file->refresh())
         ->template_id->toBe($template->id)
         ->content->toBe('Stormglass washes ashore at dawn.');
+
+    $this->actingAs($user)
+        ->get(route('worlds.files.show', [$world, $file]))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->where('file.template.slug', 'location')
+            ->where('tree.files.0.template.slug', 'location')
+        );
+});
+
+test('stale file slug redirects when applying a template', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create(['name' => 'World']);
+    $file = File::factory()->for($world)->create(['name' => 'Old File']);
+    $template = Template::query()->where('slug', 'character')->sole();
+
+    $this->actingAs($user)
+        ->patch(route('worlds.files.update', [$world, $file]), [
+            'name' => 'New File',
+            'content' => $file->content,
+        ])
+        ->assertRedirect('/worlds/world/files/new-file');
+
+    $this->actingAs($user)
+        ->patch('/worlds/world/files/old-file/template', [
+            'template_id' => $template->id,
+        ])
+        ->assertRedirect('/worlds/world/files/new-file')
+        ->assertMovedPermanently();
 });
 
 test('user can add template prompts after existing file content', function () {
