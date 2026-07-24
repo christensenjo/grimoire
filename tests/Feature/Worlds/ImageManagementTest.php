@@ -105,6 +105,14 @@ test('another user is forbidden from loading an image', function () {
         ->assertForbidden();
 });
 
+test('non-uuid image paths do not hit the image show route', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->get('/images/hero-placeholder.svg')
+        ->assertNotFound();
+});
+
 test('another user cannot upload an image to the world', function () {
     $owner = User::factory()->create();
     $world = World::factory()->for($owner)->create();

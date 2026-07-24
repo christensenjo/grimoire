@@ -63,6 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('worlds/{world}/images', [ImageController::class, 'store'])
         ->name('worlds.images.store');
     Route::get('images/{image}', [ImageController::class, 'show'])
+        ->whereUuid('image')
         ->name('images.show');
 });
 
