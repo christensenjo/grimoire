@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class File extends Model
 {
@@ -60,9 +61,23 @@ class File extends Model
     }
 
     /**
-     * @return array{id: int, slug: string, name: string, folderId: int|null, content: string, format: string, updatedAt: string|null, isScratchpad: bool, template: array{id: int, slug: string, name: string}|null}
+     * @return BelongsToMany<File, $this>
      */
-    public function toInertiaArray(): array
+    public function outgoingWikiLinks(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            File::class,
+            'file_links',
+            'source_file_id',
+            'target_file_id',
+        )->withTimestamps();
+    }
+
+    /**
+     * @param  list<int>  $brokenWikiLinkTargetIds
+     * @return array{id: int, slug: string, name: string, folderId: int|null, content: string, format: string, updatedAt: string|null, isScratchpad: bool, template: array{id: int, slug: string, name: string}|null, brokenWikiLinkTargetIds: list<int>}
+     */
+    public function toInertiaArray(array $brokenWikiLinkTargetIds = []): array
     {
         return [
             'id' => $this->id,
@@ -74,6 +89,7 @@ class File extends Model
             'updatedAt' => $this->updated_at?->toISOString(),
             'isScratchpad' => $this->is_scratchpad,
             'template' => $this->template?->toInertiaArray(),
+            'brokenWikiLinkTargetIds' => $brokenWikiLinkTargetIds,
         ];
     }
 

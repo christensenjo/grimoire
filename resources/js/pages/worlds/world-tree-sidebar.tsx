@@ -17,7 +17,7 @@ interface WorldTreeSidebarProps {
     world: World;
     tree: WorldTree;
     activeFile: WorldFile | null;
-    templates: Template[];
+    templates?: Template[];
 }
 
 interface FolderNodeProps {
@@ -189,7 +189,7 @@ function FileRow({
     );
 }
 
-export function WorldTreeSidebar({ world, tree, activeFile, templates }: WorldTreeSidebarProps) {
+export function WorldTreeSidebar({ world, tree, activeFile, templates = [] }: WorldTreeSidebarProps) {
     const [createKind, setCreateKind] = useState<'folder' | 'file' | null>(null);
     const [folderToEdit, setFolderToEdit] = useState<TreeFolder | null>(null);
     const [folderToDelete, setFolderToDelete] = useState<TreeFolder | null>(null);
