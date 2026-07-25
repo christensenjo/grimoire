@@ -42,6 +42,7 @@ interface FileContentEditorProps {
     initialContent: string;
     imageUploadUrl: string;
     wikiLinkFiles: WikiLinkFile[];
+    brokenWikiLinkTargetIds?: number[];
     editable?: boolean;
     onChange: (markdown: string) => void;
     onUploadStateChange?: (isUploading: boolean) => void;
@@ -303,6 +304,7 @@ export function FileContentEditor({
     initialContent,
     imageUploadUrl,
     wikiLinkFiles,
+    brokenWikiLinkTargetIds = [],
     editable = true,
     onChange,
     onUploadStateChange,
@@ -311,15 +313,27 @@ export function FileContentEditor({
 }: FileContentEditorProps) {
     const wikiLinkFilesRef = useRef(wikiLinkFiles);
     wikiLinkFilesRef.current = wikiLinkFiles;
-    const wikiLinkVersion = wikiLinkFiles.map((file) => `${file.id}:${file.name}:${file.href}`).join('|');
+    const brokenWikiLinkTargetIdsRef = useRef(brokenWikiLinkTargetIds);
+    brokenWikiLinkTargetIdsRef.current = brokenWikiLinkTargetIds;
+    const wikiLinkVersion = [wikiLinkFiles.map((file) => `${file.id}:${file.name}:${file.href}`).join('|'), brokenWikiLinkTargetIds.join(',')].join(
+        '::',
+    );
     const wikiLinkVersionRef = useRef(wikiLinkVersion);
-    const [wikiLinkExtension] = useState(() => createWikiLinkExtension(() => wikiLinkFilesRef.current));
+    const [wikiLinkExtension] = useState(() =>
+        createWikiLinkExtension(
+            () => wikiLinkFilesRef.current,
+            () => brokenWikiLinkTargetIdsRef.current,
+        ),
+    );
     const editor = useEditor(
         {
             immediatelyRender: false,
             editable,
             extensions: [
-                StarterKit,
+                StarterKit.configure({
+                    // StarterKit's Link mark fights multi-character `[[` triggers.
+                    link: false,
+                }),
                 Placeholder.configure({
                     placeholder: 'Start writing… Markdown shortcuts and the toolbar both work.',
                 }),

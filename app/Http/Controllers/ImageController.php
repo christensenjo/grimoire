@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\StoreImage;
 use App\Http\Requests\StoreImageRequest;
+use App\Http\Resources\ImageResource;
 use App\Models\Image;
 use App\Models\World;
 use Illuminate\Http\JsonResponse;
@@ -22,13 +23,9 @@ class ImageController extends Controller
         $upload = $request->file('image');
         $image = $storeImage($world, $upload);
 
-        return response()->json([
-            'image' => [
-                'id' => $image->id,
-                'url' => route('images.show', $image),
-                'alt' => pathinfo($image->original_name, PATHINFO_FILENAME),
-            ],
-        ], 201);
+        return (new ImageResource($image))
+            ->response()
+            ->setStatusCode(201);
     }
 
     public function show(Image $image): StreamedResponse

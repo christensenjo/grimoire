@@ -5,6 +5,13 @@ namespace Database\Seeders;
 use App\Models\Template;
 use Illuminate\Database\Seeder;
 
+/**
+ * Seeds the v1.0 system Templates (not user-authored).
+ *
+ * Default markdown bodies are provisional placeholders — improve them when
+ * product decides what “helpful” looks like. User-created global / per-World
+ * Templates are a later-version feature; see CONTEXT.md.
+ */
 class TemplateSeeder extends Seeder
 {
     /**

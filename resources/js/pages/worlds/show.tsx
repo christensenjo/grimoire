@@ -15,11 +15,11 @@ interface ShowWorldProps {
     world: World;
     tree: WorldTree;
     file: WorldFile | null;
-    templates: Template[];
+    templates?: Template[];
     invalidateDashboardPrefetch: boolean;
 }
 
-export default function ShowWorld({ world, tree, file, templates, invalidateDashboardPrefetch }: ShowWorldProps) {
+export default function ShowWorld({ world, tree, file, templates = [], invalidateDashboardPrefetch }: ShowWorldProps) {
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
     useEffect(() => {

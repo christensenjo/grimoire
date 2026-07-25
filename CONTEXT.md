@@ -21,7 +21,7 @@ A designated File in each World for unorganized, spur-of-the-moment notes, quick
 _Avoid_: Inbox, Quick notes, Daily note
 
 **Template**:
-A preset that creates (or is later applied to) a File, pre-filling its body and stamping it with a type such as Character or Location. Typing is optional and additive — Files never require a Template.
+A preset that creates (or is later applied to) a File, pre-filling its body and stamping it with a type such as Character or Location. Typing is optional and additive — Files never require a Template. In v1.0 Templates are app-seeded only (not user-editable); the default bodies are provisional and need product polish. Later versions should let users author their own Templates — global and/or per-World.
 _Avoid_: Asset type, Schema
 
 **Wiki-link**:

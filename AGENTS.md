@@ -142,6 +142,12 @@ tests/
 7. **Queues**: Implement `ShouldQueue` for time-consuming operations
 8. **Imports**: Check sibling files for existing conventions before writing new code
 
+### Migrations and Data Backfills
+
+- Use `Schema` exclusively for structural changes in migrations
+- Put data backfills in versioned application Actions and Commands that use Eloquent
+- Raw `DB` statements in migrations require an explicitly documented exception
+
 ## Pre-commit Checklist
 
 - [ ] Run `vendor/bin/pint --dirty` for PHP formatting
@@ -316,3 +322,7 @@ The five canonical triage roles map 1:1 to Linear labels (`needs-triage`, `needs
 ### Domain docs
 
 Single-context: `CONTEXT.md` at the repo root is the domain glossary; ADRs live in `docs/adr/`. See `docs/agents/domain.md`.
+
+### Frontend skills
+
+Global UI/design skills (ibelick, Emil, ui.sh) and how they attach to the mattpocock SDLC — current choices and deferred evaluation. See `docs/agents/frontend-skills-roadmap.md`.

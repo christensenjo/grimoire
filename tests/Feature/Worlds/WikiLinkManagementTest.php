@@ -5,6 +5,7 @@ use App\Models\Template;
 use App\Models\User;
 use App\Models\World;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Inertia\Testing\AssertableInertia as Assert;
 
 uses(RefreshDatabase::class);
 
@@ -76,7 +77,8 @@ test('deleting a target preserves the source reference as a broken wiki-link', f
     $world = World::factory()->for($user)->create();
     $source = File::factory()->for($world)->create(['name' => 'Chronicle']);
     $target = File::factory()->for($world)->create(['name' => 'Lost City']);
-    $content = "The road once led to [[file:{$target->id}]].";
+    $deletedTargetId = $target->id;
+    $content = "The road once led to [[file:{$deletedTargetId}]].";
 
     $this->actingAs($user)->patch(route('worlds.files.update', [$world, $source]), [
         'name' => $source->name,
@@ -87,6 +89,23 @@ test('deleting a target preserves the source reference as a broken wiki-link', f
     $this->actingAs($user)
         ->delete(route('worlds.files.destroy', [$world, $target]))
         ->assertRedirect();
+
+    $this->assertDatabaseHas('file_links', [
+        'source_file_id' => $source->id,
+        'target_file_id' => $deletedTargetId,
+    ]);
+
+    $this->actingAs($user)
+        ->get(route('worlds.files.show', [$world, $source]))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('worlds/show')
+            ->where('file.content', $content)
+            ->where('file.brokenWikiLinkTargetIds', [$deletedTargetId])
+            ->where('tree.files', fn ($files): bool => collect($files)->every(
+                fn ($file): bool => $file['id'] !== $deletedTargetId,
+            ))
+        );
 
     $this->actingAs($user)
         ->patch(route('worlds.files.update', [$world, $source]), [
@@ -99,7 +118,7 @@ test('deleting a target preserves the source reference as a broken wiki-link', f
     expect($source->refresh()->content)->toBe($content);
     $this->assertDatabaseHas('file_links', [
         'source_file_id' => $source->id,
-        'target_file_id' => $target->id,
+        'target_file_id' => $deletedTargetId,
     ]);
 });
 
@@ -123,6 +142,27 @@ test('cross-world wiki-links are rejected without changing content or links', fu
 
     expect($source->refresh()->content)->toBe('Original content.')
         ->and($source->outgoingWikiLinks()->count())->toBe(0);
+});
+
+test('file show autocomplete candidates stay scoped to the current World', function () {
+    $user = User::factory()->create();
+    $world = World::factory()->for($user)->create();
+    $otherWorld = World::factory()->for($user)->create();
+    $source = File::factory()->for($world)->create(['name' => 'Chronicle']);
+    $sameWorldTarget = File::factory()->for($world)->create(['name' => 'Aria Vale']);
+    $otherWorldFile = File::factory()->for($otherWorld)->create(['name' => 'Other World File']);
+
+    $this->actingAs($user)
+        ->get(route('worlds.files.show', [$world, $source]))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('worlds/show')
+            ->where('tree.files', fn ($files): bool => collect($files)->contains(
+                fn ($file): bool => $file['id'] === $sameWorldTarget->id,
+            ) && collect($files)->every(
+                fn ($file): bool => $file['id'] !== $otherWorldFile->id,
+            ))
+        );
 });
 
 test('deleting a source file removes its file-link rows', function () {

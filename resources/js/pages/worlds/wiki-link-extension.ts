@@ -108,7 +108,23 @@ function createSuggestionRenderer() {
             root.setAttribute('role', 'listbox');
             root.setAttribute('aria-label', 'Wiki-link Files');
             renderItems(props);
-            unmount = props.mount(root);
+            // TipTap hides the popup until Floating UI's first position resolves.
+            // Provide onPosition so we never stay stuck at visibility:hidden if
+            // measurement is delayed in scrollable editor layouts.
+            unmount = props.mount(root, {
+                onPosition: ({ x, y, strategy }) => {
+                    if (!root) {
+                        return;
+                    }
+
+                    Object.assign(root.style, {
+                        position: strategy,
+                        left: `${x}px`,
+                        top: `${y}px`,
+                        visibility: 'visible',
+                    });
+                },
+            });
         },
         onUpdate: (props: SuggestionProps<WikiLinkSuggestionItem, WikiLinkSuggestionItem>) => {
             renderItems(props);
@@ -149,11 +165,20 @@ function createSuggestionRenderer() {
     };
 }
 
-export function createWikiLinkExtension(getFiles: () => WikiLinkFile[]) {
+export function createWikiLinkExtension(getFiles: () => WikiLinkFile[], getBrokenTargetIds: () => number[] = () => []) {
     const findFile = (id: string | number | null): WikiLinkFile | undefined => {
         const targetId = Number(id);
 
         return getFiles().find((file) => file.id === targetId);
+    };
+    const isBrokenTarget = (id: string | number | null): boolean => {
+        const targetId = Number(id);
+
+        if (!Number.isFinite(targetId) || targetId <= 0) {
+            return true;
+        }
+
+        return getBrokenTargetIds().includes(targetId) || !findFile(targetId);
     };
     const ResolvedWikiLink = WikiLink.extend({
         parseMarkdown: (token: MarkdownToken, helpers: MarkdownParseHelpers) => {
@@ -161,7 +186,7 @@ export function createWikiLinkExtension(getFiles: () => WikiLinkFile[]) {
 
             return helpers.createNode('wikiLink', {
                 id,
-                label: findFile(id)?.name ?? 'Missing File',
+                label: isBrokenTarget(id) ? 'Missing File' : (findFile(id)?.name ?? 'Missing File'),
                 mentionSuggestionChar: '[[',
             });
         },
@@ -171,11 +196,11 @@ export function createWikiLinkExtension(getFiles: () => WikiLinkFile[]) {
         HTMLAttributes: {
             'data-wiki-link': '',
         },
-        renderText: ({ node }) => findFile(node.attrs.id)?.name ?? 'Missing File',
+        renderText: ({ node }) => (isBrokenTarget(node.attrs.id) ? 'Missing File' : (findFile(node.attrs.id)?.name ?? 'Missing File')),
         renderHTML: ({ node, options }) => {
             const file = findFile(node.attrs.id);
 
-            if (!file) {
+            if (!file || isBrokenTarget(node.attrs.id)) {
                 return [
                     'span',
                     mergeAttributes(options.HTMLAttributes, {
