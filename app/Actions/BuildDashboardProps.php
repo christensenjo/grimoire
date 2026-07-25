@@ -7,13 +7,26 @@ use App\Models\Folder;
 use App\Models\Template;
 use App\Models\User;
 use App\Models\World;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class BuildDashboardProps
 {
     /**
      * @return array{
-     *     worlds: list<array<string, mixed>>,
+     *     worlds: list<array{
+     *         id: int,
+     *         slug: string,
+     *         name: string,
+     *         description: string|null,
+     *         updatedAt: string|null,
+     *         updatedForHumans: string|null,
+     *         scratchpadSlug: string|null,
+     *         fileCount: int,
+     *         typeCounts: array<string, int>,
+     *         folders: list<array{id: int, slug: string, name: string, parentId: int|null, isImagesFolder: bool}>
+     *     }>,
      *     summary: array{worlds: int, files: int, typedFiles: int, types: array<string, int>},
      *     recentFiles: list<array{id: int, slug: string, name: string, worldSlug: string, worldName: string, updatedAt: string|null, updatedForHumans: string|null, template: array{id: int, slug: string, name: string}|null}>,
      *     templates: list<array{id: int, slug: string, name: string}>,
@@ -28,7 +41,9 @@ final class BuildDashboardProps
         $worlds = $user->worlds()
             ->with([
                 'scratchpadFile',
-                'folders' => fn ($query) => $query->orderBy('name'),
+                'folders' => function (HasMany $query): void {
+                    $query->orderBy('name');
+                },
             ])
             ->withCount('files')
             ->orderByRecentAccess()
@@ -42,15 +57,9 @@ final class BuildDashboardProps
             ->groupBy('world_id', 'template_id')
             ->get();
         $countsByWorld = $counts->groupBy('world_id');
-        $summaryTypeCounts = $templates
-            ->mapWithKeys(fn (Template $template): array => [
-                $template->slug => (int) $counts
-                    ->where('template_id', $template->id)
-                    ->sum('aggregate'),
-            ])
-            ->all();
+        $summaryTypeCounts = $this->buildTypeCounts($templates, $counts);
         $recentFiles = File::query()
-            ->whereHas('world', fn ($query) => $query->where('user_id', $user->id))
+            ->whereHas('world', fn (Builder $query): Builder => $query->where('user_id', $user->id))
             ->with([
                 'world:id,slug,name',
                 'template:id,slug,name',
@@ -65,18 +74,12 @@ final class BuildDashboardProps
         return [
             'worlds' => $worlds
                 ->map(function (World $world) use ($templates, $countsByWorld): array {
-                    $worldCounts = $countsByWorld->get($world->id, collect());
+                    $worldCounts = $countsByWorld->get($world->id, new Collection);
 
                     return [
                         ...$world->toInertiaArray(),
                         'fileCount' => (int) $world->files_count,
-                        'typeCounts' => $templates
-                            ->mapWithKeys(fn (Template $template): array => [
-                                $template->slug => (int) $worldCounts
-                                    ->where('template_id', $template->id)
-                                    ->sum('aggregate'),
-                            ])
-                            ->all(),
+                        'typeCounts' => $this->buildTypeCounts($templates, $worldCounts),
                         'folders' => $world->folders
                             ->map(fn (Folder $folder): array => $folder->toInertiaArray())
                             ->values()
@@ -116,6 +119,22 @@ final class BuildDashboardProps
                 'content' => $recentWorld->scratchpadFile->content ?? '',
             ],
         ];
+    }
+
+    /**
+     * @param  Collection<int, Template>  $templates
+     * @param  Collection<int, File>  $counts
+     * @return array<string, int>
+     */
+    private function buildTypeCounts(Collection $templates, Collection $counts): array
+    {
+        return $templates
+            ->mapWithKeys(fn (Template $template): array => [
+                $template->slug => (int) $counts
+                    ->where('template_id', $template->id)
+                    ->sum('aggregate'),
+            ])
+            ->all();
     }
 
     /**

@@ -426,12 +426,12 @@ export default function Dashboard({ worlds, recentScratchpad, recentFiles, summa
                                         <p className="text-2xl font-semibold tabular-nums">{stat.value}</p>
                                         <p className="text-xs text-muted-foreground">{stat.label}</p>
                                     </div>
-                                    {stat.label === 'Worlds' ? (
+                                    {stat.key === 'worlds' ? (
                                         <Globe2
                                             className="size-5 text-muted-foreground"
                                             aria-hidden="true"
                                         />
-                                    ) : stat.label === 'Files' ? (
+                                    ) : stat.key === 'files' ? (
                                         <Files
                                             className="size-5 text-muted-foreground"
                                             aria-hidden="true"
