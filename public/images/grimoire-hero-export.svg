@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="440" viewBox="0 0 560 440" data-plotter="" data-plotter-unit="25" data-center="280 170" data-radius="100" fill="none" stroke="#171717" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" role="img" aria-labelledby="grimoire-hero-title" style="color:#171717;font-family:Cal Sans, sans-serif;font-optical-sizing:auto;font-synthesis:none;font-variation-settings:'GEOM' 25;font-weight:400" aria-describedby="grimoire-hero-desc">
+  <title id="grimoire-hero-title">Squared circle on an open grimoire</title>
+  <desc id="grimoire-hero-desc">An open book of two square pages is the base. A circle rises from the spine, tangent to the pages, and its diameter equals the book’s width. The same center holds a square, a triangle, and an inner circle. Elemental triangles stand at the cardinal points, and Sol, Luna, Saturn, and Mercury sit on the outer pitch.</desc>
+  <g id="grimoire-hero-seal" data-plotter-role="guide" stroke-width="1" opacity="0.14" stroke-dasharray="none">
+    <circle cx="280" cy="170" r="46" />
+    <path d="M 280 124 L 307.038 207.215 L 236.251 155.785 L 323.749 155.785 L 252.962 207.215 Z" />
+  </g>
+  <g id="grimoire-hero-book">
+    <path id="grimoire-hero-book-outline" data-plotter-role="primary" d="M 180 270 H 280 M 285 270 H 380 V 370 H 180 V 270" stroke-width="1" opacity="1" stroke-dasharray="none" />
+    <g id="grimoire-hero-page-left" data-plotter-role="secondary" stroke-width="1" opacity="0.32" stroke-dasharray="none">
+      <rect x="188" y="278" width="80" height="84" />
+    </g>
+    <g id="grimoire-hero-page-right" data-plotter-role="secondary" stroke-width="1" opacity="0.32" stroke-dasharray="none">
+      <rect x="292" y="278" width="80" height="84" />
+    </g>
+    <g id="grimoire-hero-spine">
+      <path id="grimoire-hero-spine-edges" data-plotter-role="primary" d="M 272 270 L 272 370 M 288 270 L 288 370" stroke-width="1" opacity="1" stroke-dasharray="none" />
+      <path id="grimoire-hero-spine-hatch" data-plotter-role="hatch" d="M272 291L284 279 M272 303L288 287 M272 315L288 299 M272 327L288 311 M272 339L288 323 M272 351L288 335 M273 362L288 347 M285 362L288 359" stroke-width="1" opacity="0.18" stroke-dasharray="none" />
+    </g>
+  </g>
+  <g id="grimoire-hero-circle-rising" data-plotter-role="primary" stroke-width="1" opacity="1" stroke-dasharray="none">
+    <path id="grimoire-hero-rising-circle" d="M 292.187 70.745 A 100 100 0 1 1 267.813 70.745" />
+  </g>
+  <g id="grimoire-hero-ouroboros" data-plotter-role="primary" stroke-width="1" opacity="1" stroke-dasharray="none">
+    <path id="grimoire-hero-ouroboros-knot" d="M 267.813 70.745 A 12.409 12.409 0 1 1 292.187 70.745 A 18.022 18.022 0 0 0 267.813 70.745 Z" />
+  </g>
+  <g id="grimoire-hero-square-nested" data-plotter-role="primary" stroke-width="1" opacity="1" stroke-dasharray="none">
+    <path d="M 209.289 99.289 H 350.711 V 240.711 H 209.289 Z" />
+  </g>
+  <g id="grimoire-hero-triangle-nested" data-plotter-role="primary" stroke-width="1" opacity="1" stroke-dasharray="none">
+    <path d="M 280 99.289 L 218.763 205.355 L 341.237 205.355 Z" />
+  </g>
+  <g id="grimoire-hero-circle-inner" data-plotter-role="primary" stroke-width="1" opacity="1" stroke-dasharray="none">
+    <circle cx="280" cy="170" r="35.355" />
+  </g>
+  <g id="grimoire-hero-elements" data-plotter-role="primary" stroke-width="1" opacity="1" stroke-dasharray="none">
+    <g id="grimoire-hero-element-fire" transform="translate(280 88)">
+      <path d="M 0 -8.083 L -7 4.041 L 7 4.041 Z" />
+    </g>
+    <g id="grimoire-hero-element-air" transform="translate(362 170)">
+      <path d="M 0 -8.083 L -7 4.041 L 7 4.041 Z M -3.5 -2.021 L 3.5 -2.021" />
+    </g>
+    <g id="grimoire-hero-element-water" transform="translate(280 252)">
+      <path d="M 0 8.083 L -7 -4.041 L 7 -4.041 Z" />
+    </g>
+    <g id="grimoire-hero-element-earth" transform="translate(198 170)">
+      <path d="M 0 8.083 L -7 -4.041 L 7 -4.041 Z M -3.5 2.021 L 3.5 2.021" />
+    </g>
+  </g>
+  <g id="grimoire-hero-ring-planets">
+    <path id="grimoire-hero-pitch-ring" data-plotter-role="secondary" d="M 178.234 233.59 A 120 120 0 0 1 178.234 106.41 M 216.41 68.234 A 120 120 0 0 1 257.103 52.205 M 302.897 52.205 A 120 120 0 0 1 343.59 68.234 M 381.766 106.41 A 120 120 0 0 1 381.766 233.59" stroke-width="1" opacity="0.32" stroke-dasharray="none" />
+    <g id="grimoire-hero-glyph-sol" data-plotter-role="primary" transform="translate(364.853 85.147)" stroke-width="1" opacity="1" stroke-dasharray="none">
+      <circle cx="0" cy="0" r="5.2" /><circle cx="0" cy="0" r="0.55" />
+    </g>
+    <g id="grimoire-hero-glyph-luna" data-plotter-role="primary" transform="translate(195.147 85.147)" stroke-width="1" opacity="1" stroke-dasharray="none">
+      <path d="M 2.035 5.349 A 6.2 6.2 0 1 1 2.035 -5.349 A 5.35 5.35 0 0 0 2.035 5.349 Z" />
+    </g>
+    <g id="grimoire-hero-glyph-saturn" data-plotter-role="primary" transform="translate(195.147 254.853)" stroke-width="1" opacity="1" stroke-dasharray="none">
+      <path d="M -3.6 -5.2 L 3.6 -5.2" /><path d="M 0 -8.4 L 0 -1.2" /><path d="M 0 -1.2 A 4.6 4.6 0 0 1 0 8" />
+    </g>
+    <g id="grimoire-hero-glyph-mercury" data-plotter-role="primary" transform="translate(364.853 254.853)" stroke-width="1" opacity="1" stroke-dasharray="none">
+      <path d="M -3.2 -7.2 A 4.2 4.2 0 0 0 3.2 -7.2 A 8.5 8.5 0 0 1 -3.2 -7.2 Z" /><circle cx="0" cy="0.2" r="3.15" /><path d="M 0 3.35 L 0 8.4" /><path d="M -3.2 6.1 L 3.2 6.1" />
+    </g>
+  </g>
+  <g id="grimoire-hero-construction">
+    <path id="grimoire-hero-axis" data-plotter-role="centerline" d="M 280 52 L 280 53 M 280 73.745 L 280 76.917 M 280 95.041 L 280 166 M 280 277 L 280 370 M 184 170 L 188 170 M 208 170 L 276 170" stroke-width="1" opacity="0.14" stroke-dasharray="8 3 1 3" />
+    <path id="grimoire-hero-radius-spine" data-plotter-role="secondary" d="M 280 174 L 280 244.959 M 280 263.083 L 280 265" stroke-width="1" opacity="0.32" stroke-dasharray="none" />
+    <path id="grimoire-hero-radius-page" data-plotter-role="secondary" d="M 284 170 L 352 170 M 372 170 L 376 170" stroke-width="1" opacity="0.32" stroke-dasharray="none" />
+    <path id="grimoire-hero-page-tangents" data-plotter-role="guide" d="M 180 174 L 180 270 M 380 174 L 380 270" stroke-width="1" opacity="0.14" stroke-dasharray="none" />
+    <path id="grimoire-hero-tangency" data-plotter-role="primary" d="M 280 265 V 270 H 285 V 265 Z" stroke-width="1" opacity="1" stroke-dasharray="none" />
+    <g id="grimoire-hero-nodes" data-plotter-role="primary" stroke-width="1" opacity="1" stroke-dasharray="none">
+      <circle cx="280" cy="170" r="2.4" />
+      <circle cx="180" cy="170" r="2" />
+      <circle cx="380" cy="170" r="2" />
+    </g>
+  </g>
+  <g id="grimoire-hero-dimension-radius" data-plotter-role="dimension" stroke-width="1" opacity="0.32" stroke-dasharray="none">
+    <path d="M280 378L280 400 M380 378L380 400" />
+    <path d="M280 392L306 392 M354 392L380 392" />
+    <path d="M276 396L284 388 M376 396L384 388" />
+  </g>
+  <g id="grimoire-hero-dimension-label" fill="#171717" stroke="none" opacity="0.5" font-size="10" font-weight="400">
+    <text text-anchor="middle" x="330" y="396">r = 4u</text>
+  </g>
+  <g id="grimoire-hero-aura" style="opacity:0;stroke:oklch(0.405 0.135 14.765)">
+    <circle cx="280" cy="170" r="108" />
+  </g>
+</svg>
